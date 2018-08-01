@@ -11,7 +11,7 @@
         <div class="block-main">
             <h1 class="article-title">{{ article.title }}</h1>
             <div class="infobar">
-                <a href="#" class="tag tag-green">{{ article.category }}</a>
+                <a href="/category/{{ article.category.alias }}" class="tag tag-green">{{ article.category }}</a>
                 {% if article.top %}
                     <span class="tag tag-black">置顶</span>
                 {% endif %}

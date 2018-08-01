@@ -15,7 +15,7 @@
                     {% endif %}
                     <div class="col-md-11">
                         <div class="title-panel">
-                            <a href="/category/{{ i.category.id }}" class="category">{{ i.category }}</a>
+                            <a href="/category/{{ i.category.alias }}" class="category">{{ i.category }}</a>
                             <a href="/detail/{{ i.id }}" class="title"> {{ i.title }}</a>
                         </div>
                         <div class="info">
@@ -42,7 +42,7 @@
                 {% endif %}
                 <div class="col-md-11">
                     <div class="title-panel">
-                        <a href="/category/{{ i.category.id }}" class="category">{{ i.category }}</a>
+                        <a href="/category/{{ i.category.alias }}" class="category">{{ i.category }}</a>
                         <a href="/detail/{{ i.id }}" class="title"> {{ i.title }}</a>
                     </div>
                     <div>

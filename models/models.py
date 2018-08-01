@@ -1,5 +1,5 @@
 from django.db import models
-
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -42,7 +42,7 @@ class Page(models.Model):
     title = models.CharField(max_length=256, verbose_name='标题')
     keywords = models.CharField(max_length=512, verbose_name='关键字', null=True, blank=True)
     description = models.CharField(max_length=512, verbose_name='描述', null=True, blank=True)
-    content = models.TextField(max_length=512, verbose_name='内容')
+    content = RichTextField(verbose_name='内容')
     createDate = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     display = models.BooleanField(verbose_name='是否显示', default=True)
     head = models.TextField(verbose_name='头部脚本', null=True, blank=True)
@@ -61,6 +61,7 @@ class Menu(models.Model):
     icon = models.CharField(max_length=32, verbose_name='图标字体', null=True, blank=True)
     href = models.CharField(max_length=128, verbose_name='链接地址')
     createDate = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
+    display = models.BooleanField(verbose_name='显示', default=True)
 
     class Meta:
         verbose_name = '菜单'

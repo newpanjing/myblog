@@ -6,6 +6,7 @@ from ckeditor.fields import RichTextField
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=128, verbose_name='分类名', blank=False, null=False)
+    alias = models.CharField(max_length=128, verbose_name='别名', db_index=True)
     date = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
 
     class Meta:

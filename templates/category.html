@@ -1,4 +1,5 @@
 {% extends 'extend.html' %}
+{% load common_tag %}
 {% block title %}
     {% if cdata %}
         {{ cdata.name }}
@@ -10,40 +11,49 @@
 {% block body %}
     <div class="block">
         <div class="block-title">
-            <span><i class="glyphicon glyphicon-flag"></i>{{ cdata.name }}</span>
-            <span class="float-right"><i class="glyphicon glyphicon-paperclip"></i>{{ count }}篇文章</span>
+            <span><i class="glyphicon glyphicon-flag"></i>
+                 {% if cdata %}
+                    {{ cdata.name }}
+                {% else %}
+                    所有分类
+                {% endif %}
+            </span>
+            <span class="float-right"><i class="glyphicon glyphicon-paperclip"></i>{{ total }}篇文章</span>
         </div>
         <div class="block-main">
             {% if not articles %}
-                该分类暂时没有文章{{ request.path }}
+                <div class="center">该分类暂时没有文章</div>
             {% endif %}
             {% for i in articles %}
-            <div class="aritcle-item clearfix">
-                {% if i.image %}
-                    <div class="col-md-1 cover">
-                        <img src="/{{ i.image }}"/>
-                    </div>
-                {% endif %}
-                <div class="col-md-11">
-                    <div class="title-panel">
-                        <a href="/category/{{ i.category.id }}" class="category">{{ i.category }}</a>
-                        <a href="/detail/{{ i.id }}" class="title"> {{ i.title }}</a>
-                    </div>
-                    <div>
-                        {{ i.subject }}
-                    </div>
-                    <div class="info">
-                        <span class="user">{{ i.user }}</span>
-                        <span class="date">{{ i.createDate|date:"m-d H:i:s" }}</span>
-                        <span class="hits">
+                <div class="aritcle-item clearfix">
+                    {% if i.image %}
+                        <div class="col-md-1 cover">
+                            <img src="/{{ i.image }}"/>
+                        </div>
+                    {% endif %}
+                    <div class="col-md-11">
+                        <div class="title-panel">
+                            <a href="/category/{{ i.category.alias }}" class="category">{{ i.category }}</a>
+                            <a href="/detail/{{ i.id }}" class="title"> {{ i.title }}</a>
+                        </div>
+                        <div>
+                            {{ i.subject }}
+                        </div>
+                        <div class="info">
+                            <span class="user">{{ i.user }}</span>
+                            <span class="date">{{ i.createDate|date:"m-d H:i:s" }}</span>
+                            <span class="hits">
                             <span class="glyphicon glyphicon-eye-open"></span>
                             <span>{{ i.hits }}</span>
                         </span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+
+            {% get_pager as pager %}
+            {{ pager|safe }}
         </div>
+
     </div>
 {% endblock %}
-<div>123123213123213</div>

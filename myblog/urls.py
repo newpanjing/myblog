@@ -28,6 +28,7 @@ urlpatterns = [
     path('', views.home),
     path('detail/<id>', views.detail),
     path('category', views.categoryAll),
-    path('category/<id>', views.category),
-    path('category/<id>/<page>', views.category_page),
+    path('category/<alias>', views.category),
+    path('category/<alias>/<page>', views.category_page),
+    path('page/<alias>', views.page),
 ]

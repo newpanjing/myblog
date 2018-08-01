@@ -32,11 +32,20 @@
         </div>
     </div>
     {% block navbar %}
-        <div class="navbar-block" style="box-shadow: 2px 4px 6px #ccc;">
+        <div class="navbar-block categorys">
             <div class="container">
                 <ul class="nav navbar-nav">
+                        {% if request.path == '/category' %}
+                            <li class="active"><a href="/category">所有分类</a></li>
+                        {% else %}
+                            <li><a href="/category">所有分类</a></li>
+                        {% endif %}
                     {% for c in commonData.categorys %}
-                        <li><a href="/category/{{ c.id }}">{{ c.name }}</a></li>
+                        {% if c.name == cdata.name %}
+                            <li  class="active"><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
+                        {% else %}
+                            <li><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             </div>
@@ -93,7 +102,7 @@
 <div class="footer">
     {% block footer %}
         <div>{{ commonData.configs.name }} {{ time.year }} © {{ commonData.configs.domain }}</div>
-        <div>ICP备案：{{ commonData.configs.icp }}</div>
+        <div>工信部备案号：{{ commonData.configs.icp }}</div>
     {% endblock %}
 </div>
 

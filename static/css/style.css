@@ -132,16 +132,18 @@ header .navbar-block {
 .aritcle-item .title-panel {
     margin-bottom: 5px;
 }
-.aritcle-item .title-panel .title:hover{
+
+.aritcle-item .title-panel .title:hover {
     color: #009688;
     transition: all .3s;
 }
-.aritcle-item .title-panel .title{
-        font-size: 16px;
+
+.aritcle-item .title-panel .title {
+    font-size: 16px;
     color: #333;
     text-decoration: none;
     font-weight: 400;
-        line-height: 22px;
+    line-height: 22px;
 }
 
 .aritcle-item .info .user, .aritcle-item .info .date {
@@ -199,10 +201,11 @@ header .navbar-block {
     color: #ccc;
 }
 
-.recommeneds a:hover{
+.recommeneds a:hover {
     color: #009688;
     transition: all .3s;
 }
+
 .recommeneds a {
     margin-right: 5px;
     overflow: hidden;
@@ -217,7 +220,7 @@ header .navbar-block {
     margin-right: 5px;
 }
 
-.tag, .tag:hover, .tag:active, .tag:focus ,.tag-box{
+.tag, .tag:hover, .tag:active, .tag:focus, .tag-box {
     height: 20px;
     line-height: 20px;
     border-radius: 2px;
@@ -230,16 +233,19 @@ header .navbar-block {
     text-decoration: none;
     margin-right: 10px;
 }
-.tag-box{
+
+.tag-box {
     font-size: 12px;
     border: 1px solid #5FB878;
     background: none;
     color: #5FB878;
 }
-.tag-blue{
+
+.tag-blue {
     border: 1px solid #0c79ea;
     color: #0b79ea;
 }
+
 .tag-green {
     background-color: #009688 !important;
 }
@@ -268,9 +274,22 @@ header .navbar-block {
 .float-left {
     float: left;
 }
-.show-more{
+
+.show-more {
     padding: 10px;
 }
-.show-more .btn{
+
+.show-more .btn {
     width: 100%;
+}
+
+.center {
+    text-align: center;
+}
+
+.categorys {
+    box-shadow: 2px 4px 6px #ccc;
+}
+.categorys .active a{
+    color: #5FB878;
 }

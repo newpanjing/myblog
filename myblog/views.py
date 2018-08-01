@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from article.models import Article
 from article.models import Category
+from models.models import Page
 
 
 def home(request):
@@ -35,24 +36,45 @@ def detail(request, id):
 
 
 def categoryAll(request):
-    return render(request, 'category.html')
+    return category(request, None)
 
 
-def category(request, id):
-    return category_page(request, id, 1)
+def category(request, alias):
+    return category_page(request, alias, 1)
 
 
-def category_page(request, id, page):
-    category = Category.objects.get(id=id)
+def category_page(request, alias, page):
+    category = None
+    if alias:
+        category = Category.objects.get(alias=alias)
 
-    count = Category.objects.filter(id=id).count()
-    articles = Article.objects.filter(category=id)
+    filter = {}
+    if category:
+        filter["category"] = category.id
 
-    paginator = Paginator(articles, 20)
+    count = Article.objects.filter(**filter).count()
+    articles = Article.objects.filter(**filter)
+
+    size = 10
+    show = 10
+
+    paginator = Paginator(articles, size)
     articles = paginator.page(page)
 
     return render(request, 'category.html', {
         "cdata": category,
         "articles": articles,
-        "count": count
+        "total": count,
+        "current": page,
+        "url": '/category/' + str(id),
+        "size": size,
+        "show_number": show
+    })
+
+
+# 自定义页面
+def page(request, alias):
+    page = Page.objects.get(alias=alias)
+    return render(request, 'page.html', {
+        "page": page
     })

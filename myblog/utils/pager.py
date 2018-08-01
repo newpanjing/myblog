@@ -3,7 +3,8 @@ import math
 
 # 获取页码
 def get_numbers(total, size, current, show_number):
-    total_page_num = (total - 1) / size + 1
+    current = int(current)
+    total_page_num = int((total - 1) / size + 1)
     val = show_number / 2
     # 向上取整，-1 减去当前页
     left = math.ceil(val) - 1
@@ -31,7 +32,6 @@ def get_numbers(total, size, current, show_number):
         array.append(i)
 
     return array
-
 
 # current = 100
 # arr = get_numbers(1011, 5, current, 7)

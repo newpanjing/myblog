@@ -26,11 +26,13 @@ class PageAdmin(admin.ModelAdmin):
     list_display = ('id', 'alias', 'title', 'keywords', 'description', 'createDate', 'display')
     search_fields = ('title', 'alias')
     list_filter = ('display',)
+    list_display_links = ('id', 'alias', 'title')
 
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'icon', 'href')
+    list_display = ('id', 'name', 'icon', 'href', "display")
+    list_display_links = ('id', 'name')
     search_fields = ('name',)
 
 

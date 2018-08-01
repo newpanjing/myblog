@@ -7,7 +7,8 @@ import re
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'date')
+    list_display = ('id', 'name', 'alias', 'date')
+    list_display_links = ('id', 'name', 'alias')
     search_fields = ('name',)
 
 
