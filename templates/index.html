@@ -1,0 +1,67 @@
+{% extends 'extend.html' %}
+
+{% block body %}
+
+    <div class="block">
+        <div class="block-title">置顶</div>
+        <div class="block-main">
+
+            {% for i in tops %}
+                <div class="aritcle-item clearfix">
+                    {% if i.image %}
+                        <div class="col-md-1 cover">
+                            <img src="{{ i.image }}"/>
+                        </div>
+                    {% endif %}
+                    <div class="col-md-11">
+                        <div class="title-panel">
+                            <a href="/category/{{ i.category.id }}" class="category">{{ i.category }}</a>
+                            <a href="/detail/{{ i.id }}" class="title"> {{ i.title }}</a>
+                        </div>
+                        <div class="info">
+                            <span class="user">{{ i.user }}</span>
+                            <span class="date">{{ i.createDate|date:"m-d H:i:s" }}</span>
+                            <span class="hits">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                        <span>{{ i.hits }}</span>
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="block">
+        <div class="block-title">最新发布</div>
+        {% for i in articles %}
+            <div class="aritcle-item clearfix">
+                {% if i.image %}
+                    <div class="col-md-1 cover">
+                        <img src="{{ i.image }}"/>
+                    </div>
+                {% endif %}
+                <div class="col-md-11">
+                    <div class="title-panel">
+                        <a href="/category/{{ i.category.id }}" class="category">{{ i.category }}</a>
+                        <a href="/detail/{{ i.id }}" class="title"> {{ i.title }}</a>
+                    </div>
+                    <div>
+                        {{ i.subject }}
+                    </div>
+                    <div class="info">
+                        <span class="user">{{ i.user }}</span>
+                        <span class="date">{{ i.createDate|date:"m-d H:i:s" }}</span>
+                        <span class="hits">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span>{{ i.hits }}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="show-more">
+            <a href="/category" class="btn btn-success">查看更多数据</a>
+        </div>
+    </div>
+
+{% endblock %}

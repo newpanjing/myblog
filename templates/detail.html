@@ -1,0 +1,36 @@
+{% extends 'extend.html' %}
+{% block head %}
+    <meta name="keywords" content="{{article.tags  }}{{ article.title }}">
+    <meta name="description" content="{{ article.subject|safe }}">
+{% endblock %}
+
+{% block title %}{{ article.title }} {% endblock %}
+{% block body %}
+
+    <div class="block">
+        <div class="block-main">
+            <h1 class="article-title">{{ article.title }}</h1>
+            <div class="infobar">
+                <a href="#" class="tag tag-green">{{ article.category }}</a>
+                {% if article.top %}
+                    <span class="tag tag-black">置顶</span>
+                {% endif %}
+                <span class="tag-box tag-blue">{{ article.user }}</span>
+                <span class="tag-box">{{ article.createDate|date:'m月d日 H:i' }}</span>
+                <span class="float-right">
+                    <i class="glyphicon glyphicon-thumbs-up"></i>
+                    {{ article.hits }}
+                </span>
+            </div>
+            <div class="article">
+                {{ article.content|safe }}
+            </div>
+            <div class="share">
+                <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_huaban" data-cmd="huaban" title="分享到花瓣"></a><a href="#" class="bds_mail" data-cmd="mail" title="分享到邮件分享"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a></div>
+                <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+            </div>
+
+         </div>
+    </div>
+
+{% endblock %}
