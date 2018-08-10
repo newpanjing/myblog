@@ -1,6 +1,9 @@
 from django.contrib import admin
+
 from .models import *
 import re
+
+from myblog.utils import oss
 
 
 # Register your models here.
@@ -10,6 +13,9 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'alias', 'date')
     list_display_links = ('id', 'name', 'alias')
     search_fields = ('name',)
+
+
+
 
 
 @admin.register(Article)
@@ -22,7 +28,7 @@ class ArticleAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.user = request.user
         subject = getSubject(obj.content)
-
+        # oss.put_object(obj.image.file.file)
         # 不超过200字
         if len(subject) > 200:
             subject = subject[0:200]

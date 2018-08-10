@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'models',
     'article',
-    'ckeditor',
-    'ckeditor_uploader',
+    # 'ckeditor',
+    # 'ckeditor_uploader',
+    'ueditor',
     'myblog.templatetags',
 ]
 
@@ -46,7 +47,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -67,7 +68,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'libraries':{
+            'libraries': {
                 'common_tag': 'myblog.templatetags.common',
             }
         },
@@ -124,4 +125,14 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, 'myblog/static')
+
+UEDITOR_UPLOAD_PREFIX = "/static/upload/"
+UEDITOR_UPLOAD_DIR = os.path.join(BASE_DIR, 'static/upload/')
+
+# 阿里云
+
+
+# mediafile将自动上传
+DEFAULT_FILE_STORAGE = 'aliyun.oss_backends.AliyunStorage'
+# staticfile将自动上传
+# STATICFILES_STORAGE = 'aliyun.oss_backends.AliyunStorage'

@@ -1,7 +1,14 @@
 {% extends 'extend.html' %}
+{% load common_tag %}
 {% block head %}
     <meta name="keywords" content="{{article.tags  }}{{ article.title }}">
-    <meta name="description" content="{{ article.subject|safe }}">
+    <meta name="description" content="{{ article.subject|converToHtml|safe }}">
+    <meta property="og:type" content="blog">
+    <meta property="og:image" content="/{{ article.image }}">
+    <meta property="og:release_date" content="{{ article.createDate|date:'Y-m-d' }}">
+    <meta property="og:title" content="{{ article.title }}">
+    <meta property="og:description" content="{{ article.subject|converToHtml|safe }}">
+    <meta property="og:author" content="{{ article.user }}">
 {% endblock %}
 
 {% block title %}{{ article.title }} {% endblock %}

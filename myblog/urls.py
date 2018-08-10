@@ -17,11 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import RedirectView
 from . import views
+from ueditor import site
 
 # 设置登录页
 admin.site.site_title = '管理后台'
 admin.site.site_header = '博客管理后台'
-
 urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url='static/favicon.ico', permanent=True)),
     path('admin/', admin.site.urls),
@@ -31,4 +31,5 @@ urlpatterns = [
     path('category/<alias>', views.category),
     path('category/<alias>/<page>', views.category_page),
     path('page/<alias>', views.page),
+    path('ueditor/upload', site.handler),
 ]

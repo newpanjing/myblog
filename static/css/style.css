@@ -101,6 +101,10 @@ header .navbar-block {
     padding: 15px;
 }
 
+.custom-page .block-main {
+    min-height: 500px;
+}
+
 .footer {
     margin: 50px 0 0;
     padding: 20px 0 30px;
@@ -290,6 +294,7 @@ header .navbar-block {
 .categorys {
     box-shadow: 2px 4px 6px #ccc;
 }
-.categorys .active a{
+
+.categorys .active a {
     color: #5FB878;
 }
