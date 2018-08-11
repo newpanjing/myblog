@@ -129,9 +129,7 @@ STATICFILES_DIRS = [
 UEDITOR_UPLOAD_PREFIX = "/static/upload/"
 UEDITOR_UPLOAD_DIR = os.path.join(BASE_DIR, 'static/upload/')
 
-# 阿里云
-
-
+# 文件不上传阿里云 注释掉DEFAULT_FILE_STORAGE
 # mediafile将自动上传
 DEFAULT_FILE_STORAGE = 'aliyun.oss_backends.AliyunStorage'
 # staticfile将自动上传

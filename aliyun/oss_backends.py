@@ -4,16 +4,30 @@ from oss2 import *
 from django.conf import settings
 import os
 from aliyun import short_id
+from models.models import Config
+
+
+def _get_db_config(group):
+    dict = {}
+
+    datas = Config.objects.filter(group=group)
+
+    for i in datas:
+        dict[i.key] = i.value
+    return dict
+
 
 class AliyunStorage(Storage):
 
     def __init__(self):
-        self.access_key_id = self._get_config('OSS_ACCESS_KEY_ID')
-        self.access_key_secret = self._get_config('OSS_ACCESS_KEY_SECRET')
-        self.endpoint = self._get_config('OSS_ENDPOINT')
-        self.bucket_name = self._get_config('OSS_BUCKET')
+        config = _get_db_config('oss')
 
-        self.cname = self._get_config('OSS_CNAME')
+        self.access_key_id = config.get('key')
+        self.access_key_secret = config.get('secret')
+        self.endpoint = config.get('endpoint')
+        self.bucket_name = config.get('bucket')
+        self.cname = config.get('cname')
+
         self.auth = Auth(self.access_key_id, self.access_key_secret)
         self.bucket = self._get_bucket(self.auth)
 

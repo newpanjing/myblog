@@ -89,9 +89,11 @@
             <div class="block">
                 <div class="block-title">友情链接</div>
                 <div class="block-main">
+                    <ul>
                     {% for item in commonData.sites %}
-                        <a href="{{ item.site }}" target="_blank">{{ item.name }}</a>
+                        <li><a href="{{ item.site }}" target="_blank">{{ item.name }}</a></li>
                     {% endfor %}
+                    </ul>
                 </div>
             </div>
 
@@ -104,6 +106,12 @@
         <div>{{ commonData.configs.name }} {{ time.year }} © {{ commonData.configs.domain }}</div>
         <div>工信部备案号：{{ commonData.configs.icp }}</div>
     {% endblock %}
+<style type="text/css">
+    #cnzz_stat_icon_1261750977{
+        display: none;
+    }
+</style>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261750977'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261750977%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
 </div>
 
 </body>

@@ -54,6 +54,14 @@ def getRecommend(size):
 
 
 @register.filter
+def url(url):
+    u = str(url)
+    if u.find('http') != 0:
+        u = "/" + u
+    return u
+
+
+@register.filter
 def converToHtml(text):
     text = text.replace('\r\n', "<br/>")
     text = text.replace(' ', '&nbsp;')
