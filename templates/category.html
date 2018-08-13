@@ -2,9 +2,9 @@
 {% load common_tag %}
 {% block title %}
     {% if cdata %}
-        {{ cdata.name }}
+        {{ cdata.name }}-{{ commonData.configs.name }}
     {% else %}
-        所有分类
+        所有分类-{{ commonData.configs.name }}
     {% endif %}
 {% endblock %}
 

@@ -64,7 +64,7 @@ def url(url):
 @register.filter
 def converToHtml(text):
     text = text.replace('\r\n', "<br/>")
-    text = text.replace(' ', '&nbsp;')
+    text = text.replace(' ', '')
     return text
 
 
