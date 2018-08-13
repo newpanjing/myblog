@@ -298,3 +298,6 @@ header .navbar-block {
 .categorys .active a {
     color: #5FB878;
 }
+.pager-block{
+    text-align: center;
+}

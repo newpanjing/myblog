@@ -91,7 +91,7 @@ def get_pager(context):
 
     array = pager.get_numbers(total, size, current, show_number)
     buffer = []
-    buffer.append('<nav><ul class="pagination">')
+    buffer.append('<div class="pager-block"><nav><ul class="pagination">')
     prev = ''
     href = url + '/' + str(current - 1)
     if current <= 1:
@@ -107,11 +107,11 @@ def get_pager(context):
         buffer.append(' <li ' + active + '><a href="' + url + '/' + page + '">' + page + '</a></li>')
 
     next = ''
-    href = url + ' / ' + str(current + 1)
+    href = url + '/' + str(current + 1)
     if current == total_page_num:
         next = 'class="disabled"'
         href = 'javascript:;'
 
     buffer.append(
-        '<li ' + next + '><a href="' + href + '" aria-label="Next">下一页</a></li></ul></nav>')
+        '<li ' + next + '><a href="' + href + '" aria-label="Next">下一页</a></li></ul></nav></div>')
     return ''.join(buffer)

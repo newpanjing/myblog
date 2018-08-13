@@ -3,6 +3,7 @@ from django.shortcuts import render
 from article.models import Article
 from article.models import Category
 from models.models import Page
+import re
 
 
 def home(request):
@@ -45,8 +46,16 @@ def category(request, alias):
 
 def category_page(request, alias, page):
     category = None
+
+    suffix = ''
     if alias:
-        category = Category.objects.get(alias=alias)
+        # 如果全是数字，就是分页，不是就是别名
+        suffix = "/" + alias
+        mathchObj = re.match(r'\d+', alias, flags=0)
+        if mathchObj:
+            page = alias
+        else:
+            category = Category.objects.get(alias=alias)
 
     filter = {}
     if category:
@@ -66,7 +75,7 @@ def category_page(request, alias, page):
         "articles": articles,
         "total": count,
         "current": page,
-        "url": '/category/' + str(id),
+        "url": '/category' + suffix,
         "size": size,
         "show_number": show
     })
