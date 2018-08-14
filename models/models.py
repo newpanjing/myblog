@@ -1,6 +1,7 @@
 from django.db import models
 from ueditor.fields import RichTextField
 
+
 # Create your models here.
 
 class Config(models.Model):

@@ -18,6 +18,9 @@
 
 body {
     background-color: #ebebeb;
+    /*background-image: linear-gradient(-20deg,#d0b782 20%,#a0cecf 80%);*/
+    /*background-attachment: fixed;*/
+    /*background-size: cover;*/
     font: 14px Helvetica Neue, Helvetica, PingFang SC, \5FAE\8F6F\96C5\9ED1, Tahoma, Arial, sans-serif;
 }
 
@@ -106,12 +109,60 @@ header .navbar-block {
 }
 
 .footer {
-    margin: 50px 0 0;
-    padding: 20px 0 30px;
-    line-height: 30px;
-    text-align: center;
+    /*padding: 30px;*/
     color: #737573;
     border-top: 1px solid #e2e2e2;
+}
+
+.footer-top {
+    background-image: url('../images/grid_bg.png');
+    background-repeat: repeat-x;
+    background-color: #242a31;
+    color: white;
+    font-weight: 500;
+}
+
+.footer-top ul {
+    margin: 0;
+    padding: 0;
+}
+
+.footer-top ul li {
+    list-style: none;
+    line-height: 30px;
+}
+
+.footer-top a:before {
+    content: '';
+    position: absolute;
+    transition: width .3s;
+    width: 0;
+    height: 1px;
+    background: #fff;
+    left: 0;
+    bottom: 0;
+}
+
+.footer-top a:hover::before {
+    width: 100%;
+}
+
+.footer-top a {
+    color: white;
+    position: relative;
+}
+
+.footer-bottom {
+    /*height: 56px;*/
+    font-size: 12px;
+    font-family: Lato, 'Helvetica Neue', 'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB', 'microsoft yahei';
+    padding: 28px 20px;
+    line-height: 20px;
+    color: #fff;
+    /*width: 100%;*/
+    background-color: #191e22;
+    z-index: 2;
+    position: relative;
 }
 
 .aritcle-item .category {
@@ -298,6 +349,33 @@ header .navbar-block {
 .categorys .active a {
     color: #5FB878;
 }
-.pager-block{
+
+.pager-block {
     text-align: center;
+}
+
+.float-list li {
+    float: left;
+    margin-right: 1%;
+    width: 48%;
+}
+
+.af:before {
+    content: '';
+    position: absolute;
+    transition: width .3s;
+    width: 0;
+    height: 1px;
+    background: #fff;
+    left: 0;
+    bottom: 0;
+}
+
+.af:hover::before {
+    width: 100%;
+}
+
+.nav-af:before {
+    height: 3px;
+    background: #27ae60;
 }

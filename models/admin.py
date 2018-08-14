@@ -12,6 +12,7 @@ class ConfigAdmin(admin.ModelAdmin):
     list_display = ('id', 'group', 'key', 'value')
     search_fields = ('group', 'key')
     list_filter = ('group',)
+    list_display_links = ('id', 'group', 'key', 'value')
 
 
 @admin.register(Site)
@@ -19,6 +20,7 @@ class SiteAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'site', 'contact', 'contactType', 'createDate')
     search_fields = ('contactType',)
     list_filter = ('contactType',)
+    list_display_links = ('id', 'name', 'site')
 
 
 @admin.register(Page)

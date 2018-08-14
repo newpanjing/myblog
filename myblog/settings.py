@@ -24,7 +24,7 @@ SECRET_KEY = 'bm2bwyde7-k0(=$-1f7gl(wf*4*0-_3c1((pbc5deznj$!*q*m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*',]
+ALLOWED_HOSTS = ['*', ]
 
 # Application definition
 
@@ -125,6 +125,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 UEDITOR_UPLOAD_PREFIX = "/static/upload/"
 UEDITOR_UPLOAD_DIR = os.path.join(BASE_DIR, 'static/upload/')

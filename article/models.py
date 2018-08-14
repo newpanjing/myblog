@@ -27,7 +27,7 @@ class Article(models.Model):
     content = RichTextField(verbose_name='内容', null=False, blank=False,
                             config={'aa': '123', 'bb': '321', 'cc': ['1', '2', '3']})
     subject = models.TextField(verbose_name='简介', editable=False)
-    image = models.ImageField(upload_to='static/images/', verbose_name='封面', blank=True)
+    image = models.ImageField(upload_to='static/images/', verbose_name='封面', blank=True, null=True)
     createDate = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
     tags = models.CharField(max_length=256, verbose_name='标签', blank=True, null=True)
     top_choices = ((0, '否'),

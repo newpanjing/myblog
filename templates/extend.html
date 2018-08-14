@@ -23,7 +23,7 @@
         <div class="container">
             <ul class="nav navbar-nav">
                 {% for menu in commonData.menus %}
-                    <li><a href="{{ menu.href }}">
+                    <li><a class="af nav-af" href="{{ menu.href }}">
                         <span class="{{ menu.icon }}"></span>
                         <span>{{ menu.name }}</span>
                     </a></li>
@@ -35,14 +35,14 @@
         <div class="navbar-block categorys">
             <div class="container">
                 <ul class="nav navbar-nav">
-                        {% if request.path == '/category' %}
-                            <li class="active"><a href="/category">所有分类</a></li>
-                        {% else %}
-                            <li><a href="/category">所有分类</a></li>
-                        {% endif %}
+                    {% if request.path == '/category' %}
+                        <li class="active"><a href="/category">所有分类</a></li>
+                    {% else %}
+                        <li><a href="/category">所有分类</a></li>
+                    {% endif %}
                     {% for c in commonData.categorys %}
                         {% if c.name == cdata.name %}
-                            <li  class="active"><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
+                            <li class="active"><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
                         {% else %}
                             <li><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
                         {% endif %}
@@ -54,6 +54,7 @@
 </header>
 
 <div class="container content-wrap">
+    {% block main %}
     <div class="row">
         <div class="col-md-8">
             {% block body %}{% endblock %}
@@ -78,7 +79,7 @@
                     <dl>
                         {% for r in commonData.recommeneds %}
                             <dd>
-                                <a href="/detail/{{ r.id }}">{{ r.title }}</a>
+                                <a href="/article/{{ r.id }}">{{ r.title }}</a>
                                 <span><i class="glyphicon glyphicon-envelope"></i><span>{{ r.hits }}</span></span>
                             </dd>
                         {% endfor %}
@@ -86,32 +87,55 @@
                 </div>
             </div>
 
-            <div class="block">
-                <div class="block-title">友情链接</div>
-                <div class="block-main">
-                    <ul>
+        </div>
+    </div>
+    {% endblock %}
+</div>
+
+<div class="container-fluid footer">
+    {% block footer %}
+        <div class="row footer-top">
+            <div class="col-md-4">
+                <h4><i class="glyphicon glyphicon-send"></i>{{ commonData.configs.name }}</h4>
+                <div>{{ commonData.configs.subject }}</div>
+                <div>联系我们：{{ commonData.configs.contact }}</div>
+                <ul>
+                    <li><a href="/sitemap.xml" target="_blank">网站地图</a> </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>分类目录</h4>
+                <ul class="float-list">
+                {% for c in commonData.categorys %}
+                    {% if c.name == cdata.name %}
+                        <li class="active"><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
+                    {% else %}
+                        <li><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>友情链接</h4>
+                <ul class="float-list">
                     {% for item in commonData.sites %}
                         <li><a href="{{ item.site }}" target="_blank">{{ item.name }}</a></li>
                     {% endfor %}
-                    </ul>
-                </div>
+                </ul>
             </div>
-
         </div>
-    </div>
-</div>
-
-<div class="footer">
-    {% block footer %}
-        <div>{{ commonData.configs.name }} {{ time.year }} © {{ commonData.configs.domain }}</div>
-        <div>工信部备案号：{{ commonData.configs.icp }}</div>
+        <div class="row footer-bottom">
+            <div>© {{ time.year }} {{ commonData.configs.name }}版权所有</div>
+            <div>工信部ICP备案号：{{ commonData.configs.icp }}</div>
+        </div>
     {% endblock %}
-<style type="text/css">
-    #cnzz_stat_icon_1261750977{
-        display: none;
-    }
-</style>
-    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261750977'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261750977%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+    <style type="text/css">
+        #cnzz_stat_icon_1261750977 {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1261750977'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261750977%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
 </div>
 
 </body>
