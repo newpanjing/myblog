@@ -122,6 +122,8 @@ header .top {
     background-color: #242a31;
     color: white;
     font-weight: 500;
+    padding-top:50px;
+    padding-bottom:50px;
 }
 
 .footer-top ul {

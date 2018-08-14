@@ -1,6 +1,7 @@
 import datetime
 from ..utils import pager
 from django import template
+import re
 
 register = template.Library()  # 这一句必须这样写
 
@@ -65,6 +66,15 @@ def url(url):
 def converToHtml(text):
     text = text.replace('\r\n', "<br/>")
     text = text.replace(' ', '')
+    return text
+
+
+@register.filter
+def clear(text):
+    p = re.compile(r'([&]{0,1}(\w+;))')
+    text = re.sub(p, '', text)
+    p = re.compile(r'\r|\n|\t|\s')
+    text = re.sub(p, '', text)
     return text
 
 

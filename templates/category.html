@@ -37,7 +37,7 @@
                             <a href="/article/{{ i.id }}" class="title"> {{ i.title }}</a>
                         </div>
                         <div>
-                            {{ i.subject }}
+                            {{ i.subject|safe }}
                         </div>
                         <div class="info">
                             <span class="user">{{ i.user }}</span>
