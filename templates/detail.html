@@ -1,7 +1,11 @@
 {% extends 'extend.html' %}
 {% load common_tag %}
 {% block head %}
+    {% if article.tags %}
     <meta name="keywords" content="{{article.tags  }}{{ article.title }}">
+    {% else %}
+    <meta name="keywords" content="{{ article.title }}">
+    {% endif %}
     <meta name="description" content="{{ article.subject|clear }}">
     <meta property="og:type" content="blog">
     <meta property="og:image" content="{{ article.image|url }}">

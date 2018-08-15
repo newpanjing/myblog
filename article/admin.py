@@ -41,7 +41,7 @@ def getSubject(html):
     regexs = [r'([&]{0,1}(\w+;))',
               r'\r|\n|\t|\s'
               r'<script>.*?</script>',
-              r'<style>.*?</style>',
+              r'<style.*?</style>',
               r'<[^>]+>'
               ]
 
