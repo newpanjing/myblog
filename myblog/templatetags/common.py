@@ -21,7 +21,7 @@ def loadData():
     categorys = Category.objects.all()
     menus = Menu.objects.filter(display=True)
     notice = Notice.objects.last()
-    recommeneds = getRecommend(10)
+    recommeneds = getRecommend(5)
 
     configs = get_config('site')
 
@@ -46,10 +46,13 @@ def get_config(group):
 
 def getRecommend(size):
     array = []
-    count = Article.objects.count()
+    count = Article.objects.filter(image__isnull=False).count()
+    if count == 0:
+        return array
+
     indexs = randoms.getRandomArray(count, size)
     for i in indexs:
-        obj = Article.objects.all()[i]
+        obj = Article.objects.filter(image__isnull=False).all()[i]
         array.append(obj)
     return array
 

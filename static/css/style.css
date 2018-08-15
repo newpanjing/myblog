@@ -251,30 +251,41 @@ header .top {
     max-width: 100%;
 }
 
-.recommeneds dd {
-    margin: 0 15px;
-    line-height: 26px;
-    white-space: nowrap;
-    overflow: hidden;
-    list-style: decimal-leading-zero inside;
-    color: #ccc;
+.recommeneds img{
+    max-width: 100%;
+    margin-right: 10px;
 }
-
-.recommeneds a:hover {
-    color: #009688;
-    transition: all .3s;
+.recommeneds .img{
+    width: 110px;
+    height: 80px;
 }
-
-.recommeneds a {
-    margin-right: 5px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 14px;
-    color: #333;
-    text-decoration: none;
+.recommeneds .item{
+    display: table;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: #ccc 1px dotted;
+    width: 100%;
 }
-
+.recommeneds .item:last-child{
+    border: none;
+}
+.recommeneds .img,.recommeneds .info{
+    display: table-cell;
+    vertical-align: middle;
+}
+.recommeneds .info {
+    padding-left: 20px;
+}
+.recommeneds .info .info-bottom{
+    margin-top: 10px;
+    color: #999;
+}
+.recommeneds .info .info-bottom a{
+    color: #999;
+}
+.recommeneds .info .info-bottom span:first-child{
+    margin-right: 10px;
+}
 .glyphicon {
     margin-right: 5px;
 }

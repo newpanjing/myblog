@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <title>{% block title %}{{ commonData.configs.name }}-{{ commonData.configs.subject }}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta content="IE=edge,Chrome=1" http-equiv="X-UA-Compatible" />
-    <meta content="webkit" name="renderer" />
+    <meta content="IE=edge,Chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta content="webkit" name="renderer"/>
     <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/style.css" rel="stylesheet">
@@ -57,42 +57,51 @@
 
 <div class="container content-wrap">
     {% block main %}
-    <div class="row">
-        <div class="col-md-8">
-            {% block body %}{% endblock %}
-        </div>
-        <div class="col-md-4">
-
-            <div class="block">
-                <div class="block-title">
-                    <span><i class="glyphicon glyphicon-bullhorn"></i>公告</span>
-                    <span style="margin-right: 10px"
-                          class="navbar-right"><i
-                            class="glyphicon glyphicon-time"></i>{{ commonData.notice.createDate|date:'m月d日 H:i' }}</span>
-                </div>
-                <div class="block-main">
-                    {{ commonData.notice.content|converToHtml|safe }}
-                </div>
+        <div class="row">
+            <div class="col-md-8">
+                {% block body %}{% endblock %}
             </div>
+            <div class="col-md-4">
 
-            <div class="block">
-                <div class="block-title">推荐</div>
-                <div class="block-main recommeneds">
-
-                    <div class="list-group">
-                     {% for r in commonData.recommeneds %}
-                          <a href="/article/{{ r.id }}" class="list-group-item">
-                            <h4 class="list-group-item-heading">{{ r.title }}</h4>
-                            <p class="list-group-item-text">{{ r.subject }}</p>
-                          </a>
-                     {% endfor %}
+                <div class="block">
+                    <div class="block-title">
+                        <span><i class="glyphicon glyphicon-bullhorn"></i>公告</span>
+                        <span style="margin-right: 10px"
+                              class="navbar-right"><i
+                                class="glyphicon glyphicon-time"></i>{{ commonData.notice.createDate|date:'m月d日 H:i' }}</span>
                     </div>
-                    
+                    <div class="block-main">
+                        {{ commonData.notice.content|converToHtml|safe }}
+                    </div>
                 </div>
-            </div>
 
+                <div class="block">
+                    <div class="block-title">推荐</div>
+                    <div class="block-main recommeneds">
+
+                        {% for r in commonData.recommeneds %}
+                            <div class="item">
+                                <div class="img">
+                                    <a href="/article/{{ r.id }}">
+                                        <img src="{{ r.image|url }}"/>
+                                    </a>
+                                </div>
+                                <div class="info">
+                                    <a href="/article/{{ r.id }}">{{ r.title }}</a>
+                                    <div class="info-bottom">
+                                        <span><a href="/category/{{ r.category.alias }}">{{ r.category.name }}</a></span>
+                                        <span>{{ r.createDate|date:"m-d"}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
     {% endblock %}
 </div>
 
@@ -104,19 +113,19 @@
                 <div>{{ commonData.configs.subject }}</div>
                 <div>联系我们：{{ commonData.configs.contact }}</div>
                 <ul>
-                    <li><a href="/sitemap.xml" target="_blank">网站地图</a> </li>
+                    <li><a href="/sitemap.xml" target="_blank">网站地图</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
                 <h4>分类目录</h4>
                 <ul class="float-list">
-                {% for c in commonData.categorys %}
-                    {% if c.name == cdata.name %}
-                        <li class="active"><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
-                    {% else %}
-                        <li><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
-                    {% endif %}
-                {% endfor %}
+                    {% for c in commonData.categorys %}
+                        {% if c.name == cdata.name %}
+                            <li class="active"><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
+                        {% else %}
+                            <li><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
             <div class="col-md-4">
