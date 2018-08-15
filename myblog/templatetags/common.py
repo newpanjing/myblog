@@ -46,13 +46,13 @@ def get_config(group):
 
 def getRecommend(size):
     array = []
-    count = Article.objects.filter(image__isnull=False).count()
+    count = Article.objects.filter(image__isnull=False).exclude(image='').count()
     if count == 0:
         return array
 
     indexs = randoms.getRandomArray(count, size)
     for i in indexs:
-        obj = Article.objects.filter(image__isnull=False).all()[i]
+        obj = Article.objects.filter(image__isnull=False).exclude(image='').all()[i]
         array.append(obj)
     return array
 
