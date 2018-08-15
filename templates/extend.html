@@ -78,14 +78,16 @@
             <div class="block">
                 <div class="block-title">推荐</div>
                 <div class="block-main recommeneds">
-                    <dl>
-                        {% for r in commonData.recommeneds %}
-                            <dd>
-                                <a href="/article/{{ r.id }}">{{ r.title }}</a>
-                                <span><i class="glyphicon glyphicon-envelope"></i><span>{{ r.hits }}</span></span>
-                            </dd>
-                        {% endfor %}
-                    </dl>
+
+                    <div class="list-group">
+                     {% for r in commonData.recommeneds %}
+                          <a href="/article/{{ r.id }}" class="list-group-item">
+                            <h4 class="list-group-item-heading">{{ r.title }}</h4>
+                            <p class="list-group-item-text">{{ r.subject }}</p>
+                          </a>
+                     {% endfor %}
+                    </div>
+                    
                 </div>
             </div>
 

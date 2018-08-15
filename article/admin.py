@@ -15,9 +15,6 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
-
-
-
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'category', 'user', 'hits', 'tags', 'createDate')
@@ -39,6 +36,17 @@ class ArticleAdmin(admin.ModelAdmin):
 
 # 获取简介
 def getSubject(html):
-    dr = re.compile(r'<[^>]+>', re.S)
-    dd = dr.sub('', html)
-    return dd
+    # 移除style标签和script标签
+
+    regexs = [r'([&]{0,1}(\w+;))',
+              r'\r|\n|\t|\s'
+              r'<script>.*?</script>',
+              r'<style>.*?</style>',
+              r'<[^>]+>'
+              ]
+
+    for r in regexs:
+        p = re.compile(r)
+        html = re.sub(p, '', html)
+
+    return html
