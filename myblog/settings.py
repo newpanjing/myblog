@@ -37,8 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'models',
     'article',
-    # 'ckeditor',
-    # 'ckeditor_uploader',
     'ueditor',
     'myblog.templatetags',
 ]
@@ -135,3 +133,9 @@ UEDITOR_UPLOAD_DIR = os.path.join(BASE_DIR, 'static/upload/')
 DEFAULT_FILE_STORAGE = 'aliyun.oss_backends.AliyunStorage'
 # staticfile将自动上传
 # STATICFILES_STORAGE = 'aliyun.oss_backends.AliyunStorage'
+
+# GitHub
+GITHUB_CLIENT_ID = 'c233704c664cd1059401'
+GITHUB_CLIENT_SECRET = 'c3791ed0ae599d87ece527595362e3f6e3e20f96'
+GITHUB_CLIENT_CALLBACK = '/oauth/github/callback'
+

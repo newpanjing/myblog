@@ -35,4 +35,6 @@ urlpatterns = [
     path('sitemap.xml', views.sitemap),
     path('error/404', views.page_error),
     path('error/500', views.page_error),
+    path('oauth/github', views.oauth_github),
+    path('oauth/github/callback', views.oauth_github_callback),
 ]

@@ -24,8 +24,7 @@ class Article(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='发布者', null=True, editable=False)
     hits = models.IntegerField(verbose_name='点击量', default=0, editable=False)
     # content = RichTextField(verbose_name='内容', null=False, blank=False)
-    content = RichTextField(verbose_name='内容', null=False, blank=False,
-                            config={'aa': '123', 'bb': '321', 'cc': ['1', '2', '3']})
+    content = RichTextField(verbose_name='内容', null=False, blank=False, config={})
     subject = models.TextField(verbose_name='简介', editable=False)
     image = models.ImageField(upload_to='static/images/', verbose_name='封面', blank=True, null=True)
     createDate = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
@@ -40,3 +39,36 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Member(models.Model):
+    name = models.CharField(max_length=128, verbose_name='昵称', blank=True, null=False)
+    email = models.CharField(max_length=256, verbose_name='邮箱', blank=True, null=False)
+    nodeId = models.CharField(max_length=256, verbose_name='OAuth ID', blank=False, null=False)
+    avatar = models.CharField(max_length=256, verbose_name='头像', null=False, blank=False)
+    url = models.CharField(max_length=256, verbose_name='主页', blank=True, null=True)
+    blog = models.CharField(max_length=256, verbose_name='博客', blank=True, null=True)
+    createDate = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
+    updateDate = models.DateTimeField(verbose_name='更新日期', auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "会员"
+        verbose_name_plural = "会员管理"
+
+
+class Comment(models.Model):
+    content = models.TextField(verbose_name='内容', null=False, blank=True)
+    member = models.ForeignKey(Member, on_delete=models.SET_NULL, verbose_name='用户', null=True, editable=False)
+    parentId = models.IntegerField(verbose_name='父ID', null=True, blank=True)
+    targetId = models.IntegerField(verbose_name='目标ID', null=True, blank=True)
+    type_choices = ((0, '文章'),
+                    (1, '留言'),)
+    type = models.IntegerField(choices=type_choices, verbose_name='类型')
+    createDate = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
+
+    class Meta:
+        verbose_name = "评论"
+        verbose_name_plural = "评论管理"

@@ -7,7 +7,9 @@ from models.models import Page
 import re
 import datetime
 from django.http import Http404
-
+from github import oauth
+from django.http import HttpResponseRedirect
+import json
 
 # 主页
 def home(request):
@@ -131,3 +133,24 @@ def page_error(request):
         params["code"] = "404"
         params['msg'] = "抱歉，该页面没有找到！"
     return render(request, 'error.html', params)
+
+
+# GitHub登录
+def oauth_github(request):
+    url = oauth.get_auth_url(request)
+    return HttpResponseRedirect(url)
+
+
+# Github登录回调
+def oauth_github_callback(request):
+    code = request.GET.get("code")
+    state = request.GET.get("state")
+    # 如果 state和session中的不一致，可能是伪造的请求
+    if request.session['state'] != state:
+        return HttpResponse('参数校验不通过，疑是非法请求。')
+
+    rs = oauth.get_access_token(request, code)
+
+    user = oauth.get_user(rs['access_token'])
+
+    return HttpResponse(json.dumps(user), content_type="application/json")

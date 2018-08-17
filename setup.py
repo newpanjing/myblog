@@ -9,5 +9,6 @@ setup(
     license='Apache License 2.0',
     author='panjing',
     author_email='newpanjing@163.com',
-    description='个人博客系统'
+    description='个人博客系统',
+    install_requires=['django', 'shortid8', 'ueditor', 'oss2', 'requests'],
 )

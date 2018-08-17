@@ -50,3 +50,15 @@ def getSubject(html):
         html = re.sub(p, '', html)
 
     return html
+
+
+@admin.register(Member)
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'email', 'nodeId', 'avatar', 'url', 'blog', 'createDate', 'updateDate')
+    list_display_links = ('id', 'name', 'email', 'nodeId', 'avatar', 'url', 'blog', 'createDate', 'updateDate')
+    search_fields = ('name', 'email')
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'type', 'content', 'member', 'parentId', 'targetId', 'createDate')
