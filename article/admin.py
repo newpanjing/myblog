@@ -7,6 +7,22 @@ from myblog.utils import oss
 
 
 # Register your models here.
+# 获取简介
+def get_subject(html):
+    # 移除style标签和script标签
+
+    regexs = [r'([&]{0,1}(\w+;))',
+              r'\r|\n|\t|\s'
+              r'<script>.*?</script>',
+              r'<style.*?</style>',
+              r'<[^>]+>'
+              ]
+
+    for r in regexs:
+        p = re.compile(r)
+        html = re.sub(p, '', html)
+
+    return html
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -24,7 +40,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
-        subject = getSubject(obj.content)
+        subject = get_subject(obj.content)
         # oss.put_object(obj.image.file.file)
         # 不超过200字
         if len(subject) > 200:
@@ -32,24 +48,6 @@ class ArticleAdmin(admin.ModelAdmin):
 
         obj.subject = subject
         super(ArticleAdmin, self).save_model(request, obj, form, change)
-
-
-# 获取简介
-def getSubject(html):
-    # 移除style标签和script标签
-
-    regexs = [r'([&]{0,1}(\w+;))',
-              r'\r|\n|\t|\s'
-              r'<script>.*?</script>',
-              r'<style.*?</style>',
-              r'<[^>]+>'
-              ]
-
-    for r in regexs:
-        p = re.compile(r)
-        html = re.sub(p, '', html)
-
-    return html
 
 
 @admin.register(Member)

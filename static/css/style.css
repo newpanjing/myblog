@@ -398,3 +398,7 @@ header .top {
 .aritcle-item .subject{
     color: #767373;
 }
+.avatar-img{
+    width: 25px;
+    height: 25px;
+}

@@ -11,6 +11,7 @@ from github import oauth
 from django.http import HttpResponseRedirect
 import json
 
+
 # 主页
 def home(request):
     tops = Article.objects.filter(top=True).order_by('-id')
@@ -153,4 +154,8 @@ def oauth_github_callback(request):
 
     user = oauth.get_user(rs['access_token'])
 
-    return HttpResponse(json.dumps(user), content_type="application/json")
+    request.session['member'] = user
+    # 跳转到来源页
+
+    # return HttpResponse(json.dumps(user), content_type="application/json")
+    return HttpResponseRedirect("/")

@@ -32,7 +32,15 @@
                 {% endfor %}
             </ul>
             <ul class="nav navbar-right">
-                <li><a href="/oauth/github">登录</a> </li>
+                {% if request.session.member %}
+                    <li><a href="#">
+                        <img class="avatar-img" src="{{request.session.member.avatar_url}}"/>
+                       <span>{{ request.session.member.name }}</span>
+                    </a></li>
+                {% else %}
+                    <li><a href="/oauth/github">登录</a></li>
+                {% endif %}
+
             </ul>
         </div>
     </div>
@@ -92,8 +100,9 @@
                                 <div class="info">
                                     <a href="/article/{{ r.id }}">{{ r.title }}</a>
                                     <div class="info-bottom">
-                                        <span><a href="/category/{{ r.category.alias }}">{{ r.category.name }}</a></span>
-                                        <span>{{ r.createDate|date:"m-d"}}</span>
+                                        <span><a
+                                                href="/category/{{ r.category.alias }}">{{ r.category.name }}</a></span>
+                                        <span>{{ r.createDate|date:"m-d" }}</span>
                                     </div>
                                 </div>
                             </div>
