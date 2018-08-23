@@ -2,6 +2,14 @@ $(function () {
 
     function saveComment(val, cb, parentId, atMemberId) {
 
+        if (!window.MEMBER) {
+            Toast.show("您还未登录，即将跳转到GitHub登录页面！");
+            setTimeout(function () {
+                window.location.href = '/oauth/github'
+            }, 2000)
+            return;
+        }
+
         if (val.replace(/ /g, "").length == 0) {
             return Toast.show("请输入评论内容")
         }
@@ -50,13 +58,6 @@ $(function () {
 
     $(".comment-box .post").click(function () {
 
-        if (!window.MEMBER) {
-            Toast.show("您还未登录，2秒后跳转登录页面！");
-            setTimeout(function () {
-                window.location.href = '/oauth/github'
-            }, 2000)
-            return;
-        }
         postComment();
     });
 
@@ -105,20 +106,20 @@ $(function () {
             var parent = $(this).parent().parent().parent();
             var parentId = $(this).attr("parentId");
 
-            if (parent.find(".reply-input").length > 0) {
+            if (parent.find(".reply-top").length > 0) {
 
-                var display = parent.find(".reply-input").css("display")
+                var display = parent.find(".reply-top").css("display")
                 if (display == "none") {
                     display = "table";
                 } else {
                     display = "none";
                 }
-                parent.find(".reply-input").css("display", display);
+                parent.find(".reply-top").css("display", display);
 
             } else {
                 var name = parent.find(".name").text().replace(/ /g, "");
 
-                var html = ' <div class="reply-input">\n' +
+                var html = ' <div class="reply-input reply-top">\n' +
                     '<div class="input"><input type="text" class="form-control" placeholder="回复@' + name + '："/></div>\n' +
                     '<div class="action"><a class="btn btn-success" onclick="replyComment(this)" href="javascript:;" parentId="' + parentId + '">评论</a></div>\n' +
                     '</div>';
