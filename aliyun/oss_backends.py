@@ -3,7 +3,7 @@ from django.core.files.storage import Storage
 from oss2 import *
 from django.conf import settings
 import os
-from aliyun import short_id
+from shortid import short_id
 from models.models import Config
 
 
@@ -61,7 +61,8 @@ class AliyunStorage(Storage):
 
         # target_name = self._get_target_name(name)
 
-        target_name = short_id.get_short_id() + '.png'
+        suffix = os.path.splitext(name)[1]
+        target_name = short_id.get_short_id() + suffix
         content.open()
         content_str = b''.join(chunk for chunk in content.chunks())
         self.bucket.put_object(target_name, content_str)

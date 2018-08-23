@@ -6,4 +6,12 @@
             {{ page.content|safe }}
         </div>
     </div>
+    <script type="text/javascript">
+        window._PAGE_CONFIG = {
+            SID: '{{ sid }}',
+            TARGET_ID: '{{ page.id }}',
+            TYPE:2
+        }
+    </script>
+    {% include 'comment.html' %}
 {% endblock %}

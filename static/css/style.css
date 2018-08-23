@@ -41,7 +41,7 @@ a {
 }
 
 a:active, a:hover {
-    color: #009688;
+    color: rgb(0, 162, 255);
     transition: all .3s;
     text-decoration: none;
 }
@@ -183,7 +183,6 @@ header .top {
     background: none;
     color: #5FB878;
 }
-
 .tag
 .aritcle-item .title {
     padding-right: 10px;

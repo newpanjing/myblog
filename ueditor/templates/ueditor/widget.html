@@ -1,0 +1,8 @@
+
+{% load static %}
+<script type="text/javascript">
+   var UEDITOR_CONFIG={{config|safe}}
+</script>
+<div class="django-ueditor-widget" style="display: inline-block;">
+    <textarea name="{{ name }}" id="ueditor">{{ value }}</textarea>
+</div>

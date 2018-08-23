@@ -19,7 +19,8 @@ $(function () {
             TARGET_ID: _PAGE_CONFIG.TARGET_ID,
             content: val,
             parentId: parentId,
-            atMemberId: atMemberId
+            atMemberId: atMemberId,
+            type: _PAGE_CONFIG.TYPE
         };
         //提交
         $.post("/comment/post", params, function (json) {
@@ -193,12 +194,12 @@ $(function () {
         var name = parent.parent().parent().find(".sub-name").text().replace(/ /g, "");
         saveComment(input.val(), function (obj, json) {
             input.val("");
-             var html = '<div class="item">\n' +
+            var html = '<div class="item">\n' +
                 '<a class="sub-name" href="' + obj.url + '" target="_blank">\n' +
                 '<img class="comment-avatar" src="' + obj.avatar + '"/>\n' +
                 '<span>' + obj.name + '</span>\n' +
                 '</a><span>:</span>\n' +
-                '回复@'+name+':<span>' + obj.content + '</span>\n' +
+                '回复@' + name + ':<span>' + obj.content + '</span>\n' +
                 ' <div class="clearfix reply-comment-box">\n' +
                 '<div class="float-left date">' + obj.date + '</div>\n' +
                 '<div class="float-right reply">\n' +

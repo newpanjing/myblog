@@ -132,8 +132,14 @@ def category_page(request, alias, page):
 # 自定义页面
 def page(request, alias):
     page = Page.objects.get(alias=alias)
+
+    sid = short_id.get_short_id()
+    request.session['sid'] = sid
+    comment = get_comment(2, page.id)
     return render(request, 'page.html', {
-        "page": page
+        "page": page,
+        "sid": sid,
+        "comment": comment
     })
 
 
@@ -239,6 +245,9 @@ def comments_save(request):
     dbMember = Member.objects.get(id=member['id'])
 
     atMemberId = post.get('atMemberId')
+    type = post.get('type')
+    if type is None:
+        type = 0
 
     if ssid != sid:
         result = {
@@ -254,7 +263,7 @@ def comments_save(request):
         obj = Comment.objects.create(
             member=dbMember,
             content=post.get('content'),
-            type=0,
+            type=type,
             targetId=targetId,
             parentId=parentId,
             atMember_id=atMemberId
