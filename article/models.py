@@ -43,7 +43,7 @@ class Article(models.Model):
 
 class Member(models.Model):
     name = models.CharField(max_length=128, verbose_name='昵称', blank=True, null=False)
-    email = models.CharField(max_length=256, verbose_name='邮箱', blank=True, null=False)
+    email = models.CharField(max_length=256, verbose_name='邮箱', blank=True, null=True)
     nodeId = models.CharField(max_length=256, verbose_name='OAuth ID', blank=False, null=False)
     avatar = models.CharField(max_length=256, verbose_name='头像', null=False, blank=False)
     url = models.CharField(max_length=256, verbose_name='主页', blank=True, null=True)
@@ -65,9 +65,13 @@ class Comment(models.Model):
     parentId = models.IntegerField(verbose_name='父ID', null=True, blank=True)
     targetId = models.IntegerField(verbose_name='目标ID', null=True, blank=True)
     type_choices = ((0, '文章'),
-                    (1, '留言'),)
+                    (1, '留言'),
+                    (2, '页面'),)
     type = models.IntegerField(choices=type_choices, verbose_name='类型')
     createDate = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
+    atMember = models.ForeignKey(Member, related_name='at_member_id', on_delete=models.SET_NULL, verbose_name='回复用户',
+                           null=True, blank=True,
+                           editable=False)
 
     class Meta:
         verbose_name = "评论"

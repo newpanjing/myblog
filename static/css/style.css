@@ -8,10 +8,11 @@
         display: inline-block;
     }
 }
+
 @media screen and (max-width: 500px) {
 
-
 }
+
 /* 中等屏幕（桌面显示器，大于等于 992px） */
 @media (min-width: 992px) {
 
@@ -122,8 +123,8 @@ header .top {
     background-color: #242a31;
     color: white;
     font-weight: 500;
-    padding-top:50px;
-    padding-bottom:50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
     text-align: center;
 }
 
@@ -247,46 +248,58 @@ header .top {
     padding-left: 10px;
     margin: 0;
 }
-
+.article{
+    word-wrap:break-word;
+    word-break: break-all;
+}
 .article img {
     max-width: 100%;
 }
 
-.recommeneds img{
+.recommeneds img {
     max-width: 100%;
     margin-right: 10px;
 }
-.recommeneds .img{
+
+.recommeneds .img {
     width: 110px;
     height: 80px;
 }
-.recommeneds .item{
+
+.recommeneds .item {
     display: table;
     padding-top: 20px;
     padding-bottom: 20px;
     border-bottom: #ccc 1px dotted;
     width: 100%;
 }
-.recommeneds .item:last-child{
+
+.recommeneds .item:last-child {
     border: none;
 }
-.recommeneds .img,.recommeneds .info{
+
+.recommeneds .img, .recommeneds .info {
     display: table-cell;
     vertical-align: middle;
 }
+
 .recommeneds .info {
     padding-left: 20px;
 }
-.recommeneds .info .info-bottom{
+
+.recommeneds .info .info-bottom {
     margin-top: 10px;
     color: #999;
 }
-.recommeneds .info .info-bottom a{
+
+.recommeneds .info .info-bottom a {
     color: #999;
 }
-.recommeneds .info .info-bottom span:first-child{
+
+.recommeneds .info .info-bottom span:first-child {
     margin-right: 10px;
 }
+
 .glyphicon {
     margin-right: 5px;
 }
@@ -395,10 +408,163 @@ header .top {
     height: 3px;
     background: #27ae60;
 }
-.aritcle-item .subject{
+
+.aritcle-item .subject {
     color: #767373;
+    word-wrap:break-word;
+    word-break: break-all;
 }
-.avatar-img{
+
+.avatar-img {
     width: 25px;
     height: 25px;
+}
+
+.comment-input {
+    resize: none;
+    height: 100px;
+}
+
+.comment-box {
+    padding: 10px;
+}
+
+.comment-list {
+    padding: 10px;
+}
+
+.comment-list .item {
+    display: table;
+    margin-top: 10px;
+    width: 100%;
+    border-bottom: #ccc 1px dotted;
+    padding-bottom: 10px;
+}
+
+.comment-list .item:last-child {
+    border-bottom: none;
+}
+
+.comment-list .item .avatar img {
+    width: 50px;
+    height: 50px;
+}
+
+.comment-list .item .avatar {
+    display: table-cell;
+    width: 50px;
+}
+
+.comment-list .item .body {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+.comment-count .num {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 3px;
+}
+
+.comment-list .item .date {
+    font-size: 12px;
+    color: #999;
+}
+
+.comment-box .action {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #999;
+    font-size: 12px;
+    height: 50px;
+}
+
+.comment-list .text {
+    line-height: 25px;
+    margin: 10px auto;
+}
+
+.comment-toolbar {
+    border-bottom: #242a31 1px solid;
+    padding-bottom: 10px;
+    position: relative;
+    height: 38px;
+}
+
+.comment-toolbar .title {
+    border: #242a31 1px solid;
+    padding: 6px;
+    position: absolute;
+    left: 20px;
+    border-bottom: white 1px solid;
+    bottom: -1px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.tips {
+    text-align: center;
+}
+
+.toast {
+    display: none;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 13px;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    padding: 8px;
+    border-radius: 5px;
+    z-index: 999;
+}
+
+.comment-avatar {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+.reply-list {
+    background-color: #f7f7f7;
+    margin-top: 10px;
+}
+.reply-list .item{
+    padding: 10px;
+}
+.reply-input {
+    display: table;
+    width: 100%;
+}
+
+.reply-input .input {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.reply-input .action {
+    display: table-cell;
+    width: 50px;
+    padding-left: 10px;
+    vertical-align: middle;
+}
+
+.footer .qrcode-box {
+    margin: 10px auto;
+}
+.footer .qrcode {
+    background: url("../images/qrcode.png") no-repeat;
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.reply-comment-box{
+    margin: 10px auto;
+    font-size: 12px;
+}
+.reply-comment-box a{
+    font-size: 12px;
 }

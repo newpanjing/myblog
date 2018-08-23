@@ -59,4 +59,4 @@ class MemberAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'type', 'content', 'member', 'parentId', 'targetId', 'createDate')
+    list_display = ('id', 'type', 'content', 'member','atMember', 'parentId', 'targetId', 'createDate')

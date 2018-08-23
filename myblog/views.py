@@ -4,12 +4,16 @@ from django.shortcuts import render
 from article.models import Article
 from article.models import Category
 from models.models import Page
+from article.models import Member
+from article.models import Comment
 import re
 import datetime
 from django.http import Http404
 from github import oauth
 from django.http import HttpResponseRedirect
+from shortid import short_id
 import json
+from django.forms.models import model_to_dict
 
 
 # 主页
@@ -42,9 +46,17 @@ def detail(request, id):
     article.hits += 1
     article.save()
 
+    sid = short_id.get_short_id()
+    request.session['sid'] = sid
+
+    # 查询评论
+    comment = get_comment(0, id)
+
     return render(request, "detail.html", {
         'id': id,
-        'article': article
+        'article': article,
+        'sid': sid,
+        'comment': comment
     })
 
 
@@ -56,6 +68,26 @@ def category_all(request):
 # 单个分类
 def category(request, alias):
     return category_page(request, alias, 1)
+
+
+# 获取评论
+def get_comment(type, targetId):
+    # 参与人数
+    people = Comment.objects.filter(type=type, targetId=targetId, parentId__isnull=True).count()
+    # 评论条数
+    count = Comment.objects.filter(type=type, targetId=targetId).count()
+
+    # 查询评论list
+    list = Comment.objects.filter(type=type, targetId=targetId, parentId__isnull=True).order_by("-id")
+    # 分页待处理
+    for item in list:
+        item.comments = Comment.objects.filter(parentId=item.id).order_by("-id")
+
+    return {
+        'people': people,
+        'count': count,
+        'list': list
+    }
 
 
 # 分类分页
@@ -139,6 +171,11 @@ def page_error(request):
 # GitHub登录
 def oauth_github(request):
     url = oauth.get_auth_url(request)
+    # 记录来源页
+    if 'HTTP_REFERER' in request.META:
+        referer = request.META['HTTP_REFERER']
+        request.session['referer'] = referer
+
     return HttpResponseRedirect(url)
 
 
@@ -154,8 +191,78 @@ def oauth_github_callback(request):
 
     user = oauth.get_user(rs['access_token'])
 
-    request.session['member'] = user
+    member = None
     # 跳转到来源页
+    # 数据库更新用户信息
+    try:
+        member = Member.objects.filter(nodeId=user["node_id"]).get()
+        member.name = user['name']
+        member.avatar = user['avatar_url']
+        member.blog = user['blog']
+        member.url = user['html_url']
+        member.email = user['email']
+        member.nodeId = user['node_id']
+        member.save()
+    except:
+        member = Member.objects.create(
+            name=user['name'],
+            avatar=user['avatar_url'],
+            blog=user['blog'],
+            url=user['html_url'],
+            email=user['email'],
+            nodeId=user['node_id'],
+        )
+    request.session['member'] = model_to_dict(member)
 
-    # return HttpResponse(json.dumps(user), content_type="application/json")
-    return HttpResponseRedirect("/")
+    url = '/'
+    referer = request.session['referer']
+    if referer:
+        url = referer
+    return HttpResponseRedirect(url)
+
+
+# 保存评论
+def comments_save(request):
+    # 通过session限制评论频率
+
+    result = {}
+    session = request.session;
+    post = request.POST;
+    ssid = session['sid']
+
+    sid = post.get('SID')
+    targetId = post.get('TARGET_ID')
+    parentId = post.get('parentId')
+
+    member = session['member']
+
+    dbMember = Member.objects.get(id=member['id'])
+
+    atMemberId = post.get('atMemberId')
+
+    if ssid != sid:
+        result = {
+            'code': 0,
+            'msg': '非法请求'
+        }
+    elif member is None:
+        result = {
+            'code': 0,
+            'msg': '用户未登录'
+        }
+    else:
+        obj = Comment.objects.create(
+            member=dbMember,
+            content=post.get('content'),
+            type=0,
+            targetId=targetId,
+            parentId=parentId,
+            atMember_id=atMemberId
+        )
+        result = {
+            'code': 1,
+            'msg': '评论成功',
+            'id': obj.id
+        }
+
+        return HttpResponse(json.dumps(result), content_type="application/json")

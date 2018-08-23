@@ -37,4 +37,5 @@ urlpatterns = [
     path('error/500', views.page_error),
     path('oauth/github', views.oauth_github),
     path('oauth/github/callback', views.oauth_github_callback),
+    path('comment/post',views.comments_save)
 ]

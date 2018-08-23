@@ -20,6 +20,16 @@
     {% endblock %}
 </head>
 <body>
+{% if request.session.member %}
+    <script type="text/javascript">
+        var MEMBER = {
+            name: '{{ request.session.member.name }}',
+            avatar: '{{ request.session.member.avatar }}',
+            url:'{{ request.session.member.url }}',
+            id:'{{ request.session.member.id }}'
+        };
+    </script>
+{% endif %}
 <header>
     <div class="top">
         <div class="container">
@@ -33,9 +43,9 @@
             </ul>
             <ul class="nav navbar-right">
                 {% if request.session.member %}
-                    <li><a href="#">
-                        <img class="avatar-img" src="{{request.session.member.avatar_url}}"/>
-                       <span>{{ request.session.member.name }}</span>
+                    <li><a href="{{ request.session.member.url }}" target="_blank">
+                        <img class="avatar-img" src="{{ request.session.member.avatar }}"/>
+                        <span>{{ request.session.member.name }}</span>
                     </a></li>
                 {% else %}
                     <li><a href="/oauth/github">登录</a></li>
@@ -123,7 +133,10 @@
             <div class="col-md-4">
                 <h4><i class="glyphicon glyphicon-send"></i>{{ commonData.configs.name }}</h4>
                 <div>{{ commonData.configs.subject }}</div>
-                <div>联系我们：{{ commonData.configs.contact }}</div>
+                <div class="qrcode-box">
+                    <div class="qrcode"></div>
+                    <span>扫码二维码，手机上浏览</span>
+                </div>
                 <ul>
                     <li><a href="/sitemap.xml" target="_blank">网站地图</a></li>
                 </ul>
@@ -150,8 +163,7 @@
             </div>
         </div>
         <div class="row footer-bottom">
-            <div>© {{ time.year }} {{ commonData.configs.name }}版权所有</div>
-            <div>工信部ICP备案号：{{ commonData.configs.icp }}</div>
+            <div>© {{ time.year }} {{ commonData.configs.name }}版权所有 工信部ICP备案号：{{ commonData.configs.icp }} 联系我们：{{ commonData.configs.contact }}</div>
         </div>
     {% endblock %}
     <style type="text/css">

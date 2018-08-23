@@ -17,4 +17,3 @@ def get_short_id():
         val = int(id[start:end], 16)
         buffer.append(array[val % 62])
     return "".join(buffer)
-

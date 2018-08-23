@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'myblog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'blog',
+        'USER': 'myblog',
+        'PASSWORD': '5rWEu98A',
+        'HOST': 'mysql.oracle.com',
+        'PORT': '3306',
     }
 }
 
@@ -138,4 +142,3 @@ DEFAULT_FILE_STORAGE = 'aliyun.oss_backends.AliyunStorage'
 GITHUB_CLIENT_ID = 'c233704c664cd1059401'
 GITHUB_CLIENT_SECRET = 'c3791ed0ae599d87ece527595362e3f6e3e20f96'
 GITHUB_CLIENT_CALLBACK = '/oauth/github/callback'
-
