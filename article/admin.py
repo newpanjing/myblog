@@ -24,6 +24,7 @@ def get_subject(html):
 
     return html
 
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'alias', 'date')
@@ -33,10 +34,12 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'category', 'user', 'hits', 'tags', 'createDate')
+    list_display = ('id', 'title_url', 'category', 'user', 'hits', 'tags', 'createDate')
     list_filter = ('category', 'user')
-    search_fields = ('title',)
-    list_display_links = ('id', 'title')
+    search_fields = ('title_url',)
+    list_display_links = ('id', 'title_url')
+
+    list_per_page = 10
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
@@ -52,11 +55,13 @@ class ArticleAdmin(admin.ModelAdmin):
 
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'email', 'nodeId', 'avatar', 'url', 'blog', 'createDate', 'updateDate')
-    list_display_links = ('id', 'name', 'email', 'nodeId', 'avatar', 'url', 'blog', 'createDate', 'updateDate')
+    list_display = ('id', 'name', 'email', 'nodeId', 'avatar_img', 'url', 'blog_url', 'createDate', 'updateDate')
+    list_display_links = ('id', 'name', 'email', 'nodeId', 'url', 'createDate', 'updateDate')
     search_fields = ('name', 'email')
+
 
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'type', 'content', 'member','atMember', 'parentId', 'targetId', 'createDate')
+    list_display = ('id', 'type', 'content', 'member', 'atMember', 'parentId', 'targetId', 'createDate')
+    list_per_page = 10

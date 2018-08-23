@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # from ckeditor.fields import RichTextField
 from ueditor.fields import RichTextField
+from django.utils.html import format_html
 
 
 # Create your models here.
@@ -33,6 +34,11 @@ class Article(models.Model):
                    (1, '是'),)
     top = models.IntegerField(choices=top_choices, verbose_name='置顶', default=0, )
 
+    def title_url(self):
+        return format_html('<a href="/article/{}" target="_blank">{}</a>', self.id, self.title)
+
+    title_url.short_description = "标题"
+
     class Meta:
         verbose_name = "文章"
         verbose_name_plural = "文章管理"
@@ -50,6 +56,21 @@ class Member(models.Model):
     blog = models.CharField(max_length=256, verbose_name='博客', blank=True, null=True)
     createDate = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
     updateDate = models.DateTimeField(verbose_name='更新日期', auto_now=True)
+
+    def avatar_img(self):
+        return format_html('<img src="{}" style="width:25px;height:25px"/>', self.avatar)
+
+    def blog_url(self):
+        if self.blog is None:
+            return ""
+        else:
+            url = self.blog
+            if url.find("http") != 0:
+                url = "http://" + url
+            return format_html('<a href="{}" target="_blank">{}</a>', url, url)
+
+    avatar_img.short_description = "头像"
+    blog_url.short_description = "博客"
 
     def __str__(self):
         return self.name
@@ -70,8 +91,8 @@ class Comment(models.Model):
     type = models.IntegerField(choices=type_choices, verbose_name='类型')
     createDate = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
     atMember = models.ForeignKey(Member, related_name='at_member_id', on_delete=models.SET_NULL, verbose_name='回复用户',
-                           null=True, blank=True,
-                           editable=False)
+                                 null=True, blank=True,
+                                 editable=False)
 
     class Meta:
         verbose_name = "评论"
