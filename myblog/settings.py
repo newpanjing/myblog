@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'article',
     'ueditor',
     'myblog.templatetags',
+    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,16 @@ DEFAULT_FILE_STORAGE = 'aliyun.oss_backends.AliyunStorage'
 GITHUB_CLIENT_ID = 'c233704c664cd1059401'
 GITHUB_CLIENT_SECRET = 'c3791ed0ae599d87ece527595362e3f6e3e20f96'
 GITHUB_CLIENT_CALLBACK = '/oauth/github/callback'
+
+# 全文检索配置
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'myblog.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+        'INCLUDE_SPELLING': True
+    }
+}
+HAYSTACK_DEFAULT_OPERATOR = 'OR'
+# 添加此项，当数据库改变时，会自动更新索引，非常方便
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10

@@ -1,0 +1,72 @@
+{% extends 'extend.html' %}
+{% load common_tag %}
+{% load highlight %}
+{% block body %}
+    <style type="text/css">
+        .keyword {
+            color: red;
+        }
+        .search{
+            padding: 10px;
+        }
+    </style>
+    <div class="block">
+        <div class="block-title">找到{{ page.object_list|length }}条搜索结果</div>
+        <div class="search">
+            <form method="get" action="/search/">
+                <input type="search" name="q" class="form-control" placeholder="输入关键字搜索，例如Django" value="{{ request.GET.q }}"/>
+            </form>
+        </div>
+        {% if query %}
+
+            {#            {% for result in page.object_list %}#}
+            {#                <a href="/article/{{ result.object.id }}" target="_blank">#}
+            {#                    {{ result.object.title }}#}
+            {#                </a><br/>#}
+            {#                <div>{% highlight result.object.subject with query css_class "keyword" %}</div>#}
+            {##}
+            {#            {% empty %}#}
+            {#                <p>啥也没找到</p>#}
+            {#            {% endfor %}#}
+
+
+            {% for i in page.object_list %}
+                <div class="aritcle-item clearfix">
+                    {% if i.object.image %}
+                        <div class="col-md-1 cover">
+                            <img src="{{ i.object.image|url }}"/>
+                        </div>
+                    {% endif %}
+                    <div class="col-md-11">
+                        <div class="title-panel">
+                            <a href="/category/{{ i.object.category.alias }}" class="category">{{ i.object.category }}</a>
+                            <a href="/article/{{ i.object.id }}" class="title"> {{ i.object.title }}</a>
+                        </div>
+                        <div class="subject">
+                            {% highlight i.object.subject with query css_class "keyword" %}
+                        </div>
+                        <div class="info">
+                            <span class="user">{{ i.object.user }}</span>
+                            <span class="date">{{ i.object.createDate|date:"m-d H:i:s" }}</span>
+                            <span class="hits">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span>{{ i.object.hits }}</span>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}
+                        <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; 上一页
+                    {% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}下一页
+                    &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -55,8 +55,8 @@ class ArticleAdmin(admin.ModelAdmin):
 
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'email', 'nodeId', 'avatar_img', 'url', 'blog_url', 'createDate', 'updateDate')
-    list_display_links = ('id', 'name', 'email', 'nodeId', 'url', 'createDate', 'updateDate')
+    list_display = ('id', 'name', 'email', 'nodeId', 'avatar_img', 'github_url', 'blog_url', 'createDate', 'updateDate')
+    list_display_links = ('id', 'name', 'email', 'nodeId', 'createDate', 'updateDate')
     search_fields = ('name', 'email')
 
 

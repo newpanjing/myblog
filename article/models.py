@@ -57,11 +57,14 @@ class Member(models.Model):
     createDate = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
     updateDate = models.DateTimeField(verbose_name='更新日期', auto_now=True)
 
+    def github_url(self):
+        return format_html('<a href="{}" target="_blank">{}</a>', self.url, self.url)
+
     def avatar_img(self):
         return format_html('<img src="{}" style="width:25px;height:25px"/>', self.avatar)
 
     def blog_url(self):
-        if self.blog is None:
+        if self.blog is None or self.blog == "":
             return ""
         else:
             url = self.blog

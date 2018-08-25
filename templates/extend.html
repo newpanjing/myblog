@@ -40,6 +40,18 @@
                         <span>{{ menu.name }}</span>
                     </a></li>
                 {% endfor %}
+                <li>
+                    <div class="search-input">
+                        <form target="_blank" role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
+                         <div class="input-group">
+                              <input type="search" name="q" class="form-control" placeholder="搜索关键词" aria-describedby="basic-addon1">
+                              <span class="input-group-addon" id="basic-addon1">
+                                  <i class="glyphicon glyphicon-search"></i>
+                              </span>
+                            </div>
+                        </form>
+                    </div>
+                </li>
             </ul>
             <ul class="nav navbar-right">
                 {% if request.session.member %}
@@ -50,7 +62,6 @@
                 {% else %}
                     <li><a href="/oauth/github">登录</a></li>
                 {% endif %}
-
             </ul>
         </div>
     </div>

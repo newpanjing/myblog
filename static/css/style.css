@@ -567,3 +567,9 @@ header .top {
 .reply-comment-box a{
     font-size: 12px;
 }
+.search-input{
+    padding-top: 10px;
+}
+.search-input .input-group{
+    width: 200px;
+}

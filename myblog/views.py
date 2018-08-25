@@ -202,7 +202,12 @@ def oauth_github_callback(request):
     # 数据库更新用户信息
     try:
         member = Member.objects.filter(nodeId=user["node_id"]).get()
-        member.name = user['name']
+        # 没有名字，取登录名
+        if user['name'] is None:
+            member.name = user['login']
+        else:
+            member.name = user['name']
+
         member.avatar = user['avatar_url']
         member.blog = user['blog']
         member.url = user['html_url']

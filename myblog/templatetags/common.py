@@ -128,3 +128,4 @@ def get_pager(context):
     buffer.append(
         '<li ' + next + '><a href="' + href + '" aria-label="Next">下一页</a></li></ul></nav></div>')
     return ''.join(buffer)
+

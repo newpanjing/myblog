@@ -18,7 +18,7 @@ from django.urls import path
 from django.views.generic.base import RedirectView
 from . import views
 from ueditor import site
-
+from django.urls import include
 # 设置登录页
 admin.site.site_title = '管理后台'
 admin.site.site_header = '博客管理后台'
@@ -37,5 +37,7 @@ urlpatterns = [
     path('error/500', views.page_error),
     path('oauth/github', views.oauth_github),
     path('oauth/github/callback', views.oauth_github_callback),
-    path('comment/post',views.comments_save)
+    path('comment/post', views.comments_save),
+    path('comment/post', views.comments_save),
+    path(r'search/', include('haystack.urls')),
 ]
