@@ -15,6 +15,8 @@ from shortid import short_id
 import json
 from django.forms.models import model_to_dict
 
+from .utils import randoms
+
 
 # 主页
 def home(request):
@@ -52,12 +54,29 @@ def detail(request, id):
     # 查询评论
     comment = get_comment(0, id)
 
+    # 随机10片文章
+    recommends = get_recommend(10)
+
     return render(request, "detail.html", {
         'id': id,
         'article': article,
         'sid': sid,
-        'comment': comment
+        'comment': comment,
+        'recommends': recommends
     })
+
+
+def get_recommend(size):
+    array = []
+    count = Article.objects.count()
+    if count == 0:
+        return array
+
+    indexs = randoms.getRandomArray(count, size)
+    for i in indexs:
+        obj = Article.objects.all()[i]
+        array.append(obj)
+    return array
 
 
 # 所有分类

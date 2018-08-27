@@ -49,7 +49,12 @@
                     <strong class="glyphicon glyphicon-flag"></strong> 转载请注明来源为{{ commonData.configs.name }}
                 </div>
             </div>
-
+            <div>
+                <h4>相关文章</h4>
+                {% for item in recommends %}
+                    <div><a href="/article/{{ item.id }}" title="{{ item.title }}">{{ item.title }}</a></div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 
