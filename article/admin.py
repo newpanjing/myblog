@@ -4,6 +4,7 @@ from .models import *
 import re
 
 from myblog.utils import oss
+from jieba import analyse
 
 
 # Register your models here.
@@ -50,6 +51,14 @@ class ArticleAdmin(admin.ModelAdmin):
             subject = subject[0:200]
 
         obj.subject = subject
+        # 处理标签
+        tags = obj.tags
+        # 自动生成
+        if tags is None or tags is "":
+            r = analyse.extract_tags(subject, topK=5)
+            tags = ",".join(r)
+
+        obj.tags = tags
         super(ArticleAdmin, self).save_model(request, obj, form, change)
 
 
@@ -58,7 +67,6 @@ class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'email', 'nodeId', 'avatar_img', 'github_url', 'blog_url', 'createDate', 'updateDate')
     list_display_links = ('id', 'name', 'email', 'nodeId', 'createDate', 'updateDate')
     search_fields = ('name', 'email')
-
 
 
 @admin.register(Comment)
