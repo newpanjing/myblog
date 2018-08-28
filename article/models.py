@@ -10,6 +10,8 @@ class Category(models.Model):
     name = models.CharField(max_length=128, verbose_name='分类名', blank=False, null=False)
     alias = models.CharField(max_length=128, verbose_name='别名', db_index=True)
     date = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
+    display = models.BooleanField(verbose_name='显示', default=True)
+    sort = models.IntegerField(verbose_name='排序', default=0)
 
     class Meta:
         verbose_name = "分类"
@@ -20,6 +22,7 @@ class Category(models.Model):
 
 
 class Article(models.Model):
+    sid = models.CharField(max_length=8, verbose_name='短ID', blank=True, null=True, editable=False)
     title = models.CharField(max_length=256, verbose_name='标题', blank=False, null=False)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=False, null=True, verbose_name='分类')
     user = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='发布者', null=True, editable=False)
@@ -34,10 +37,14 @@ class Article(models.Model):
                    (1, '是'),)
     top = models.IntegerField(choices=top_choices, verbose_name='置顶', default=0, )
 
+    def comment_count(self):
+        return Comment.objects.filter(targetId=self.id, type=0).count()
+
     def title_url(self):
-        return format_html('<a href="/article/{}" target="_blank">{}</a>', self.id, self.title)
+        return format_html('<a href="/article/{}" target="_blank">{}</a>', self.sid, self.title)
 
     title_url.short_description = "标题"
+    comment_count.short_description = "评论数"
 
     class Meta:
         verbose_name = "文章"

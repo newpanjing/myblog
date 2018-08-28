@@ -5,6 +5,7 @@ import re
 
 from myblog.utils import oss
 from jieba import analyse
+from shortid import short_id
 
 
 # Register your models here.
@@ -28,18 +29,19 @@ def get_subject(html):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'alias', 'date')
+    list_display = ('id', 'name', 'alias', 'date', 'sort', 'display')
     list_display_links = ('id', 'name', 'alias')
     search_fields = ('name',)
+    list_editable = ('display', 'sort')
 
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title_url', 'category', 'user', 'hits', 'tags', 'createDate')
+    list_display = ('id', 'sid', 'title_url', 'comment_count', 'category', 'user', 'hits', 'tags', 'top', 'createDate')
     list_filter = ('category', 'user')
-    search_fields = ('title_url',)
-    list_display_links = ('id', 'title_url')
-
+    search_fields = ('title',)
+    list_display_links = ('id', 'sid', 'title_url')
+    list_editable = ('top', 'category')
     list_per_page = 10
 
     def save_model(self, request, obj, form, change):
@@ -49,6 +51,9 @@ class ArticleAdmin(admin.ModelAdmin):
         # 不超过200字
         if len(subject) > 200:
             subject = subject[0:200]
+
+        # 短id
+        obj.sid = short_id.get_short_id()
 
         obj.subject = subject
         # 处理标签
@@ -73,3 +78,5 @@ class MemberAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('id', 'type', 'content', 'member', 'atMember', 'parentId', 'targetId', 'createDate')
     list_per_page = 10
+    list_filter = ('member', 'type')
+    search_fields = ('content',)

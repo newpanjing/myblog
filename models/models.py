@@ -29,6 +29,7 @@ class Site(models.Model):
     contactType = models.IntegerField(choices=contact_choices, verbose_name='类型', default=0)
     contact = models.CharField(max_length=128, verbose_name='联系方式')
     createDate = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
+    sort = models.IntegerField(verbose_name='排序', default=0, null=True, blank=True)
 
     class Meta:
         verbose_name = "友链"

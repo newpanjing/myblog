@@ -37,10 +37,17 @@ def home(request):
 
 # 文章详情
 def detail(request, id):
+    query_set = {}
+    # 如果是数字就是id，不是就是sid
+    if id.isdigit():
+        query_set["id"] = id
+    else:
+        query_set["sid"] = id
+
     # 查询一条数据
     article = None
     try:
-        article = Article.objects.get(id=id)
+        article = Article.objects.get(**query_set)
     except Article.DoesNotExist:
         raise Http404
 
@@ -52,7 +59,7 @@ def detail(request, id):
     request.session['sid'] = sid
 
     # 查询评论
-    comment = get_comment(0, id)
+    comment = get_comment(0, article.id)
 
     # 随机10片文章
     recommends = get_recommend(10)

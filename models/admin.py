@@ -17,10 +17,11 @@ class ConfigAdmin(admin.ModelAdmin):
 
 @admin.register(Site)
 class SiteAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'site', 'contact', 'contactType', 'createDate')
+    list_display = ('id', 'name', 'site', 'contact', 'contactType', 'sort', 'createDate')
     search_fields = ('contactType',)
     list_filter = ('contactType',)
     list_display_links = ('id', 'name', 'site')
+    list_editable = ('sort',)
 
 
 @admin.register(Page)
@@ -36,6 +37,7 @@ class MenuAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'icon', 'href', "display")
     list_display_links = ('id', 'name')
     search_fields = ('name',)
+    list_editable = ('display',)
 
 
 @admin.register(Notice)

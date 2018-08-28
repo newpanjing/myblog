@@ -17,8 +17,8 @@ from ..utils import randoms
 
 @register.simple_tag
 def loadData():
-    sites = Site.objects.all();
-    categorys = Category.objects.all()
+    sites = Site.objects.order_by("sort").all();
+    categorys = Category.objects.filter(display=True).order_by("sort")
     menus = Menu.objects.filter(display=True)
     notice = Notice.objects.last()
     recommeneds = getRecommend(5)
@@ -128,4 +128,3 @@ def get_pager(context):
     buffer.append(
         '<li ' + next + '><a href="' + href + '" aria-label="Next">下一页</a></li></ul></nav></div>')
     return ''.join(buffer)
-

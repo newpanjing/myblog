@@ -15,7 +15,7 @@
                     <div class="col-md-11">
                         <div class="title-panel">
                             <a href="/category/{{ i.category.alias }}" class="category">{{ i.category }}</a>
-                            <a href="/article/{{ i.id }}" class="title"> {{ i.title }}</a>
+                            <a href="/article/{{ i.sid }}" class="title"> {{ i.title }}</a>
                         </div>
                         <div class="info">
                             <span class="user">{{ i.user }}</span>
@@ -42,7 +42,7 @@
                 <div class="col-md-11">
                     <div class="title-panel">
                         <a href="/category/{{ i.category.alias }}" class="category">{{ i.category }}</a>
-                        <a href="/article/{{ i.id }}" class="title"> {{ i.title }}</a>
+                        <a href="/article/{{ i.sid }}" class="title"> {{ i.title }}</a>
                     </div>
                     <div class="subject">
                         {{ i.subject|safe }}

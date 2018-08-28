@@ -114,12 +114,12 @@
                         {% for r in commonData.recommeneds %}
                             <div class="item">
                                 <div class="img">
-                                    <a href="/article/{{ r.id }}">
+                                    <a href="/article/{{ r.sid }}">
                                         <img src="{{ r.image|url }}"/>
                                     </a>
                                 </div>
                                 <div class="info">
-                                    <a href="/article/{{ r.id }}">{{ r.title }}</a>
+                                    <a href="/article/{{ r.sid }}">{{ r.title }}</a>
                                     <div class="info-bottom">
                                         <span><a
                                                 href="/category/{{ r.category.alias }}">{{ r.category.name }}</a></span>

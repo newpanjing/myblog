@@ -40,7 +40,7 @@
                     <div class="col-md-11">
                         <div class="title-panel">
                             <a href="/category/{{ i.object.category.alias }}" class="category">{{ i.object.category }}</a>
-                            <a href="/article/{{ i.object.id }}" class="title"> {{ i.object.title }}</a>
+                            <a href="/article/{{ i.object.sid }}" class="title"> {{ i.object.title }}</a>
                         </div>
                         <div class="subject">
                             {% highlight i.object.subject with query css_class "keyword" %}
