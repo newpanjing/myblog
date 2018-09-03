@@ -18,18 +18,6 @@
             </form>
         </div>
         {% if query %}
-
-            {#            {% for result in page.object_list %}#}
-            {#                <a href="/article/{{ result.object.id }}" target="_blank">#}
-            {#                    {{ result.object.title }}#}
-            {#                </a><br/>#}
-            {#                <div>{% highlight result.object.subject with query css_class "keyword" %}</div>#}
-            {##}
-            {#            {% empty %}#}
-            {#                <p>啥也没找到</p>#}
-            {#            {% endfor %}#}
-
-
             {% for i in page.object_list %}
                 <div class="aritcle-item clearfix">
                     {% if i.object.image %}
@@ -55,6 +43,8 @@
                         </div>
                     </div>
                 </div>
+            {% empty %}
+                <div class="tips">什么也没有找到，建议您换下关键词。</div>
             {% endfor %}
 
             {% if page.has_previous or page.has_next %}
