@@ -89,6 +89,7 @@ DATABASES = {
         'PASSWORD': '5rWEu98A',
         'HOST': 'mysql.oracle.com',
         'PORT': '3306',
+        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
 
