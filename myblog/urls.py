@@ -40,4 +40,6 @@ urlpatterns = [
     path('comment/post', views.comments_save),
     path('comment/post', views.comments_save),
     path(r'search/', include('haystack.urls')),
+    path('project', views.project),
+    path('project/<name>', views.project_detail),
 ]

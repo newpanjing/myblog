@@ -16,7 +16,10 @@ import json
 from django.forms.models import model_to_dict
 
 from .utils import randoms
-
+import requests
+import markdown
+from jieba import analyse
+import random
 
 # 主页
 def home(request):
@@ -175,7 +178,8 @@ def sitemap(request):
     domain = request.scheme + "://" + request.META.get("HTTP_HOST")
 
     buffer = []
-    buffer.append('<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<urlset  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\nxmlns:mobile="http://www.baidu.com/schemas/sitemap-mobile/1/">\n')
+    buffer.append(
+        '<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<urlset  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\nxmlns:mobile="http://www.baidu.com/schemas/sitemap-mobile/1/">\n')
 
     # 分类页面
 
@@ -330,3 +334,43 @@ def comments_save(request):
         }
 
         return HttpResponse(json.dumps(result), content_type="application/json")
+
+
+def project(request):
+    r = requests.get("https://api.github.com/users/newpanjing/repos?sort=updated&direction=desc")
+    rs = None
+    if r.status_code == 200:
+        rs = r.json()
+    return render(request, 'project.html', {
+        'rs': rs
+    })
+
+
+def project_detail(request, name):
+    r = requests.get("https://api.github.com/repos/newpanjing/{}".format(name))
+    rs = None
+    readme = None
+    tags = None
+    if r.status_code == 200:
+        rs = r.json()
+        # 读取 readme
+        if rs["description"]:
+            arry = analyse.extract_tags(rs["description"], topK=5)
+            tags = ','.join(arry)
+
+        r = requests.get("https://raw.githubusercontent.com/newpanjing/{}/master/README.md?_={}".format(name,random.uniform(100, 999)))
+        if r.status_code == 200:
+            readme = markdown.markdown(r.text)
+
+    sid = short_id.get_short_id()
+    request.session['sid'] = sid
+    comment = get_comment(3, name)
+
+    return render(request, 'project_detail.html', {
+        'item': rs,
+        'readme': readme,
+        'name': name,
+        'tags': tags,
+        "sid": sid,
+        "comment": comment
+    })

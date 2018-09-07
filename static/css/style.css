@@ -573,3 +573,9 @@ header .top {
 .search-input .input-group{
     width: 200px;
 }
+.project-item{
+    line-height: 25px;
+}
+.project-detail img{
+    max-width: 100%;
+}

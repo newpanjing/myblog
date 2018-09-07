@@ -1,0 +1,36 @@
+{% extends 'extend.html' %}
+{% block title %}{{ name }}-{{ commonData.configs.name }}{% endblock %}
+{% block head %}
+    {% if tags %}
+        <meta name="keywords" content="{{ name }},{{ tags }}">
+    {% else %}
+        <meta name="keywords" content="{{ commonData.configs.keywords }}">
+    {% endif %}
+    {% if item.description %}
+        <meta name="description" content="{{ item.description }}">
+    {% else %}
+        <meta name="description" content="{{ commonData.configs.description }}">
+    {% endif %}
+{% endblock %}
+{% block body %}
+    <div class="block">
+        <div class="block-title">{{ name }}详情</div>
+        <div class="block-main">
+            <div class="project-detail">
+                {#                <div><a href="{{ item.html_url }}" target="_blank"><h3>{{ item.name }}</h3></a></div>#}
+                <div>
+                    <span class="tag-box">{{ item.language }}</span>
+                    <span>{{ item.description }}</span>
+                </div>
+                <div>更新时间:{{ item.updated_at }}</div>
+                <div>git地址：<a href="{{ item.html_url }}" target="_blank">{{ item.html_url }}</a></div>
+                <div>svn地址：<a href="{{ item.svn_url }}" target="_blank">{{ item.svn_url }}</a></div>
+                <hr/>
+                {% if readme %}
+                    <div>{{ readme|safe }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% include 'comment.html' %}
+{% endblock %}
