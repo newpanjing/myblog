@@ -173,8 +173,9 @@ def page(request, alias):
 def sitemap(request):
     list = Article.objects.all().order_by("-id")
     domain = request.scheme + "://" + request.META.get("HTTP_HOST")
+
     buffer = []
-    buffer.append('<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<urlset>\n')
+    buffer.append('<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<urlset  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\nxmlns:mobile="http://www.baidu.com/schemas/sitemap-mobile/1/">\n')
 
     # 分类页面
 
@@ -182,6 +183,7 @@ def sitemap(request):
     for category in categorys:
         buffer.append("<url>\n")
         buffer.append('<loc>{domain}/category/{category.alias}</loc>\n'.format(domain=domain, category=category))
+        buffer.append('<mobile:mobile type="pc,mobile"/>')
         buffer.append('<priority>0.8</priority>\n')
         buffer.append('<lastmod>{date}</lastmod>\n'.format(date=datetime.datetime.now().strftime('%Y-%m-%d')))
         buffer.append('<changefreq>daily</changefreq>\n')
@@ -191,6 +193,7 @@ def sitemap(request):
     for page in pages:
         buffer.append("<url>\n")
         buffer.append('<loc>{domain}/page/{page.alias}</loc>\n'.format(domain=domain, page=page))
+        buffer.append('<mobile:mobile type="pc,mobile"/>')
         buffer.append('<priority>0.8</priority>\n')
         buffer.append('<lastmod>{date}</lastmod>\n'.format(date=datetime.datetime.now().strftime('%Y-%m-%d')))
         buffer.append('<changefreq>daily</changefreq>\n')
@@ -199,6 +202,7 @@ def sitemap(request):
     for article in list:
         buffer.append('<url>\n')
         buffer.append('<loc>{domain}/article/{article.sid}</loc>\n'.format(domain=domain, article=article))
+        buffer.append('<mobile:mobile type="pc,mobile"/>')
         buffer.append('<priority>0.8</priority>\n')
         buffer.append('<lastmod>{date}</lastmod>\n'.format(date=datetime.datetime.now().strftime('%Y-%m-%d')))
         buffer.append('<changefreq>daily</changefreq>\n')
