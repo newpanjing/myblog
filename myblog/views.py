@@ -176,9 +176,29 @@ def sitemap(request):
     buffer = []
     buffer.append('<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<urlset>\n')
 
+    # 分类页面
+
+    categorys = Category.objects.all().order_by("sort")
+    for category in categorys:
+        buffer.append("<url>\n")
+        buffer.append('<loc>{domain}/category/{category.alias}</loc>\n'.format(domain=domain, category=category))
+        buffer.append('<priority>0.8</priority>\n')
+        buffer.append('<lastmod>{date}</lastmod>\n'.format(date=datetime.datetime.now().strftime('%Y-%m-%d')))
+        buffer.append('<changefreq>daily</changefreq>\n')
+        buffer.append('</url>\n')
+
+    pages = Page.objects.all()
+    for page in pages:
+        buffer.append("<url>\n")
+        buffer.append('<loc>{domain}/page/{page.alias}</loc>\n'.format(domain=domain, page=page))
+        buffer.append('<priority>0.8</priority>\n')
+        buffer.append('<lastmod>{date}</lastmod>\n'.format(date=datetime.datetime.now().strftime('%Y-%m-%d')))
+        buffer.append('<changefreq>daily</changefreq>\n')
+        buffer.append('</url>\n')
+
     for article in list:
         buffer.append('<url>\n')
-        buffer.append('<loc>{domain}/article/{article.id}</loc>\n'.format(domain=domain, article=article))
+        buffer.append('<loc>{domain}/article/{article.sid}</loc>\n'.format(domain=domain, article=article))
         buffer.append('<priority>0.8</priority>\n')
         buffer.append('<lastmod>{date}</lastmod>\n'.format(date=datetime.datetime.now().strftime('%Y-%m-%d')))
         buffer.append('<changefreq>daily</changefreq>\n')
