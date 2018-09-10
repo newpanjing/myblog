@@ -23,14 +23,15 @@
         <div class="block-main">
             <div>
                 <ol class="breadcrumb">
-                    <li><a href="/">首页</a></li>
-                    <li><a href="/category/{{ article.category.alias }}">{{ article.category.name }}</a></li>
+                    <li><a href="{% url 'home' %}">首页</a></li>
+                    <li><a href="{% url 'category_alias' article.category.alias %}">{{ article.category.name }}</a></li>
                     <li class="active">{{ article.title }}</li>
                 </ol>
             </div>
             {#            <h1 class="article-title">{{ article.title }}</h1>#}
             <div class="infobar">
-                <a href="/category/{{ article.category.alias }}" class="tag tag-green">{{ article.category }}</a>
+                <a href="{% url 'category_alias' article.category.alias %}"
+                   class="tag tag-green">{{ article.category }}</a>
                 {% if article.top %}
                     <span class="tag tag-black">置顶</span>
                 {% endif %}
@@ -45,7 +46,9 @@
                 {{ article.content|safe }}
             </div>
             <div class="alert alert-success" role="alert">
-                <div>本文地址：<a href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}/article/{{ article.sid }}" target="_blank">{{ request.scheme }}://{{ request.META.HTTP_HOST }}/article/{{ article.sid }}</a></div>
+                <div>本文地址：<a href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'article' article.sid %}"
+                             target="_blank">{{ request.scheme }}://{{ request.META.HTTP_HOST }}/article/{{ article.sid }}</a>
+                </div>
                 <div>
                     <strong class="glyphicon glyphicon-flag"></strong> 转载请注明来源为{{ commonData.configs.name }}
                 </div>
@@ -53,7 +56,7 @@
             <div>
                 <h4>相关文章</h4>
                 {% for item in recommends %}
-                    <div><a href="/article/{{ item.sid }}" title="{{ item.title }}">{{ item.title }}</a></div>
+                    <div><a href="{% url 'article' item.sid %}" title="{{ item.title }}">{{ item.title }}</a></div>
                 {% endfor %}
             </div>
         </div>
@@ -63,7 +66,7 @@
         window._PAGE_CONFIG = {
             SID: '{{ sid }}',
             TARGET_ID: '{{ article.id }}',
-            TYPE:0
+            TYPE: 0
         }
     </script>
     {% include 'comment.html' %}

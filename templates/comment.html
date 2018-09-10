@@ -1,46 +1,46 @@
 <div class="block">
-        <div class="block-title">
-            <span>评论</span>
-        </div>
-        <div class="comment-box">
+    <div class="block-title">
+        <span>评论</span>
+    </div>
+    <div class="comment-box">
             <textarea style="height: 100px" class="form-control comment-input" placeholder="请输入您的评论"
                       maxlength="20000"></textarea>
-            <div class="action">
-                {% if request.session.member %}
-                    <span><img class="comment-avatar"
-                               src="{{ request.session.member.avatar }}"/>{{ request.session.member.name }}</span>
-                {% else %}
-                    <span>登录以后才可以发布评论哦，<a href="/oauth/github">点击登录</a></span>
-                {% endif %}
-                <a href="javascript:;" class="btn btn-success float-right post">发布评论</a>
-            </div>
-            <div class="comment-toolbar">
-                <span class="title">评论列表</span>
-                <span class="float-right comment-count"><span class="num people">{{ comment.people }}</span>人参与，<span
-                        class="num count">{{ comment.count }}</span>条评论</span>
-            </div>
-            <div class="comment-list">
-                {% if comment.count == 0 %}
-                    <div class="tips">暂时还没有人评论，快来一条神回复吧！</div>
-                {% endif %}
-                {% for item in comment.list %}
-                    <div class="item">
-                        <div class="avatar">
-                            <img src="{{ item.member.avatar }}"/>
+        <div class="action">
+            {% if request.session.member %}
+                <span><img class="comment-avatar"
+                           src="{{ request.session.member.avatar }}"/>{{ request.session.member.name }}</span>
+            {% else %}
+                <span>登录以后才可以发布评论哦，<a href="{% url 'github' %}">点击登录</a></span>
+            {% endif %}
+            <a href="javascript:;" class="btn btn-success float-right post">发布评论</a>
+        </div>
+        <div class="comment-toolbar">
+            <span class="title">评论列表</span>
+            <span class="float-right comment-count"><span class="num people">{{ comment.people }}</span>人参与，<span
+                    class="num count">{{ comment.count }}</span>条评论</span>
+        </div>
+        <div class="comment-list">
+            {% if comment.count == 0 %}
+                <div class="tips">暂时还没有人评论，快来一条神回复吧！</div>
+            {% endif %}
+            {% for item in comment.list %}
+                <div class="item">
+                    <div class="avatar">
+                        <img src="{{ item.member.avatar }}"/>
+                    </div>
+                    <div class="body">
+                        <div class="name">
+                            <a href="{{ item.member.url }}" target="_blank">{{ item.member.name }}</a>
                         </div>
-                        <div class="body">
-                            <div class="name">
-                                <a href="{{ item.member.url }}" target="_blank">{{ item.member.name }}</a>
+                        <div class="text">{{ item.content }}</div>
+                        <div class="clearfix">
+                            <div class="float-left date">{{ item.createDate|date:'Y-m-d H:i:s' }}</div>
+                            <div class="float-right reply">
+                                <a href="javascript:;" class="reply-btn" parentId="{{ item.id }}">回复</a>
                             </div>
-                            <div class="text">{{ item.content }}</div>
-                            <div class="clearfix">
-                                <div class="float-left date">{{ item.createDate|date:'Y-m-d H:i:s' }}</div>
-                                <div class="float-right reply">
-                                    <a href="javascript:;" class="reply-btn" parentId="{{ item.id }}">回复</a>
-                                </div>
-                            </div>
-                            <div class="reply-list">
-                                <div class="items">
+                        </div>
+                        <div class="reply-list">
+                            <div class="items">
                                 {% if item.comments %}
                                     {% for item in item.comments %}
                                         <div class="item">
@@ -49,26 +49,29 @@
                                                 <span>{{ item.member.name }}</span>
                                             </a><span>:</span>
                                             {% if item.atMember %}
-                                                <span>回复<a href="{{ item.atMember.url }}" target="_blank">@{{item.atMember.name}}</a> </span>
+                                                <span>回复<a href="{{ item.atMember.url }}"
+                                                           target="_blank">@{{ item.atMember.name }}</a> </span>
                                             {% endif %}
                                             <span>{{ item.content }}</span>
                                             <div class="clearfix reply-comment-box">
                                                 <div class="float-left date">{{ item.createDate|date:'Y-m-d H:i:s' }}</div>
                                                 <div class="float-right reply">
-                                                    <a href="javascript:;" onclick="atComment(this)" memberId="{{ item.member.id }}" parentid="{{ item.parentId }}">回复</a>
+                                                    <a href="javascript:;" onclick="atComment(this)"
+                                                       memberId="{{ item.member.id }}"
+                                                       parentid="{{ item.parentId }}">回复</a>
                                                 </div>
                                             </div>
                                         </div>
                                     {% endfor %}
                                 {% endif %}
-                                </div>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
-    <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/js/core.js"></script>
-    <script type="text/javascript" src="/static/js/comment.js"></script>
+</div>
+<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/js/core.js"></script>
+<script type="text/javascript" src="/static/js/comment.js"></script>

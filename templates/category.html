@@ -1,13 +1,6 @@
 {% extends 'extend.html' %}
 {% load common_tag %}
-{% block title %}
-    {% if cdata %}
-        {{ cdata.name }}-{{ commonData.configs.name }}
-    {% else %}
-        所有分类-{{ commonData.configs.name }}
-    {% endif %}
-{% endblock %}
-
+{% block title %}{% if cdata %}{{ cdata.name }}-{{ commonData.configs.name }}{% else %}所有分类-{{ commonData.configs.name }}{% endif %}{% endblock %}
 {% block body %}
     <div class="block">
         <div class="block-title">
@@ -28,12 +21,12 @@
                 <div class="aritcle-item clearfix">
                     {% if i.image %}
                         <div class="col-md-1 cover">
-                            <img src="{{ i.image|url }}"/>
+                            <img src="{{ i.image|url }}!50"/>
                         </div>
                     {% endif %}
                     <div class="col-md-11">
                         <div class="title-panel">
-                            <a href="/category/{{ i.category.alias }}" class="category">{{ i.category }}</a>
+                            <a href="{% url 'category_alias' i.category.alias %}" class="category">{{ i.category }}</a>
                             <a href="/article/{{ i.sid }}" class="title"> {{ i.title }}</a>
                         </div>
                         <div class="subject">

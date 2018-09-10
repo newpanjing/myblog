@@ -42,10 +42,12 @@
                 {% endfor %}
                 <li>
                     <div class="search-input">
-                        <form target="_blank" role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
-                         <div class="input-group">
-                              <input type="search" name="q" class="form-control" placeholder="搜索关键词" aria-describedby="basic-addon1">
-                              <span class="input-group-addon" id="basic-addon1">
+                        <form target="_blank" role="search" method="get" id="searchform"
+                              action="{% url 'haystack_search' %}">
+                            <div class="input-group">
+                                <input type="search" name="q" class="form-control" placeholder="搜索关键词"
+                                       aria-describedby="basic-addon1">
+                                <span class="input-group-addon" id="basic-addon1">
                                   <i class="glyphicon glyphicon-search"></i>
                               </span>
                             </div>
@@ -60,7 +62,7 @@
                         <span>{{ request.session.member.name }}</span>
                     </a></li>
                 {% else %}
-                    <li><a href="/oauth/github">登录</a></li>
+                    <li><a href="{% url 'github' %}"><i class="glyphicon glyphicon-user"></i>登录</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -70,15 +72,15 @@
             <div class="container">
                 <ul class="nav navbar-nav">
                     {% if request.path == '/category' %}
-                        <li class="active"><a href="/category">所有分类</a></li>
+                        <li class="active"><a href="{% url 'category' %}">所有分类</a></li>
                     {% else %}
-                        <li><a href="/category">所有分类</a></li>
+                        <li><a href="{% url 'category' %}">所有分类</a></li>
                     {% endif %}
                     {% for c in commonData.categorys %}
                         {% if c.name == cdata.name %}
-                            <li class="active"><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
+                            <li class="active"><a href="{% url 'category_alias' c.alias %}">{{ c.name }}</a></li>
                         {% else %}
-                            <li><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
+                            <li><a href="{% url 'category_alias' c.alias %}">{{ c.name }}</a></li>
                         {% endif %}
                     {% endfor %}
                 </ul>
@@ -114,15 +116,15 @@
                         {% for r in commonData.recommeneds %}
                             <div class="item">
                                 <div class="img">
-                                    <a href="/article/{{ r.sid }}">
-                                        <img src="{{ r.image|url }}"/>
+                                    <a href="{% url 'article' r.sid %}">
+                                        <img src="{{ r.image|url }}!100"/>
                                     </a>
                                 </div>
                                 <div class="info">
-                                    <a href="/article/{{ r.sid }}">{{ r.title }}</a>
+                                    <a href="{% url 'article' r.sid %}">{{ r.title }}</a>
                                     <div class="info-bottom">
                                         <span><a
-                                                href="/category/{{ r.category.alias }}">{{ r.category.name }}</a></span>
+                                                href="{% url 'category_alias' r.category.alias %}">{{ r.category.name }}</a></span>
                                         <span>{{ r.createDate|date:"m-d" }}</span>
                                     </div>
                                 </div>
@@ -149,7 +151,7 @@
                     <span>扫码二维码，手机上浏览</span>
                 </div>
                 <ul>
-                    <li><a href="/sitemap.xml" target="_blank">网站地图</a></li>
+                    <li><a href="{% url 'sitemap' %}" target="_blank">网站地图</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
@@ -157,9 +159,9 @@
                 <ul class="float-list">
                     {% for c in commonData.categorys %}
                         {% if c.name == cdata.name %}
-                            <li class="active"><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
+                            <li class="active"><a href="{% url 'category_alias' c.alias %}">{{ c.name }}</a></li>
                         {% else %}
-                            <li><a href="/category/{{ c.alias }}">{{ c.name }}</a></li>
+                            <li><a href="{% url 'category_alias' c.alias %}">{{ c.name }}</a></li>
                         {% endif %}
                     {% endfor %}
                 </ul>

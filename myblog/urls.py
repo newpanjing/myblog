@@ -19,27 +19,27 @@ from django.views.generic.base import RedirectView
 from . import views
 from ueditor import site
 from django.urls import include
+
 # 设置登录页
 admin.site.site_title = '管理后台'
 admin.site.site_header = '博客管理后台'
 urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url='static/favicon.ico', permanent=True)),
     path('admin/', admin.site.urls),
-    path('', views.home),
-    path('article/<id>', views.detail),
-    path('category', views.category_all),
-    path('category/<alias>', views.category),
-    path('category/<alias>/<page>', views.category_page),
-    path('page/<alias>', views.page),
-    path('ueditor/upload', site.handler),
-    path('sitemap.xml', views.sitemap),
+    path('', views.home, name='home'),
+    path(r'article/<id>', views.detail, name='article'),
+    path(r'category', views.category_all, name='category'),
+    path(r'category/<alias>/', views.category, name='category_alias'),
+    path('category/<alias>/<page>/', views.category_page),
+    path('page/<alias>/', views.page, name='page'),
+    path('ueditor/upload/', site.handler),
+    path('sitemap.xml', views.sitemap, name='sitemap'),
     path('error/404', views.page_error),
     path('error/500', views.page_error),
-    path('oauth/github', views.oauth_github),
-    path('oauth/github/callback', views.oauth_github_callback),
-    path('comment/post', views.comments_save),
-    path('comment/post', views.comments_save),
+    path('oauth/github/', views.oauth_github, name='github'),
+    path('oauth/github/callback/', views.oauth_github_callback, name='github_callback'),
+    path('comment/post/', views.comments_save, name='comment_post'),
     path(r'search/', include('haystack.urls')),
-    path('project', views.project),
-    path('project/<name>', views.project_detail),
+    path('project/', views.project, name='project'),
+    path('project/<name>/', views.project_detail, name='project_detail'),
 ]

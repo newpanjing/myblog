@@ -14,8 +14,8 @@
                     {% endif %}
                     <div class="col-md-11">
                         <div class="title-panel">
-                            <a href="/category/{{ i.category.alias }}" class="category">{{ i.category }}</a>
-                            <a href="/article/{{ i.sid }}" class="title"> {{ i.title }}</a>
+                            <a href="{% url 'category_alias'  i.category.alias %}" class="category">{{ i.category }}</a>
+                            <a href="{% url 'article' i.sid %}" class="title"> {{ i.title }}</a>
                         </div>
                         <div class="info">
                             <span class="user">{{ i.user }}</span>
@@ -36,13 +36,13 @@
             <div class="aritcle-item clearfix">
                 {% if i.image %}
                     <div class="col-md-1 cover">
-                        <img src="{{ i.image }}"/>
+                        <img src="{{ i.image }}!50"/>
                     </div>
                 {% endif %}
                 <div class="col-md-11">
                     <div class="title-panel">
-                        <a href="/category/{{ i.category.alias }}" class="category">{{ i.category }}</a>
-                        <a href="/article/{{ i.sid }}" class="title"> {{ i.title }}</a>
+                        <a href="{% url 'category_alias' i.category.alias %}" class="category">{{ i.category }}</a>
+                        <a href="{% url 'article' i.sid %}" class="title"> {{ i.title }}</a>
                     </div>
                     <div class="subject">
                         {{ i.subject|safe }}
@@ -59,7 +59,7 @@
             </div>
         {% endfor %}
         <div class="show-more">
-            <a href="/category" class="btn btn-success">查看更多数据</a>
+            <a href="{% url 'category' %}" class="btn btn-success">查看更多数据</a>
         </div>
     </div>
 

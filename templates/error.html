@@ -6,7 +6,7 @@
        <div class="jumbotron">
           <h1>{{ code }}</h1>
           <p>{{ msg }}</p>
-          <p><a class="btn btn-primary btn-lg" href="/" role="button">返回首页</a></p>
+          <p><a class="btn btn-primary btn-lg" href="{% url 'home' %}" role="button">返回首页</a></p>
         </div>
     </div>
 {% endblock %}
