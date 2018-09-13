@@ -32,7 +32,7 @@ urlpatterns = [
     path(r'category/<alias>/', views.category, name='category_alias'),
     path('category/<alias>/<page>/', views.category_page),
     path('page/<alias>/', views.page, name='page'),
-    path('ueditor/upload/', site.handler),
+    path('ueditor/upload', site.handler),
     path('sitemap.xml', views.sitemap, name='sitemap'),
     path('error/404', views.page_error),
     path('error/500', views.page_error),
