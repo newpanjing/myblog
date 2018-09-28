@@ -7,6 +7,34 @@
     .nav > li {
         display: inline-block;
     }
+
+    .search-input {
+        display: none;
+    }
+
+    .content-wrap {
+        margin-top: 20px;
+    }
+
+    .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .notice-box {
+        display: none;
+    }
+
+    .footer-top {
+        display: none;
+    }
+
+    .mobile-search-input {
+        display: block;
+    }
+
 }
 
 @media screen and (max-width: 500px) {
@@ -15,7 +43,9 @@
 
 /* 中等屏幕（桌面显示器，大于等于 992px） */
 @media (min-width: 992px) {
-
+    .mobile-search-input {
+        display: none;
+    }
 }
 
 /* 大屏幕（大桌面显示器，大于等于 1200px） */
@@ -183,6 +213,7 @@ header .top {
     background: none;
     color: #5FB878;
 }
+
 .tag
 .aritcle-item .title {
     padding-right: 10px;
@@ -247,10 +278,12 @@ header .top {
     padding-left: 10px;
     margin: 0;
 }
-.article{
-    word-wrap:break-word;
+
+.article {
+    word-wrap: break-word;
     word-break: break-all;
 }
+
 .article img {
     max-width: 100%;
 }
@@ -410,7 +443,7 @@ header .top {
 
 .aritcle-item .subject {
     color: #767373;
-    word-wrap:break-word;
+    word-wrap: break-word;
     word-break: break-all;
 }
 
@@ -529,9 +562,11 @@ header .top {
     background-color: #f7f7f7;
     margin-top: 10px;
 }
-.reply-list .item{
+
+.reply-list .item {
     padding: 10px;
 }
+
 .reply-input {
     display: table;
     width: 100%;
@@ -552,6 +587,7 @@ header .top {
 .footer .qrcode-box {
     margin: 10px auto;
 }
+
 .footer .qrcode {
     background: url("../images/qrcode.png") no-repeat;
     background-size: cover;
@@ -560,22 +596,28 @@ header .top {
     margin-left: auto;
     margin-right: auto;
 }
-.reply-comment-box{
+
+.reply-comment-box {
     margin: 10px auto;
     font-size: 12px;
 }
-.reply-comment-box a{
+
+.reply-comment-box a {
     font-size: 12px;
 }
-.search-input{
+
+.search-input {
     padding-top: 10px;
 }
-.search-input .input-group{
+
+.search-input .input-group {
     width: 200px;
 }
-.project-item{
+
+.project-item {
     line-height: 25px;
 }
-.project-detail img{
+
+.project-detail img {
     max-width: 100%;
 }

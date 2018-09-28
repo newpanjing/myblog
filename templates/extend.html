@@ -69,7 +69,22 @@
     </div>
     {% block navbar %}
         <div class="navbar-block categorys">
+
             <div class="container">
+
+            <!-- 触屏搜索框 -->
+            <div class="search-input mobile-search-input">
+                <form target="_blank" role="search" method="get" id="searchform"
+                      action="{% url 'haystack_search' %}">
+                    <div class="input-group" style="width: auto">
+                        <input type="search" name="q" class="form-control" placeholder="搜索关键词"
+                               aria-describedby="basic-addon1">
+                        <span class="input-group-addon" id="basic-addon1">
+                                  <i class="glyphicon glyphicon-search"></i>
+                              </span>
+                    </div>
+                </form>
+            </div>
                 <ul class="nav navbar-nav">
                     {% if request.path == '/category' %}
                         <li class="active"><a href="{% url 'category' %}">所有分类</a></li>
@@ -95,7 +110,7 @@
             <div class="col-md-8">
                 {% block body %}{% endblock %}
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 notice-box">
 
                 <div class="block">
                     <div class="block-title">
