@@ -13,7 +13,7 @@
     <meta property="og:title" content="{{ article.title }}">
     <meta property="og:description" content="{{ article.subject|clear }}">
     <meta property="og:author" content="{{ article.user }}">
-    <link rel="stylesheet" type="text/css" href="/static/highlight/styles/dark.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css"/>
 {% endblock %}
 
 {% block title %}{{ article.title }}-{{ commonData.configs.name }} {% endblock %}
@@ -70,5 +70,8 @@
         }
     </script>
     {% include 'comment.html' %}
-    <script src="/static/highlight/highlight.pack.js"></script>
+    <script src="/static/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+    <script type="text/javascript">
+        SyntaxHighlighter.all();
+    </script>
 {% endblock %}
