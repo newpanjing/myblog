@@ -60,11 +60,12 @@ class UEditorWidget(forms.Textarea):
     Supports direct image uploads and embed.
     """
 
-    class Media:
-        js = ('ueditor/ueditor.all.js',
-              'ueditor/lang/zh-cn/zh-cn.js',
-              JS('ueditor/ueditor.init.js'),
-              )
+    # class Media:
+        # js = (
+            # 'ueditor/ueditor.all.js',
+            #   'ueditor/lang/zh-cn/zh-cn.js',
+            #   JS('ueditor/ueditor.init.js'),
+            #   )
 
     def __init__(self, config={}, *args, **kwargs):
         super(UEditorWidget, self).__init__(*args, **kwargs)
