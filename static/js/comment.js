@@ -5,7 +5,7 @@ $(function () {
         if (!window.MEMBER) {
             Toast.show("您还未登录，即将跳转到GitHub登录页面！");
             setTimeout(function () {
-                window.location.href = '/oauth/github'
+                window.location.href = '../../github'
             }, 2000)
             return;
         }

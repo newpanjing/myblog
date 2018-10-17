@@ -26,6 +26,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*', ]
 
+COMPRESS_ENABLED = True
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'compressor.finders.CompressorFinder',)
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,6 +48,7 @@ INSTALLED_APPS = [
     'ueditor',
     'myblog.templatetags',
     'haystack',
+    'compressor'
 ]
 
 MIDDLEWARE = [
@@ -124,15 +131,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 UEDITOR_UPLOAD_PREFIX = "/static/upload/"
 UEDITOR_UPLOAD_DIR = os.path.join(BASE_DIR, 'static/upload/')

@@ -1,6 +1,7 @@
 {% load common_tag %}
 {% loadData as commonData %}
 {% get_now as time %}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -11,7 +12,9 @@
     <meta content="webkit" name="renderer"/>
     <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    {% compress css %}
     <link href="/static/css/style.css" rel="stylesheet">
+    {% endcompress %}
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     {% block head %}

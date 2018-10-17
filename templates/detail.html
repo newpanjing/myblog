@@ -1,5 +1,6 @@
 {% extends 'extend.html' %}
 {% load common_tag %}
+{% load compress %}
 {% block head %}
     {% if article.tags %}
         <meta name="keywords" content="{{ article.tags }}{{ article.title }}">
@@ -13,7 +14,9 @@
     <meta property="og:title" content="{{ article.title }}">
     <meta property="og:description" content="{{ article.subject|clear }}">
     <meta property="og:author" content="{{ article.user }}">
+    {% compress css %}
     <link rel="stylesheet" type="text/css" href="/static/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css"/>
+    {% endcompress %}
 {% endblock %}
 
 {% block title %}{{ article.title }}-{{ commonData.configs.name }} {% endblock %}
@@ -61,7 +64,6 @@
             </div>
         </div>
     </div>
-
     <script type="text/javascript">
         window._PAGE_CONFIG = {
             SID: '{{ sid }}',
@@ -70,8 +72,10 @@
         }
     </script>
     {% include 'comment.html' %}
+    {% compress js %}
     <script src="/static/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
     <script type="text/javascript">
         SyntaxHighlighter.all();
     </script>
+    {% endcompress %}
 {% endblock %}
