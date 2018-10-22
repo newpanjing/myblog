@@ -4,6 +4,7 @@
 /* 小屏幕（平板，大于等于 768px） */
 @media screen and (max-width: 768px) {
 
+
     .nav > li {
         display: inline-block;
     }
@@ -33,6 +34,10 @@
 
     .mobile-search-input {
         display: block;
+    }
+
+     .mobile-login{
+        display: block !important;
     }
 
 }
@@ -639,4 +644,7 @@ header .top {
 .user-info .nickname{
     font-weight: 300;
     margin-bottom: 10px;
+}
+.mobile-login{
+    display: none;
 }

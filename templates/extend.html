@@ -115,12 +115,9 @@
     {% block main %}
         <div class="row">
             <div class="col-md-8">
-                {% block body %}{% endblock %}
-            </div>
-            <div class="col-md-4 notice-box">
-                {% if request.session.member %}
-                    <div class="block">
-                        <div class="block-main user-info">
+                <div class="block mobile-login">
+                    <div class="block-main user-info">
+                        {% if request.session.member %}
                             <div class="clearfix">
                                 <img class="avatar float-left" src="{{ request.session.member.avatar }}"/>
                                 <div class="float-left">
@@ -128,10 +125,31 @@
                                     <div><a href="{% url 'logout' %}" class="btn btn-success">退出登录</a></div>
                                 </div>
                             </div>
-
-                        </div>
+                        {% else %}
+                            <a href="javascript:;" class="btn btn-success" data-toggle="modal" data-target="#login_modal">点击登录</a>
+                            <div>登录后可以发表评论</div>
+                        {% endif %}
                     </div>
-                {% endif %}
+                </div>
+                {% block body %}{% endblock %}
+            </div>
+            <div class="col-md-4 notice-box">
+                <div class="block">
+                    <div class="block-main user-info">
+                        {% if request.session.member %}
+                            <div class="clearfix">
+                                <img class="avatar float-left" src="{{ request.session.member.avatar }}"/>
+                                <div class="float-left">
+                                    <div class="nickname">{{ request.session.member.name }}</div>
+                                    <div><a href="{% url 'logout' %}" class="btn btn-success">退出登录</a></div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a href="javascript:;" class="btn btn-success" data-toggle="modal" data-target="#login_modal">点击登录</a>
+                            <div>登录后可以发表评论</div>
+                        {% endif %}
+                    </div>
+                </div>
                 <div class="block">
                     <div class="block-title">
                         <span><i class="glyphicon glyphicon-bullhorn"></i>动态</span>
