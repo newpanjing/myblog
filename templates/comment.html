@@ -1,3 +1,4 @@
+{% load common_tag %}
 <div class="block">
     <div class="block-title">
         <span>评论</span>
@@ -10,7 +11,7 @@
                 <span><img class="comment-avatar"
                            src="{{ request.session.member.avatar }}"/>{{ request.session.member.name }}</span>
             {% else %}
-                <span>登录以后才可以发布评论哦，<a href="{% url 'github' %}">点击登录</a></span>
+                <span>登录以后才可以发布评论哦，<a href="javascript:;" data-toggle="modal" data-target="#login_modal">点击登录</a></span>
             {% endif %}
             <a href="javascript:;" class="btn btn-success float-right post">发布评论</a>
         </div>
@@ -30,7 +31,7 @@
                     </div>
                     <div class="body">
                         <div class="name">
-                            <a href="{{ item.member.url }}" target="_blank">{{ item.member.name }}</a>
+                            <a href="{{ item.member.url|filter }}" target="_blank">{{ item.member.name }}</a>
                         </div>
                         <div class="text">{{ item.content }}</div>
                         <div class="clearfix">
@@ -44,12 +45,12 @@
                                 {% if item.comments %}
                                     {% for item in item.comments %}
                                         <div class="item">
-                                            <a class="sub-name" href="{{ item.member.url }}" target="_blank">
+                                            <a class="sub-name" href="{{ item.member.url|filter }}" target="_blank">
                                                 <img class="comment-avatar" src="{{ item.member.avatar }}"/>
                                                 <span>{{ item.member.name }}</span>
                                             </a><span>:</span>
                                             {% if item.atMember %}
-                                                <span>回复<a href="{{ item.atMember.url }}"
+                                                <span>回复<a href="{{ item.atMember.url|filter }}"
                                                            target="_blank">@{{ item.atMember.name }}</a> </span>
                                             {% endif %}
                                             <span>{{ item.content }}</span>

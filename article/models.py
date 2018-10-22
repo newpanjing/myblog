@@ -63,9 +63,16 @@ class Member(models.Model):
     blog = models.CharField(max_length=256, verbose_name='博客', blank=True, null=True)
     createDate = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
     updateDate = models.DateTimeField(verbose_name='更新日期', auto_now=True)
+    type_choices = (
+        (0, 'Github'),
+        (1, 'QQ'))
+    type = models.IntegerField(choices=type_choices, verbose_name='用户类型')
 
     def github_url(self):
-        return format_html('<a href="{}" target="_blank">{}</a>', self.url, self.url)
+        if self.url is None:
+            return ""
+        else:
+            return format_html('<a href="{}" target="_blank">{}</a>', self.url, self.url)
 
     def avatar_img(self):
         return format_html('<img src="{}" style="width:25px;height:25px"/>', self.avatar)

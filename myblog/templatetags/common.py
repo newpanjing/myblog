@@ -66,6 +66,14 @@ def url(url):
 
 
 @register.filter
+def filter(url):
+    if url:
+        return url
+    else:
+        return 'javascript:;'
+
+
+@register.filter
 def converToHtml(text):
     text = text.replace('\r\n', "<br/>")
     text = text.replace(' ', '')

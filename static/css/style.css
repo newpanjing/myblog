@@ -621,3 +621,22 @@ header .top {
 .project-detail img {
     max-width: 100%;
 }
+#login_modal .login-btn{
+    display: inline-block;
+    margin: 10px;
+}
+#login_modal .login-btn-box{
+    text-align: center;
+}
+#login_modal .login-title{
+    text-align: center;
+}
+.user-info .avatar{
+    margin-right: 10px;
+    width: 60px;
+    height: 60px;
+}
+.user-info .nickname{
+    font-weight: 300;
+    margin-bottom: 10px;
+}

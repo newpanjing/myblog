@@ -1,6 +1,7 @@
 {% extends 'extend.html' %}
 {% load common_tag %}
-{% block title %}{% if cdata %}{{ cdata.name }}-{{ commonData.configs.name }}{% else %}所有分类-{{ commonData.configs.name }}{% endif %}{% endblock %}
+{% block title %}{% if cdata %}{{ cdata.name }}-{{ commonData.configs.name }}{% else %}所有分类-
+    {{ commonData.configs.name }}{% endif %}{% endblock %}
 {% block body %}
     <div class="block">
         <div class="block-title">
@@ -49,4 +50,5 @@
         </div>
 
     </div>
+
 {% endblock %}

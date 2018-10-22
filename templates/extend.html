@@ -2,6 +2,7 @@
 {% loadData as commonData %}
 {% get_now as time %}
 {% load compress %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -10,10 +11,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="IE=edge,Chrome=1" http-equiv="X-UA-Compatible"/>
     <meta content="webkit" name="renderer"/>
+    <link rel="dns-prefetch" href="https://www.88cto.com"/>
+    <link rel="dns-prefetch" href="https://oss.88cto.com"/>
     <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     {% compress css %}
-    <link href="/static/css/style.css" rel="stylesheet">
+        <link href="/static/css/style.css" rel="stylesheet">
     {% endcompress %}
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -65,7 +68,8 @@
                         <span>{{ request.session.member.name }}</span>
                     </a></li>
                 {% else %}
-                    <li><a href="{% url 'github' %}"><i class="glyphicon glyphicon-user"></i>登录</a></li>
+                    <li><a href="javascript:;" data-toggle="modal" data-target="#login_modal"><i
+                            class="glyphicon glyphicon-user"></i>登录</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -75,19 +79,19 @@
 
             <div class="container">
 
-            <!-- 触屏搜索框 -->
-            <div class="search-input mobile-search-input">
-                <form target="_blank" role="search" method="get" id="searchform"
-                      action="{% url 'haystack_search' %}">
-                    <div class="input-group" style="width: auto">
-                        <input type="search" name="q" class="form-control" placeholder="搜索关键词"
-                               aria-describedby="basic-addon1">
-                        <span class="input-group-addon" id="basic-addon1">
+                <!-- 触屏搜索框 -->
+                <div class="search-input mobile-search-input">
+                    <form target="_blank" role="search" method="get" id="searchform"
+                          action="{% url 'haystack_search' %}">
+                        <div class="input-group" style="width: auto">
+                            <input type="search" name="q" class="form-control" placeholder="搜索关键词"
+                                   aria-describedby="basic-addon1">
+                            <span class="input-group-addon" id="basic-addon1">
                                   <i class="glyphicon glyphicon-search"></i>
                               </span>
-                    </div>
-                </form>
-            </div>
+                        </div>
+                    </form>
+                </div>
                 <ul class="nav navbar-nav">
                     {% if request.path == '/category' %}
                         <li class="active"><a href="{% url 'category' %}">所有分类</a></li>
@@ -114,10 +118,23 @@
                 {% block body %}{% endblock %}
             </div>
             <div class="col-md-4 notice-box">
+                {% if request.session.member %}
+                    <div class="block">
+                        <div class="block-main user-info">
+                            <div class="clearfix">
+                                <img class="avatar float-left" src="{{ request.session.member.avatar }}"/>
+                                <div class="float-left">
+                                    <div class="nickname">{{ request.session.member.name }}</div>
+                                    <div><a href="{% url 'logout' %}" class="btn btn-success">退出登录</a></div>
+                                </div>
+                            </div>
 
+                        </div>
+                    </div>
+                {% endif %}
                 <div class="block">
                     <div class="block-title">
-                        <span><i class="glyphicon glyphicon-bullhorn"></i>公告</span>
+                        <span><i class="glyphicon glyphicon-bullhorn"></i>动态</span>
                         <span style="margin-right: 10px"
                               class="navbar-right"><i
                                 class="glyphicon glyphicon-time"></i>{{ commonData.notice.createDate|date:'m月d日 H:i' }}</span>
@@ -126,7 +143,13 @@
                         {{ commonData.notice.content|converToHtml|safe }}
                     </div>
                 </div>
-
+                <div class="block">
+                    <div class="block-main">
+                        <a href="https://www.wezoz.com?source=88cto.com" target="_blank">
+                            <img src="{% static '/images/wenat_ad.gif' %}" width="100%">
+                        </a>
+                    </div>
+                </div>
                 <div class="block">
                     <div class="block-title">推荐</div>
                     <div class="block-main recommeneds">
@@ -170,6 +193,7 @@
                 </div>
                 <ul>
                     <li><a href="{% url 'sitemap' %}" target="_blank">网站地图</a></li>
+                    <li><a href="https://github.com/newpanjing/myblog" target="_blank">源码地址</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
@@ -199,6 +223,39 @@
         </div>
     {% endblock %}
 </div>
+{% if request.session.member is None %}
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">登录到{{ commonData.configs.name }}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="login-title">选取以下第三方OAuth平台登录</div>
+                    <div class="login-btn-box">
+                        <a href="/oauth/qq/" title="使用QQ账号登录" class="login-btn">
+                            <svg width="50" height="50" viewBox="0 0 83 83">
+                                <path d="M41.5 0C18.58 0 .002 18.58.002 41.5S18.58 83 41.5 83c22.92 0 41.498-18.58 41.498-41.5S64.42 0 41.5 0zm22.848 54.434c-1.072 1-2.912-.09-4.68-2.537a26.78 26.78 0 0 1-2.93 5.7c2.501.893 4.109 2.286 4.109 3.858 0 2.716-4.806 4.913-10.736 4.913-3.52 0-6.628-.768-8.593-1.965-1.947 1.197-5.074 1.965-8.593 1.965-5.93 0-10.736-2.197-10.736-4.913 0-1.554 1.608-2.965 4.109-3.859a25.975 25.975 0 0 1-2.93-5.699c-1.768 2.43-3.608 3.538-4.68 2.537-1.465-1.375-.911-6.235 1.268-10.844.5-1.054 1.036-2 1.59-2.822.303-13.399 9.128-24.154 19.954-24.154h.036c10.825 0 19.65 10.737 19.954 24.154.554.821 1.09 1.768 1.59 2.822 2.161 4.61 2.733 9.469 1.268 10.844z"
+                                      fill="#2A9CD5" fill-rule="evenodd"></path>
+                            </svg>
+                            <div>QQ登录</div>
+                        </a>
+                        <a href="/oauth/github/" title="使用GitHub账号登录" class="login-btn">
+                            <svg width="50" height="50" viewBox="0 0 83 83">
+                                <path d="M0 42.556c0 18.805 11.894 34.738 28.383 40.37.26.055.482.074.704.074 1.538 0 2.13-1.13 2.13-2.112 0-1.019-.036-3.687-.055-7.244-1.556.352-2.946.5-4.187.5-7.985 0-9.8-6.206-9.8-6.206-1.89-4.91-4.614-6.225-4.614-6.225-3.612-2.539-.018-2.613.26-2.613 4.186.371 6.373 4.41 6.373 4.41 2.075 3.631 4.854 4.65 7.336 4.65 1.946 0 3.706-.63 4.743-1.112.37-2.742 1.445-4.613 2.631-5.687-9.208-1.075-18.897-4.725-18.897-21.028 0-4.65 1.612-8.449 4.26-11.412-.425-1.075-1.852-5.41.409-11.265 0 0 .296-.093.926-.093 1.5 0 4.89.575 10.486 4.465 3.316-.945 6.855-1.408 10.393-1.426 3.52.018 7.078.481 10.394 1.426 5.595-3.89 8.986-4.465 10.486-4.465.63 0 .926.093.926.093 2.26 5.854.834 10.19.408 11.265 2.65 2.982 4.261 6.78 4.261 11.412 0 16.34-9.708 19.935-18.953 20.99 1.482 1.316 2.816 3.91 2.816 7.875 0 5.687-.055 10.282-.055 11.671 0 1 .574 2.131 2.112 2.131.222 0 .482-.019.74-.074C71.125 77.294 83 61.342 83 42.556 83 19.064 64.418 0 41.5 0S0 19.064 0 42.556z"
+                                      fill="#0A0203" fill-rule="evenodd"></path>
+                            </svg>
+                            <div>GitHub登录</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
 <script type="text/javascript" async src="https://w.cnzz.com/c.php?id=1261750977&async=1"></script>
 <script type="text/javascript" async src="https://zz.bdstatic.com/linksubmit/push.js"></script>
 </body>

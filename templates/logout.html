@@ -1,0 +1,12 @@
+{% extends 'extend.html' %}
+{% block body %}
+    <div class="block">
+        <div class="block-main" style="min-height: 300px;text-align: center">
+            <div>感谢您的宝贵时间，欢迎下次访问！</div>
+            <div>
+                <a href="javascript:;" data-toggle="modal" data-target="#login_modal" class="btn btn-info">重新登录</a>
+                <a href="{% url 'home' %}" class="btn btn-success">访问首页</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

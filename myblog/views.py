@@ -9,7 +9,8 @@ from article.models import Comment
 import re
 import datetime
 from django.http import Http404
-from github import oauth
+from oauth import github_oauth
+from oauth import qq_oauth
 from django.http import HttpResponseRedirect
 from shortid import short_id
 import json
@@ -20,6 +21,7 @@ import requests
 import markdown
 from jieba import analyse
 import random
+
 
 # 主页
 def home(request):
@@ -230,7 +232,7 @@ def page_error(request):
 
 # GitHub登录
 def oauth_github(request):
-    url = oauth.get_auth_url(request)
+    url = github_oauth.get_auth_url(request)
     # 记录来源页
     if 'HTTP_REFERER' in request.META:
         referer = request.META['HTTP_REFERER']
@@ -247,37 +249,80 @@ def oauth_github_callback(request):
     if request.session['state'] != state:
         return HttpResponse('参数校验不通过，疑是非法请求。')
 
-    rs = oauth.get_access_token(request, code)
+    rs = github_oauth.get_access_token(request, code)
 
-    user = oauth.get_user(rs['access_token'])
+    user = github_oauth.get_user(rs['access_token'])
+    user['type'] = 0
+    # 处理用户
+    update_user(request, user)
 
+    url = '/'
+    referer = request.session['referer']
+    if referer:
+        url = referer
+    return HttpResponseRedirect(url)
+
+
+def update_user(request, user):
     member = None
     # 跳转到来源页
     # 数据库更新用户信息
     try:
-        member = Member.objects.filter(nodeId=user["node_id"]).get()
+        member = Member.objects.filter(nodeId=user.get("node_id")).get()
         # 没有名字，取登录名
-        if user['name'] is None:
-            member.name = user['login']
+        if user.get('name') is None:
+            member.name = user.get('login')
         else:
-            member.name = user['name']
+            member.name = user.get('name')
 
-        member.avatar = user['avatar_url']
-        member.blog = user['blog']
-        member.url = user['html_url']
-        member.email = user['email']
-        member.nodeId = user['node_id']
+        member.avatar = user.get('avatar_url')
+        member.blog = user.get('blog')
+        member.url = user.get('html_url')
+        member.email = user.get('email')
+        member.nodeId = user.get('node_id')
+        member.type = user.get('type')
         member.save()
     except:
         member = Member.objects.create(
-            name=user['name'],
-            avatar=user['avatar_url'],
-            blog=user['blog'],
-            url=user['html_url'],
-            email=user['email'],
-            nodeId=user['node_id'],
+            name=user.get('name'),
+            avatar=user.get('avatar_url'),
+            blog=user.get('blog'),
+            url=user.get('html_url'),
+            email=user.get('email'),
+            nodeId=user.get('node_id'),
+            type=user.get('type')
         )
+
+    if member.url is None:
+        member.url = 'javascript:;'
     request.session['member'] = model_to_dict(member)
+
+    return member
+
+
+# QQ登录
+def oauth_qq(request):
+    url = qq_oauth.get_auth_url(request)
+    # 记录来源页
+    if 'HTTP_REFERER' in request.META:
+        referer = request.META['HTTP_REFERER']
+        request.session['referer'] = referer
+
+    return HttpResponseRedirect(url)
+
+
+def oauth_qq_callback(request):
+    code = request.GET.get("code")
+    state = request.GET.get("state")
+    # 如果 state和session中的不一致，可能是伪造的请求
+    if request.session['state'] != state:
+        return HttpResponse('参数校验不通过，疑是非法请求。')
+    rs = qq_oauth.get_access_token(request, code)
+    access_token = rs.get('access_token')
+    user = qq_oauth.get_user(access_token)
+
+    # 处理用户
+    update_user(request, user)
 
     url = '/'
     referer = request.session['referer']
@@ -358,7 +403,9 @@ def project_detail(request, name):
             arry = analyse.extract_tags(rs["description"], topK=5)
             tags = ','.join(arry)
 
-        r = requests.get("https://raw.githubusercontent.com/newpanjing/{}/master/README.md?_={}".format(name,random.uniform(100, 999)))
+        r = requests.get("https://raw.githubusercontent.com/newpanjing/{}/master/README.md?_={}".format(name,
+                                                                                                        random.uniform(
+                                                                                                            100, 999)))
         if r.status_code == 200:
             readme = markdown.markdown(r.text)
 
@@ -375,5 +422,13 @@ def project_detail(request, name):
         "comment": comment
     })
 
+
 def test_page(request):
-    return render(request,'test.html')
+    return render(request, 'test.html')
+
+
+def logout(request):
+    if request.session.get('member'):
+        del request.session['member']
+
+    return render(request, 'logout.html')

@@ -69,9 +69,10 @@ class ArticleAdmin(admin.ModelAdmin):
 
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'email', 'nodeId', 'avatar_img', 'github_url', 'blog_url', 'createDate', 'updateDate')
+    list_display = (
+        'id', 'name', 'email', 'nodeId', 'type', 'avatar_img', 'github_url', 'blog_url', 'createDate', 'updateDate')
     list_display_links = ('id', 'name', 'email', 'nodeId', 'createDate', 'updateDate')
-    search_fields = ('name', 'email')
+    search_fields = ('name', 'email',)
 
 
 @admin.register(Comment)
