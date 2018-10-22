@@ -254,13 +254,7 @@ def oauth_github_callback(request):
     user = github_oauth.get_user(rs['access_token'])
     user['type'] = 0
     # 处理用户
-    update_user(request, user)
-
-    url = '/'
-    referer = request.session['referer']
-    if referer:
-        url = referer
-    return HttpResponseRedirect(url)
+    return update_user(request, user)
 
 
 def update_user(request, user):
@@ -297,7 +291,14 @@ def update_user(request, user):
         member.url = 'javascript:;'
     request.session['member'] = model_to_dict(member)
 
-    return member
+    url = '/'
+    referer = request.session['referer']
+    if referer:
+        url = referer
+        # 如果是logout 就跳转首页
+        if url.find('logout') != -1:
+            url = '/'
+    return HttpResponseRedirect(url)
 
 
 # QQ登录
@@ -322,13 +323,7 @@ def oauth_qq_callback(request):
     user = qq_oauth.get_user(access_token)
 
     # 处理用户
-    update_user(request, user)
-
-    url = '/'
-    referer = request.session['referer']
-    if referer:
-        url = referer
-    return HttpResponseRedirect(url)
+    return update_user(request, user)
 
 
 # 保存评论

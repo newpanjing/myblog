@@ -61,7 +61,7 @@
                     </div>
                 </li>
             </ul>
-            <ul class="nav navbar-right">
+            <ul class="nav navbar-right navbar-userinfo">
                 {% if request.session.member %}
                     <li><a href="{{ request.session.member.url }}" target="_blank">
                         <img class="avatar-img" src="{{ request.session.member.avatar }}"/>
