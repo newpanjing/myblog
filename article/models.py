@@ -10,8 +10,8 @@ class Category(models.Model):
     name = models.CharField(max_length=128, verbose_name='分类名', blank=False, null=False)
     alias = models.CharField(max_length=128, verbose_name='别名', db_index=True)
     date = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
-    display = models.BooleanField(verbose_name='显示', default=True)
-    sort = models.IntegerField(verbose_name='排序', default=0)
+    display = models.BooleanField(verbose_name='显示', default=True, db_index=True)
+    sort = models.IntegerField(verbose_name='排序', default=0, db_index=True)
 
     class Meta:
         verbose_name = "分类"
@@ -22,12 +22,12 @@ class Category(models.Model):
 
 
 class Article(models.Model):
-    sid = models.CharField(max_length=8, verbose_name='短ID', blank=True, null=True, editable=False)
+    sid = models.CharField(max_length=8, verbose_name='短ID', blank=True, null=True, editable=False, db_index=True)
     title = models.CharField(max_length=256, verbose_name='标题', blank=False, null=False)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=False, null=True, verbose_name='分类')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=False, null=True, verbose_name='分类',
+                                 db_index=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='发布者', null=True, editable=False)
     hits = models.IntegerField(verbose_name='点击量', default=0, editable=False)
-    # content = RichTextField(verbose_name='内容', null=False, blank=False)
     content = RichTextField(verbose_name='内容', null=False, blank=False, config={})
     subject = models.TextField(verbose_name='简介', editable=False)
     image = models.ImageField(upload_to='static/images/', verbose_name='封面', blank=True, null=True)
@@ -35,7 +35,7 @@ class Article(models.Model):
     tags = models.CharField(max_length=256, verbose_name='标签', blank=True, null=True)
     top_choices = ((0, '否'),
                    (1, '是'),)
-    top = models.IntegerField(choices=top_choices, verbose_name='置顶', default=0, )
+    top = models.IntegerField(choices=top_choices, verbose_name='置顶', default=0, db_index=True)
 
     def comment_count(self):
         return Comment.objects.filter(targetId=self.id, type=0).count()
@@ -66,7 +66,7 @@ class Member(models.Model):
     type_choices = (
         (0, 'Github'),
         (1, 'QQ'))
-    type = models.IntegerField(choices=type_choices, verbose_name='用户类型')
+    type = models.IntegerField(choices=type_choices, verbose_name='用户类型', db_index=True)
 
     def github_url(self):
         if self.url is None:
@@ -99,18 +99,19 @@ class Member(models.Model):
 
 class Comment(models.Model):
     content = models.TextField(verbose_name='内容', null=False, blank=True)
-    member = models.ForeignKey(Member, on_delete=models.SET_NULL, verbose_name='用户', null=True, editable=False)
-    parentId = models.IntegerField(verbose_name='父ID', null=True, blank=True)
+    member = models.ForeignKey(Member, on_delete=models.SET_NULL, verbose_name='用户', null=True, editable=False,
+                               db_index=True)
+    parentId = models.IntegerField(verbose_name='父ID', null=True, blank=True, db_index=True)
     targetId = models.CharField(max_length=128, db_index=True, verbose_name='目标ID', null=True, blank=True)
     type_choices = ((0, '文章'),
                     (1, '留言'),
                     (2, '页面'),
                     (3, '项目'),)
-    type = models.IntegerField(choices=type_choices, verbose_name='类型')
+    type = models.IntegerField(choices=type_choices, verbose_name='类型', db_index=True)
     createDate = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
     atMember = models.ForeignKey(Member, related_name='at_member_id', on_delete=models.SET_NULL, verbose_name='回复用户',
                                  null=True, blank=True,
-                                 editable=False)
+                                 editable=False, db_index=True)
 
     class Meta:
         verbose_name = "评论"
