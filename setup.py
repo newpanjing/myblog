@@ -19,5 +19,6 @@ setup(
         'whoosh',
         'django-haystack',
         'jieba',
+        'redis'
     ],
 )

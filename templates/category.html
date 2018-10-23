@@ -27,15 +27,14 @@
                     {% endif %}
                     <div class="col-md-11">
                         <div class="title-panel">
-                            <a href="{% url 'category_alias' i.category.alias %}" class="category">{{ i.category }}</a>
+                            <a href="{% url 'category_alias' i.category__alias %}" class="category">{{ i.category__name }}</a>
                             <a href="/article/{{ i.sid }}" class="title"> {{ i.title }}</a>
                         </div>
                         <div class="subject">
                             {{ i.subject|safe }}
                         </div>
                         <div class="info">
-                            <span class="user">{{ i.user }}</span>
-                            <span class="date">{{ i.createDate|date:"m-d H:i:s" }}</span>
+                            <span class="date">{{ i.createDate|date:"Y-m-d H:i:s" }}</span>
                             <span class="hits">
                             <span class="glyphicon glyphicon-eye-open"></span>
                             <span>{{ i.hits }}</span>

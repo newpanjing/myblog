@@ -183,7 +183,7 @@
                                     <a href="{% url 'article' r.sid %}">{{ r.title }}</a>
                                     <div class="info-bottom">
                                         <span><a
-                                                href="{% url 'category_alias' r.category.alias %}">{{ r.category.name }}</a></span>
+                                                href="{% url 'category_alias' r.category__alias %}">{{ r.category__name }}</a></span>
                                         <span>{{ r.createDate|date:"m-d" }}</span>
                                     </div>
                                 </div>

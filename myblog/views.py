@@ -6,7 +6,6 @@ from article.models import Category
 from models.models import Page
 from article.models import Member
 from article.models import Comment
-import re
 import datetime
 from django.http import Http404
 from oauth import github_oauth
@@ -21,23 +20,21 @@ import requests
 import markdown
 from jieba import analyse
 import random
+from .utils import cache
+
+
+def __get_home_data():
+    fields = ('sid', 'image', 'title', 'subject', 'createDate', 'hits', 'category__alias', 'category__name')
+    return {
+        "tops": list(Article.objects.filter(top=True).order_by('-id').values(*fields)),
+        "articles": list(Article.objects.filter(top=False).order_by("-id").values(*fields)[:10])
+    }
 
 
 # 主页
 def home(request):
-    tops = Article.objects.filter(top=True).order_by('-id')
-    # p = Paginator(datas, 10)
-    # page = request.GET.get('page')
-    # if page is None:
-    #     page = 1
-    # articles = p.page(page)
-
-    articles = Article.objects.filter(top=False).order_by("-id")[:10]
-
-    return render(request, 'index.html', {
-        "tops": tops,
-        "articles": articles
-    })
+    data = cache.get(cache.CACHE_HOME_KEY, __get_home_data)
+    return render(request, 'index.html', data)
 
 
 # 文章详情
@@ -86,7 +83,7 @@ def get_recommend(size):
 
     indexs = randoms.getRandomArray(count, size)
     for i in indexs:
-        obj = Article.objects.all()[i]
+        obj = Article.objects.all().values('title', 'sid')[i]
         array.append(obj)
     return array
 
@@ -129,19 +126,19 @@ def category_page(request, alias, page):
     if alias:
         # 如果全是数字，就是分页，不是就是别名
         suffix = "/" + alias
-        mathchObj = re.match(r'\d+', alias, flags=0)
-        if mathchObj:
+        if alias.isdigit():
             page = alias
             suffix = ''
         else:
-            category = Category.objects.get(alias=alias)
+            category = Category.objects.values('id', 'name').get(alias=alias)
 
     filter = {}
     if category:
-        filter["category"] = category.id
+        filter["category"] = category.get('id')
 
     count = Article.objects.filter(**filter).count()
-    articles = Article.objects.filter(**filter).order_by("-id")
+    articles = Article.objects.filter(**filter).values('image', 'category__alias', 'category__name', 'sid',
+                                                       'title', 'subject', 'createDate', 'hits').order_by("-id")
 
     size = 10
     show = 10
@@ -162,11 +159,11 @@ def category_page(request, alias, page):
 
 # 自定义页面
 def page(request, alias):
-    page = Page.objects.get(alias=alias)
+    page = Page.objects.values('title', 'content', 'id').get(alias=alias)
 
     sid = short_id.get_short_id()
     request.session['sid'] = sid
-    comment = get_comment(2, page.id)
+    comment = get_comment(2, page.get('id'))
     return render(request, 'page.html', {
         "page": page,
         "sid": sid,
@@ -176,7 +173,7 @@ def page(request, alias):
 
 # sitemap
 def sitemap(request):
-    list = Article.objects.all().order_by("-id")
+    list = Article.objects.values('sid').all().order_by("-id")
     domain = request.scheme + "://" + request.META.get("HTTP_HOST")
 
     buffer = []
@@ -185,20 +182,20 @@ def sitemap(request):
 
     # 分类页面
 
-    categorys = Category.objects.all().order_by("sort")
+    categorys = Category.objects.all().values('alias').order_by("sort")
     for category in categorys:
         buffer.append("<url>\n")
-        buffer.append('<loc>{domain}/category/{category.alias}</loc>\n'.format(domain=domain, category=category))
+        buffer.append('<loc>{domain}/category/{alias}</loc>\n'.format(domain=domain, alias=category.get('alias')))
         buffer.append('<mobile:mobile type="pc,mobile"/>')
         buffer.append('<priority>0.8</priority>\n')
         buffer.append('<lastmod>{date}</lastmod>\n'.format(date=datetime.datetime.now().strftime('%Y-%m-%d')))
         buffer.append('<changefreq>daily</changefreq>\n')
         buffer.append('</url>\n')
 
-    pages = Page.objects.all()
+    pages = Page.objects.values('alias').all()
     for page in pages:
         buffer.append("<url>\n")
-        buffer.append('<loc>{domain}/page/{page.alias}</loc>\n'.format(domain=domain, page=page))
+        buffer.append('<loc>{domain}/page/{alias}</loc>\n'.format(domain=domain, alias=page.get('alias')))
         buffer.append('<mobile:mobile type="pc,mobile"/>')
         buffer.append('<priority>0.8</priority>\n')
         buffer.append('<lastmod>{date}</lastmod>\n'.format(date=datetime.datetime.now().strftime('%Y-%m-%d')))
@@ -207,7 +204,7 @@ def sitemap(request):
 
     for article in list:
         buffer.append('<url>\n')
-        buffer.append('<loc>{domain}/article/{article.sid}</loc>\n'.format(domain=domain, article=article))
+        buffer.append('<loc>{domain}/article/{sid}</loc>\n'.format(domain=domain, sid=article.get('sid')))
         buffer.append('<mobile:mobile type="pc,mobile"/>')
         buffer.append('<priority>0.8</priority>\n')
         buffer.append('<lastmod>{date}</lastmod>\n'.format(date=datetime.datetime.now().strftime('%Y-%m-%d')))
@@ -376,11 +373,17 @@ def comments_save(request):
         return HttpResponse(json.dumps(result), content_type="application/json")
 
 
-def project(request):
+def __get_project():
     r = requests.get("https://api.github.com/users/newpanjing/repos?sort=updated&direction=desc")
-    rs = None
     if r.status_code == 200:
-        rs = r.json()
+        return r.json()
+    else:
+        raise RuntimeError(r.text)
+
+
+def project(request):
+    # 缓存时间为12小时 43200
+    rs = cache.get(cache.CACHE_PROJECT_KEY, __get_project, 43200)
     return render(request, 'project.html', {
         'rs': rs
     })
@@ -416,10 +419,6 @@ def project_detail(request, name):
         "sid": sid,
         "comment": comment
     })
-
-
-def test_page(request):
-    return render(request, 'test.html')
 
 
 def logout(request):

@@ -1,17 +1,12 @@
 from __future__ import absolute_import
 
 from django import forms
-from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 from django.core.serializers.json import DjangoJSONEncoder
+from django.forms.widgets import get_default_renderer
 from django.utils.encoding import force_text
 from django.utils.functional import Promise
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
-from django.utils.translation import get_language
-from django.forms.widgets import get_default_renderer
-
-from js_asset import JS, static
 
 try:
     # Django >=1.7

@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import *
 
+from myblog.utils import cache
+
 
 # Register your models here.
 
@@ -14,6 +16,10 @@ class ConfigAdmin(admin.ModelAdmin):
     list_filter = ('group',)
     list_display_links = ('id', 'group', 'key', 'value')
 
+    def save_model(self, request, obj, form, change):
+        super(ConfigAdmin, self).save_model(request, obj, form, change)
+        cache.delete(cache.CACHE_COMMON_KEY)
+
 
 @admin.register(Site)
 class SiteAdmin(admin.ModelAdmin):
@@ -22,6 +28,10 @@ class SiteAdmin(admin.ModelAdmin):
     list_filter = ('contactType',)
     list_display_links = ('id', 'name', 'site')
     list_editable = ('sort',)
+
+    def save_model(self, request, obj, form, change):
+        super(SiteAdmin, self).save_model(request, obj, form, change)
+        cache.delete(cache.CACHE_COMMON_KEY)
 
 
 @admin.register(Page)
@@ -39,9 +49,17 @@ class MenuAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_editable = ('display',)
 
+    def save_model(self, request, obj, form, change):
+        super(MenuAdmin, self).save_model(request, obj, form, change)
+        cache.delete(cache.CACHE_COMMON_KEY)
+
 
 @admin.register(Notice)
 class NoticeAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'createDate')
     search_fields = ('title',)
     list_display_links = ('title',)
+
+    def save_model(self, request, obj, form, change):
+        super(NoticeAdmin, self).save_model(request, obj, form, change)
+        cache.delete(cache.CACHE_COMMON_KEY)

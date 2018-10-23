@@ -2,6 +2,7 @@ import datetime
 from ..utils import pager
 from django import template
 import re
+import json
 
 register = template.Library()  # 这一句必须这样写
 
@@ -13,33 +14,37 @@ from models.models import Notice
 from models.models import Config
 
 from ..utils import randoms
+from ..utils import cache
+
+
+def get_cache():
+    return {
+        'sites': list(Site.objects.order_by("sort").values('site', 'name')),
+        'categorys': list(Category.objects.filter(display=True).order_by("sort").values('name', 'alias')),
+        'menus': list(Menu.objects.filter(display=True).values('name', 'icon', 'href')),
+        'notice': Notice.objects.values('createDate', 'content').last(),
+        'configs': get_config('site')
+    }
+
+
+def get_recommend():
+    return getRecommend(5)
 
 
 @register.simple_tag
 def loadData():
-    sites = Site.objects.order_by("sort").all();
-    categorys = Category.objects.filter(display=True).order_by("sort")
-    menus = Menu.objects.filter(display=True)
-    notice = Notice.objects.last()
-    recommeneds = getRecommend(5)
-
-    configs = get_config('site')
-
-    return {
-        "sites": sites,
-        "categorys": categorys,
-        "menus": menus,
-        "notice": notice,
-        "recommeneds": recommeneds,
-        'configs': configs
-    }
+    # redis缓存
+    results = cache.get(cache.CACHE_COMMON_KEY, get_cache)
+    # 推荐5分钟更新一次，其余的永久缓存，有更新的时候刷新缓存
+    results['recommeneds'] = cache.get(cache.CACHE_RECOMMEND_KEY, get_recommend, 300)
+    return results
 
 
 def get_config(group):
-    configs = Config.objects.filter(group=group)
+    configs = Config.objects.filter(group=group).values('key', 'value')
     dicts = {}
     for c in configs:
-        dicts[c.key] = c.value
+        dicts[c.get('key')] = c.get('value')
 
     return dicts
 
@@ -52,7 +57,11 @@ def getRecommend(size):
 
     indexs = randoms.getRandomArray(count, size)
     for i in indexs:
-        obj = Article.objects.filter(image__isnull=False).exclude(image='').all()[i]
+        obj = \
+            Article.objects.filter(image__isnull=False).exclude(image='').values('title', 'sid', 'image',
+                                                                                 'category__name',
+                                                                                 'category__alias',
+                                                                                 'createDate')[i]
         array.append(obj)
     return array
 

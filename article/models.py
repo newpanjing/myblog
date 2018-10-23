@@ -30,7 +30,7 @@ class Article(models.Model):
     hits = models.IntegerField(verbose_name='点击量', default=0, editable=False)
     content = RichTextField(verbose_name='内容', null=False, blank=False, config={})
     subject = models.TextField(verbose_name='简介', editable=False)
-    image = models.ImageField(upload_to='static/images/', verbose_name='封面', blank=True, null=True)
+    image = models.ImageField(upload_to='static/images/', verbose_name='封面', blank=True, null=True, db_index=True)
     createDate = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)
     tags = models.CharField(max_length=256, verbose_name='标签', blank=True, null=True)
     top_choices = ((0, '否'),

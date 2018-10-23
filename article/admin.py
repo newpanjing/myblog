@@ -6,6 +6,7 @@ import re
 from myblog.utils import oss
 from jieba import analyse
 from shortid import short_id
+from myblog.utils import cache
 
 
 # Register your models here.
@@ -33,6 +34,10 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'name', 'alias')
     search_fields = ('name',)
     list_editable = ('display', 'sort')
+
+    def save_model(self, request, obj, form, change):
+        super(CategoryAdmin, self).save_model(request, obj, form, change)
+        cache.delete(cache.CACHE_COMMON_KEY)
 
 
 @admin.register(Article)
@@ -65,6 +70,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
         obj.tags = tags
         super(ArticleAdmin, self).save_model(request, obj, form, change)
+        cache.delete(cache.CACHE_HOME_KEY)
 
 
 @admin.register(Member)

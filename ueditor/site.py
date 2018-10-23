@@ -12,10 +12,10 @@ from models.models import Config
 def __get_db_config(group):
     dict = {}
 
-    datas = Config.objects.filter(group=group)
+    datas = Config.objects.filter(group=group).values('key', 'value')
 
     for i in datas:
-        dict[i.key] = i.value
+        dict[i.get('key')] = i.get('value')
     return dict
 
 
@@ -100,7 +100,7 @@ def upload_file(request):
         "size": "",
         "state": "SUCCESS",
         "type": "png",
-        "url": cname +"/"+ target_name
+        "url": cname + "/" + target_name
     }
 
     return HttpResponse(json.dumps(results))
@@ -139,7 +139,7 @@ def upload_scrawl(request):
         "size": "",
         "state": "SUCCESS",
         "type": "png",
-        "url": cname +"/"+ target_name
+        "url": cname + "/" + target_name
     }
 
     return HttpResponse(json.dumps(results))
