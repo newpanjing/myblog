@@ -207,6 +207,7 @@ header .top {
     background-color: #191e22;
     z-index: 2;
     position: relative;
+    text-align: center;
 }
 
 .aritcle-item .category {
