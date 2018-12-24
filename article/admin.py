@@ -58,7 +58,8 @@ class ArticleAdmin(admin.ModelAdmin):
             subject = subject[0:200]
 
         # 短id
-        obj.sid = short_id.get_short_id()
+        if not obj.sid:
+            obj.sid = short_id.get_short_id()
 
         obj.subject = subject
         # 处理标签
