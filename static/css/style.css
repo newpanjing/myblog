@@ -425,9 +425,9 @@ header .top {
 }
 
 .float-list li {
-    /*float: left;*/
+    float: left;
     /*margin-right: 1%;*/
-    /*width: 48%;*/
+    width: 48%;
 }
 
 .af:before {
