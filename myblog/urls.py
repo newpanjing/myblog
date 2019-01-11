@@ -38,8 +38,13 @@ urlpatterns = [
     path('error/500', views.page_error),
     path('oauth/github/', views.oauth_github, name='github'),
     path('oauth/github/callback/', views.oauth_github_callback, name='github_callback'),
+
     path('oauth/qq/', views.oauth_qq, name='qq'),
     path('oauth/qq/callback', views.oauth_qq_callback, name='qq_callback'),
+
+    path('oauth/seejoke/', views.oauth_seejoke, name='seejoke'),
+    path('oauth/seejoke/callback', views.oauth_seejoke_callback, name='seejoke_callback'),
+
     path('comment/post', views.comments_save, name='comment_post'),
     path(r'search/', include('haystack.urls')),
     path('project/', views.project, name='project'),

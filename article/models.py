@@ -65,7 +65,9 @@ class Member(models.Model):
     updateDate = models.DateTimeField(verbose_name='更新日期', auto_now=True)
     type_choices = (
         (0, 'Github'),
-        (1, 'QQ'))
+        (1, 'QQ'),
+        (2, '代码集市')
+    )
     type = models.IntegerField(choices=type_choices, verbose_name='用户类型', db_index=True)
 
     def github_url(self):

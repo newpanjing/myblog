@@ -10,6 +10,8 @@ import datetime
 from django.http import Http404
 from oauth import github_oauth
 from oauth import qq_oauth
+from oauth import seejoke_oauth
+
 from django.http import HttpResponseRedirect
 from shortid import short_id
 import json
@@ -318,6 +320,36 @@ def oauth_qq_callback(request):
     rs = qq_oauth.get_access_token(request, code)
     access_token = rs.get('access_token')
     user = qq_oauth.get_user(access_token)
+
+    # 处理用户
+    return update_user(request, user)
+
+
+def oauth_seejoke(request):
+    url = seejoke_oauth.get_auth_url(request)
+    # 记录来源页
+    if 'HTTP_REFERER' in request.META:
+        referer = request.META['HTTP_REFERER']
+        request.session['referer'] = referer
+
+    return HttpResponseRedirect(url)
+
+
+def oauth_seejoke_callback(request):
+    token = request.GET.get("token")
+
+    rs = seejoke_oauth.get_user(token)
+
+    user = {}
+
+    if (rs.get('code') == 0):
+        data = rs.get('data')
+
+        user['name'] = data.get('userName')
+        user['email'] = data.get('email')
+        user['node_id'] = data.get('userId')
+        user['avatar_url'] = data.get('head')
+        user['type'] = 2
 
     # 处理用户
     return update_user(request, user)
