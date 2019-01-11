@@ -11,7 +11,9 @@
                 <span><img class="comment-avatar"
                            src="{{ request.session.member.avatar }}"/>{{ request.session.member.name }}</span>
             {% else %}
-                <span>登录以后才可以发布评论哦，<a href="javascript:;" id="comment-link" data-toggle="modal" data-target="#login_modal">点击登录</a></span>
+                <span>登录以后才可以发布评论哦，
+                    <a href="javascript:;" id="comment-link" data-toggle="modal" data-target="#login_modal">点击登录</a>
+                </span>
             {% endif %}
             <a href="javascript:;" class="btn btn-success float-right post">发布评论</a>
         </div>
