@@ -3,10 +3,7 @@ $(function () {
     function saveComment(val, cb, parentId, atMemberId) {
 
         if (!window.MEMBER) {
-            Toast.show("您还未登录，即将跳转到GitHub登录页面！");
-            setTimeout(function () {
-                window.location.href = '../../github'
-            }, 2000)
+            document.getElementById('comment-link').click();
             return;
         }
 
