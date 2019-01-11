@@ -65,21 +65,23 @@ def get(key, fun, timeout=None):
     # 如果redis挂了 就不使用缓存
     try:
         value = con.get(key)
-    except:
+
+        if value:
+            value = json.loads(value.decode(encoding="utf-8"))
+        else:
+            value = fun()
+            str = json.dumps(value, cls=DateEncoder)
+            if timeout:
+                con.setex(key,timeout,str)
+            else:
+                con.set(key, str)
+            print('缓存数据，key={}'.format(key))
+            # end = int(round(time.time() * 1000))
+        # print("time:{}ms".format(end - begin))
+    except Exception as e:
+        print(e)
         return fun()
 
-    if value:
-        value = json.loads(value.decode(encoding="utf-8"))
-    else:
-        value = fun()
-        str = json.dumps(value, cls=DateEncoder)
-        if timeout:
-            con.setex(key, str, timeout)
-        else:
-            con.set(key, str)
-        print('缓存数据，key={}'.format(key))
-        # end = int(round(time.time() * 1000))
-    # print("time:{}ms".format(end - begin))
     return value
 
 
@@ -89,3 +91,7 @@ class DateEncoder(json.JSONEncoder):
             return obj.strftime('%Y-%m-%d %H:%M:%S')
         else:
             return json.JSONEncoder.default(self, obj)
+
+
+if __name__ == '__main__':
+    print('ok')
