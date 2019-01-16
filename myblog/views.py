@@ -347,8 +347,9 @@ def oauth_seejoke_callback(request):
 
         user['name'] = data.get('userName')
         user['email'] = data.get('email')
-        user['node_id'] = data.get('userId')
+        user['node_id'] = data.get('id')
         user['avatar_url'] = data.get('head')
+        user['url'] = data.get('address')
         user['type'] = 2
 
     # 处理用户
