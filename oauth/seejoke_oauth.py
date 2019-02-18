@@ -3,7 +3,7 @@ import os
 import requests
 from django.conf import settings
 
-BASE_URL = 'https://seejoke.com/service'
+BASE_URL = 'https://www.seejoke.com/service'
 
 
 def get_auth_url(request):
