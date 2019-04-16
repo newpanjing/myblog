@@ -55,7 +55,7 @@ class Article(models.Model):
 
 
 class Member(models.Model):
-    name = models.CharField(max_length=128, verbose_name='昵称', blank=True, null=False)
+    name = models.CharField(max_length=128, verbose_name='昵称', blank=True, null=False, default='no_name')
     email = models.CharField(max_length=256, verbose_name='邮箱', blank=True, null=True)
     nodeId = models.CharField(max_length=256, verbose_name='OAuth ID', blank=False, null=False)
     avatar = models.CharField(max_length=256, verbose_name='头像', null=False, blank=False)
