@@ -37,6 +37,7 @@ STATICFILES_FINDERS = (
 INSTALLED_APPS = [
     # 'suit',
     'simpleui',
+    # 'simpleui.templatetags',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,7 +49,7 @@ INSTALLED_APPS = [
     'ueditor',
     'myblog.templatetags',
     'haystack',
-    'compressor'
+    'compressor',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'myblog.mymiddleware.SimpleMiddleware'
 ]
 
 ROOT_URLCONF = 'myblog.urls'
@@ -167,7 +169,6 @@ SEEJOKE_CLIENT_CALLBACK = '/oauth/seejoke/callback'
 SEEJOKE_CLIENT_ID = '69343595613814785'
 SEEJOKE_CLIENT_SECRET = '1898750ee24343e7b4b92b6dd278eb49'
 
-
 # 全文检索配置
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -184,3 +185,8 @@ HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
 # redis
 REDIS_HOST = '127.0.0.1'
 REDIS_PORT = '6379'
+
+# 首页配置
+# SIMPLEUI_HOME_PAGE = 'https://www.baidu.com'
+SIMPLEUI_HOME_TITLE = '百度一下你就知道'
+SIMPLEUI_HOME_ICON = 'layui-icon-rate'

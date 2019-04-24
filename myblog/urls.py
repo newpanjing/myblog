@@ -49,5 +49,6 @@ urlpatterns = [
     path(r'search/', include('haystack.urls')),
     path('project/', views.project, name='project'),
     path('project/<name>/', views.project_detail, name='project_detail'),
-    path('logout', views.logout, name='logout')
+    path('logout', views.logout, name='logout'),
+    path('no', views.no)
 ]

@@ -459,3 +459,7 @@ def logout(request):
         del request.session['member']
 
     return render(request, 'logout.html')
+
+
+def no(request):
+    return render(request, 'no.html')

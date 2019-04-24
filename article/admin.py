@@ -43,7 +43,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('id', 'sid', 'title_url', 'comment_count', 'category', 'user', 'hits', 'tags', 'top', 'createDate')
-    list_filter = ('category', 'user')
+    list_filter = ('createDate', 'category', 'user', 'title')
     search_fields = ('title',)
     list_display_links = ('id', 'sid', 'title_url')
     list_editable = ('top', 'category')
