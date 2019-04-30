@@ -76,6 +76,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
+    list_per_page = 10
     list_display = (
         'id', 'name', 'email', 'nodeId', 'type', 'avatar_img', 'github_url', 'blog_url', 'createDate', 'updateDate')
     list_display_links = ('id', 'name', 'email', 'nodeId', 'createDate', 'updateDate')
