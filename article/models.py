@@ -92,7 +92,10 @@ class Member(models.Model):
     blog_url.short_description = "博客"
 
     def __str__(self):
-        return self.name
+        if self.name:
+            return self.name
+        else:
+            return '-'
 
     class Meta:
         verbose_name = "会员"
