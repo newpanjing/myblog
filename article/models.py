@@ -121,9 +121,9 @@ class Comment(models.Model):
 
     def show_content(self):
         url = ''
-        if type == 0:
+        if self.type == 0:
             url = '/article/' + str(self.targetId)
-        elif type == 1:
+        elif self.type == 1:
             url = '/page/message/#' + str(self.targetId)
         else:
             url = 'javascript:;'
