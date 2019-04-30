@@ -84,7 +84,7 @@ class MemberAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'type', 'content', 'member', 'atMember', 'parentId', 'targetId', 'createDate')
+    list_display = ('id', 'type', 'show_content', 'member', 'atMember', 'parentId', 'targetId', 'createDate')
     list_per_page = 10
     list_filter = ('member', 'type')
     search_fields = ('content',)

@@ -104,6 +104,7 @@ class Member(models.Model):
 
 class Comment(models.Model):
     content = models.TextField(verbose_name='内容', null=False, blank=True)
+
     member = models.ForeignKey(Member, on_delete=models.SET_NULL, verbose_name='用户', null=True, editable=False,
                                db_index=True)
     parentId = models.IntegerField(verbose_name='父ID', null=True, blank=True, db_index=True)
@@ -117,6 +118,16 @@ class Comment(models.Model):
     atMember = models.ForeignKey(Member, related_name='at_member_id', on_delete=models.SET_NULL, verbose_name='回复用户',
                                  null=True, blank=True,
                                  editable=False, db_index=True)
+
+    def show_content(self):
+        url = ''
+        if type == 0:
+            url = '/article/' + str(self.targetId)
+        elif type == 1:
+            url = '/page/message/#' + str(self.targetId)
+        else:
+            url = 'javascript:;'
+        return format_html('<a href="{}" target="_blank">{}</a>', url, self.content)
 
     class Meta:
         verbose_name = "评论"
