@@ -1,0 +1,13 @@
+{% extends 'admin/index.html' %}
+{% load static %}
+{% block script %}
+    {{ block.super }}
+    <script type="text/javascript" async src="https://w.cnzz.com/c.php?id=1261750977&async=1"></script>
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript">
+        var ad_type = 'admin';
+    </script>
+    <script type="text/javascript" src="{% static 'js/ad.js' %}"></script>
+
+{% endblock %}
