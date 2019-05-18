@@ -32,7 +32,10 @@
 
         $("#" + eleid).click(function () {
             $(this).fadeOut();
-            window.open('https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-21653072801.4.2a482e31Gdv5om&id=593549043747');
+
+            var urls = ['https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-21653072801.4.2a482e31Gdv5om&id=593549043747', 'https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-21652613672.2.6bb12e31TNxTBT&id=589786659783']
+            var index = new Date().getTime() % 2;
+            window.open(urls[index]);
         });
         setCookie(key, eleid);
     }
