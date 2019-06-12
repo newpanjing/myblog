@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from ckeditor.fields import RichTextField
-from ueditor.fields import RichTextField
+from mdeditor.fields import MDTextField
+
 from django.utils.html import format_html
 
 
@@ -26,9 +26,12 @@ class Article(models.Model):
     title = models.CharField(max_length=256, verbose_name='标题', blank=False, null=False)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=False, null=True, verbose_name='分类',
                                  db_index=True)
+
+    markdown = models.BooleanField(verbose_name='markdown格式', default=True, editable=False)
+
     user = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='发布者', null=True, editable=False)
     hits = models.IntegerField(verbose_name='点击量', default=0, editable=False)
-    content = RichTextField(verbose_name='内容', null=False, blank=False, config={})
+    content = MDTextField(verbose_name='内容')
     subject = models.TextField(verbose_name='简介', editable=False)
     image = models.ImageField(upload_to='static/images/', verbose_name='封面', blank=True, null=True, db_index=True)
     createDate = models.DateTimeField(verbose_name='创建日期', auto_now_add=True)

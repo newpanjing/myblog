@@ -52,12 +52,21 @@ def detail(request, id):
     article = None
     try:
         article = Article.objects.get(**query_set)
+
     except Article.DoesNotExist:
         raise Http404
 
     # 修改点击量
     article.hits += 1
     article.save()
+
+    # 如果是markdown，就用markdown渲染
+
+    article.content = markdown.markdown(article.content, extensions=[
+        'markdown.extensions.extra',
+        'markdown.extensions.codehilite',
+        'markdown.extensions.toc',
+    ], safe_mode=True, enable_attributes=False)
 
     sid = short_id.get_short_id()
     request.session['sid'] = sid

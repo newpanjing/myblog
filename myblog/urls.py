@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import RedirectView
 from . import views
-from ueditor import site
 from django.urls import include
 
 # 设置登录页
@@ -32,7 +31,6 @@ urlpatterns = [
     path(r'category/<alias>/', views.category, name='category_alias'),
     path('category/<alias>/<page>/', views.category_page),
     path('page/<alias>/', views.page, name='page'),
-    path('ueditor/upload', site.handler),
     path('sitemap.xml', views.sitemap, name='sitemap'),
     path('error/404', views.page_error),
     path('error/500', views.page_error),
@@ -50,5 +48,6 @@ urlpatterns = [
     path('project/', views.project, name='project'),
     path('project/<name>/', views.project_detail, name='project_detail'),
     path('logout', views.logout, name='logout'),
-    path('no', views.no)
+    path('no', views.no),
+    path('mdeditor/', include('mdeditor.urls')),
 ]

@@ -16,6 +16,8 @@
     <meta property="og:author" content="{{ article.user }}">
     {% compress css %}
     <link rel="stylesheet" type="text/css" href="/static/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/markdown.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/code.css"/>
     {% endcompress %}
 {% endblock %}
 
@@ -64,6 +66,7 @@
             </div>
         </div>
     </div>
+
     <script type="text/javascript">
         window._PAGE_CONFIG = {
             SID: '{{ sid }}',

@@ -1,5 +1,5 @@
 from django.db import models
-from ueditor.fields import RichTextField
+from mdeditor.fields import MDTextField
 
 
 # Create your models here.
@@ -44,7 +44,7 @@ class Page(models.Model):
     title = models.CharField(max_length=256, verbose_name='标题')
     keywords = models.CharField(max_length=512, verbose_name='关键字', null=True, blank=True)
     description = models.CharField(max_length=512, verbose_name='描述', null=True, blank=True)
-    content = RichTextField(verbose_name='内容')
+    content = MDTextField(verbose_name='内容')
     createDate = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     display = models.BooleanField(verbose_name='是否显示', default=True, db_index=True)
     head = models.TextField(verbose_name='头部脚本', null=True, blank=True)

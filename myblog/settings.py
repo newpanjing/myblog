@@ -35,9 +35,7 @@ STATICFILES_FINDERS = (
 # Application definition
 
 INSTALLED_APPS = [
-    # 'suit',
     'simpleui',
-    # 'simpleui.templatetags',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'models',
     'article',
-    'ueditor',
+    'mdeditor',
     'myblog.templatetags',
     'haystack',
     'compressor',
