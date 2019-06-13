@@ -1,3 +1,5 @@
+import random
+
 from django.contrib import admin
 
 from .models import *
@@ -7,6 +9,7 @@ from myblog.utils import oss
 from jieba import analyse
 from shortid import short_id
 from myblog.utils import cache
+from draw import draw
 
 
 # Register your models here.
@@ -70,6 +73,13 @@ class ArticleAdmin(admin.ModelAdmin):
             tags = ",".join(r)
 
         obj.tags = tags
+
+        # 如果没有封面就生成
+        if obj.image == '':
+            total = Cover.objects.count()
+            c = Cover.objects.all()[random.randint(0, total - 1)]
+            url = draw.draw(text=obj.title, url=c.image.url, font_size=c.font_size, color=c.color, x=c.x, y=c.y)
+            obj.image.name = url
         super(ArticleAdmin, self).save_model(request, obj, form, change)
         cache.delete(cache.CACHE_HOME_KEY)
 
