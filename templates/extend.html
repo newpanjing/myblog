@@ -47,20 +47,6 @@
                         <span>{{ menu.name }}</span>
                     </a></li>
                 {% endfor %}
-                <li>
-                    <div class="search-input">
-                        <form target="_blank" role="search" method="get" id="searchform"
-                              action="{% url 'haystack_search' %}">
-                            <div class="input-group">
-                                <input type="search" name="q" class="form-control" placeholder="搜索关键词"
-                                       aria-describedby="basic-addon1">
-                                <span class="input-group-addon" id="basic-addon1">
-                                  <i class="glyphicon glyphicon-search"></i>
-                              </span>
-                            </div>
-                        </form>
-                    </div>
-                </li>
             </ul>
             <ul class="nav navbar-right navbar-userinfo">
                 {% if request.session.member %}
@@ -76,46 +62,33 @@
         </div>
     </div>
     {% block navbar %}
-        <div class="navbar-block categorys">
 
-            <div class="container">
-
-                <!-- 触屏搜索框 -->
-                <div class="search-input mobile-search-input">
-                    <form target="_blank" role="search" method="get" id="searchform"
-                          action="{% url 'haystack_search' %}">
-                        <div class="input-group" style="width: auto">
-                            <input type="search" name="q" class="form-control" placeholder="搜索关键词"
-                                   aria-describedby="basic-addon1">
-                            <span class="input-group-addon" id="basic-addon1">
-                                  <i class="glyphicon glyphicon-search"></i>
-                              </span>
-                        </div>
-                    </form>
-                </div>
-                <ul class="nav navbar-nav">
-                    {% if request.path == '/category' %}
-                        <li class="active"><a href="{% url 'category' %}">所有分类</a></li>
-                    {% else %}
-                        <li><a href="{% url 'category' %}">所有分类</a></li>
-                    {% endif %}
-                    {% for c in commonData.categorys %}
-                        {% if c.name == cdata.name %}
-                            <li class="active"><a href="{% url 'category_alias' c.alias %}">{{ c.name }}</a></li>
-                        {% else %}
-                            <li><a href="{% url 'category_alias' c.alias %}">{{ c.name }}</a></li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
     {% endblock %}
 </header>
-
+{% block banner %}
+<div class="banner">
+<img src="{% static 'images/banner.png' %}" layz>
+</div>
+{% endblock %}
 <div class="container content-wrap">
     {% block main %}
         <div class="row">
             <div class="col-md-8">
+                <div class="categorys">
+
+                        {% if request.path == '/category' %}
+                            <a class="active" href="{% url 'category' %}">所有文章</a>
+                        {% else %}
+                            <a href="{% url 'category' %}">所有文章</a>
+                        {% endif %}
+                        {% for c in commonData.categorys %}
+                            {% if c.name == cdata.name %}
+                                <a  class="active" href="{% url 'category_alias' c.alias %}">{{ c.name }}</a>
+                            {% else %}
+                                <a href="{% url 'category_alias' c.alias %}">{{ c.name }}</a>
+                            {% endif %}
+                        {% endfor %}
+                </div>
                 <div class="block mobile-login">
                     <div class="block-main user-info">
                         {% if request.session.member %}
@@ -127,7 +100,8 @@
                                 </div>
                             </div>
                         {% else %}
-                            <a href="javascript:;" class="btn btn-success" data-toggle="modal" data-target="#login_modal">点击登录</a>
+                            <a href="javascript:;" class="btn btn-success" data-toggle="modal"
+                               data-target="#login_modal">点击登录</a>
                             <div>登录后可以发表评论</div>
                         {% endif %}
                     </div>
@@ -135,6 +109,20 @@
                 {% block body %}{% endblock %}
             </div>
             <div class="col-md-4 notice-box">
+                <div class="block">
+                    <div class="search-input">
+                        <form target="_blank" role="search" method="get" id="searchform"
+                              action="{% url 'haystack_search' %}">
+                            <div class="input-group">
+                                <input type="search" name="q" class="form-control" placeholder="搜索关键词"
+                                       aria-describedby="basic-addon1">
+                                <span class="input-group-addon" id="basic-addon1">
+                                  <i class="glyphicon glyphicon-search"></i>
+                              </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div class="block">
                     <div class="block-main user-info">
                         {% if request.session.member %}
@@ -146,7 +134,8 @@
                                 </div>
                             </div>
                         {% else %}
-                            <a href="javascript:;" class="btn btn-success" data-toggle="modal" data-target="#login_modal">点击登录</a>
+                            <a href="javascript:;" class="btn btn-success" data-toggle="modal"
+                               data-target="#login_modal">点击登录</a>
                             <div>登录后可以发表评论</div>
                         {% endif %}
                     </div>
@@ -164,7 +153,8 @@
                 </div>
                 <div class="block">
                     <div class="block-main">
-                        <a href="https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-17784580154.2.55076106E5vQl3&id=589786659783" target="_blank">
+                        <a href="https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-17784580154.2.55076106E5vQl3&id=589786659783"
+                           target="_blank">
                             <img src="{% static '/images/lights.jpg' %}" width="100%">
                         </a>
                     </div>
@@ -260,10 +250,6 @@
                 <div class="modal-body">
                     <div class="login-title">选取以下第三方OAuth平台登录</div>
                     <div class="login-btn-box">
-                        <a href="/oauth/seejoke/" title="使用代码集市账号登录" class="login-btn">
-                            <img src="{% static 'images/seejoke.png' %}" width="50px" height="50px"/>
-                            <div>代码集市登录</div>
-                        </a>
 
                         <a href="/oauth/qq/" title="使用QQ账号登录" class="login-btn">
                             <svg width="50" height="50" viewBox="0 0 83 83">
@@ -278,6 +264,11 @@
                                       fill="#0A0203" fill-rule="evenodd"></path>
                             </svg>
                             <div>GitHub登录</div>
+                        </a>
+
+                         <a href="/oauth/seejoke/" title="使用代码集市账号登录" class="login-btn">
+                            <img src="{% static 'images/seejoke.png' %}" width="50px" height="50px"/>
+                            <div>代码集市登录</div>
                         </a>
 
                     </div>

@@ -89,3 +89,10 @@ class CommentAdmin(admin.ModelAdmin):
     list_per_page = 10
     list_filter = ('member', 'type')
     search_fields = ('content',)
+
+
+@admin.register(Cover)
+class CoverAdmin(admin.ModelAdmin):
+    list_display = ('id', 'x', 'y', 'font_size', 'color_display', 'image_display')
+    list_per_page = 20
+    list_editable = ('x', 'y', 'font_size')

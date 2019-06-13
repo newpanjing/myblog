@@ -138,3 +138,30 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+
+class Cover(models.Model):
+    '''封面'''
+
+    x = models.IntegerField(verbose_name='X坐标')
+    y = models.IntegerField(verbose_name='Y坐标')
+    font_size = models.IntegerField(verbose_name='字体大小', default=24, null=True, blank=True)
+    color = models.CharField(max_length=12, verbose_name='颜色', default='#FFF', null=True, blank=True)
+
+    image = models.ImageField(verbose_name='图片')
+
+    class Meta:
+        verbose_name = "封面"
+        verbose_name_plural = "封面管理"
+
+    def image_display(self):
+        return format_html('<img src="{}!100" width=50 height=50>', self.image.url)
+
+    def color_display(self):
+        return format_html('<div style="border:#000 1px solid;height:30px;width:30px;background:{}"></div>', self.color)
+
+    image_display.short_description = '图片'
+    color_display.short_description = '颜色'
+
+    def __str__(self):
+        return self.image.url

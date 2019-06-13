@@ -1,65 +1,67 @@
 {% extends 'extend.html' %}
+{% load common_tag %}
 {% block body %}
 
     <div class="block">
         <div class="block-title">置顶</div>
         <div class="block-main">
 
-            {% for i in tops %}
-                <div class="aritcle-item clearfix">
-                    {% if i.image %}
-                        <div class="col-md-1 cover">
-                            <img src="{{ i.image }}!50"/>
-                        </div>
-                    {% endif %}
-                    <div class="col-md-11">
-                        <div class="title-panel">
-                            <a href="{% url 'category_alias'  i.category__alias %}" class="category">{{ i.category__name }}</a>
-                            <a href="{% url 'article' i.sid %}" class="title"> {{ i.title }}</a>
-                        </div>
-                        <div class="info">
-                            <span class="date">{{ i.createDate|date:"m-d H:i:s" }}</span>
-                            <span class="hits">
-                                        <span class="glyphicon glyphicon-eye-open"></span>
-                                        <span>{{ i.hits }}</span>
-                                    </span>
+            <div class="row">
+                {% for i in tops %}
+
+                    <div class="col-sm-6 col-md-6 top-block">
+                        <div class="thumbnail">
+                            <img src="{{ i.image }}!600" alt="{{ i.title }}">
+                            <div class="caption">
+                                <h3>{{ i.title }}</h3>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+
+                {% endfor %}
+            </div>
         </div>
     </div>
     <div class="block">
         <div class="block-title">最新发布</div>
         {% for i in articles %}
             <div class="aritcle-item clearfix">
-                {% if i.image %}
-                    <div class="col-md-1 cover">
-                        <img src="{{ i.image }}!50"/>
-                    </div>
-                {% endif %}
-                <div class="col-md-11">
-                    <div class="title-panel">
-                        <a href="{% url 'category_alias' i.category__alias %}" class="category">{{ i.category__name }}</a>
-                        <a href="{% url 'article' i.sid %}" class="title"> {{ i.title }}</a>
-                    </div>
-                    <div class="subject">
-                        {{ i.subject|safe }}
-                    </div>
-                    <div class="info">
-                        <span class="user">{{ i.user }}</span>
-                        <span class="date">{{ i.createDate|date:"Y-m-d H:i:s" }}</span>
-                        <span class="hits">
+
+            {% if i.image %}
+                <div class="col-md-8">
+            {% else %}
+                <div class="col-md-12">
+            {% endif %}
+        <div class="title-panel">
+            <a href="/article/{{ i.sid }}" class="title"> {{ i.title }}</a>
+        </div>
+
+        <div class="info">
+                            <span class="date"><span
+                                    class="glyphicon glyphicon-calendar"></span>{{ i.createDate|date:"Y-m-d" }}</span>
+            <span>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span>发表在 <a
+                                        href="{% url 'category_alias' i.category__alias %}">{{ i.category__name }}</a> </span>
+                            </span>
+            <span class="hits">
                             <span class="glyphicon glyphicon-eye-open"></span>
                             <span>{{ i.hits }}</span>
                         </span>
-                    </div>
+        </div>
+        </div>
+        {% if i.image %}
+            <div class="col-md-4">
+                <div class="cover">
+                    <img src="{{ i.image|url }}!600"/>
                 </div>
             </div>
+        {% endif %}
+        </div>
         {% endfor %}
         <div class="show-more">
             <a href="{% url 'category' %}" class="btn btn-success">查看更多数据</a>
         </div>
-    </div>
+        </div>
 
 {% endblock %}

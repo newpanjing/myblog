@@ -20,27 +20,37 @@
             {% endif %}
             {% for i in articles %}
                 <div class="aritcle-item clearfix">
+
                     {% if i.image %}
-                        <div class="col-md-1 cover">
-                            <img src="{{ i.image|url }}!50"/>
-                        </div>
+                        <div class="col-md-8">
+                    {% else %}
+                        <div class="col-md-12">
                     {% endif %}
-                    <div class="col-md-11">
                         <div class="title-panel">
-                            <a href="{% url 'category_alias' i.category__alias %}" class="category">{{ i.category__name }}</a>
                             <a href="/article/{{ i.sid }}" class="title"> {{ i.title }}</a>
                         </div>
-                        <div class="subject">
-                            {{ i.subject|safe }}
-                        </div>
+
                         <div class="info">
-                            <span class="date">{{ i.createDate|date:"Y-m-d H:i:s" }}</span>
+                            <span class="date"><span
+                                    class="glyphicon glyphicon-calendar"></span>{{ i.createDate|date:"Y-m-d" }}</span>
+                            <span>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span>发表在 <a
+                                        href="{% url 'category_alias' i.category__alias %}">{{ i.category__name }}</a> </span>
+                            </span>
                             <span class="hits">
                             <span class="glyphicon glyphicon-eye-open"></span>
                             <span>{{ i.hits }}</span>
                         </span>
                         </div>
                     </div>
+                    {% if i.image %}
+                        <div class="col-md-4">
+                            <div class="cover">
+                                <img src="{{ i.image|url }}!600"/>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             {% endfor %}
 
