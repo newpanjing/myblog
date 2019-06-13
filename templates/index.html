@@ -2,26 +2,28 @@
 {% load common_tag %}
 {% block body %}
 
-    <div class="block">
-        <div class="block-title">置顶</div>
-        <div class="block-main">
-
-            <div class="row">
-                {% for i in tops %}
-
-                    <div class="col-sm-6 col-md-6 top-block">
-                        <div class="thumbnail">
-                            <img src="{{ i.image }}!600" alt="{{ i.title }}">
-                            <div class="caption">
-                                <h3>{{ i.title }}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                {% endfor %}
-            </div>
+<div id="myCarousel" class="carousel slide">
+    <ol class="carousel-indicators">
+        {% for i in tops %}
+        <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.counter0 == 0 %}class="active"{% endif %}></li>
+        {% endfor %}
+    </ol>
+    <div class="carousel-inner">
+        {% for i in tops %}
+        <div style="background: url('{{i.image|safe}}');background-size: cover" class="item {% if forloop.counter0 == 0 %} active{% endif %}">
+            <a href="/article/{{ i.sid }}" target="_blank" style="height: 300px;width: 100%;display: block"></a>
         </div>
+
+        {% endfor %}
     </div>
+    <a class="carousel-control left" href="#myCarousel"
+       data-slide="prev"> <span _ngcontent-c3="" aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span></a>
+
+    <a class="carousel-control right" href="#myCarousel"
+       data-slide="prev">
+        <span aria-hidden="true" data-slide="next" class="glyphicon glyphicon-chevron-right"></span></a>
+</div>
+
     <div class="block">
         <div class="block-title">最新发布</div>
         {% for i in articles %}
@@ -38,7 +40,7 @@
 
         <div class="info">
                             <span class="date"><span
-                                    class="glyphicon glyphicon-calendar"></span>{{ i.createDate|date:"Y-m-d" }}</span>
+                                    class="glyphicon glyphicon-calendar"></span>{{ i.createDate }}</span>
             <span>
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span>发表在 <a
@@ -63,5 +65,5 @@
             <a href="{% url 'category' %}" class="btn btn-success">查看更多数据</a>
         </div>
         </div>
-
+        <script src="" type="text/javascript"></script>
 {% endblock %}

@@ -29,35 +29,31 @@
     <div class="block">
         <div class="block-main">
             <div>
-                <ol class="breadcrumb">
-                    <li><a href="{% url 'home' %}">首页</a></li>
-                    <li><a href="{% url 'category_alias' article.category.alias %}">{{ article.category.name }}</a></li>
-                    <li class="active">{{ article.title }}</li>
-                </ol>
+                <h1 class="article-title">{{ article.title }}</h1>
             </div>
-            {#            <h1 class="article-title">{{ article.title }}</h1>#}
-            <div class="infobar">
-                <a href="{% url 'category_alias' article.category.alias %}"
-                   class="tag tag-green">{{ article.category }}</a>
-                {% if article.top %}
-                    <span class="tag tag-black">置顶</span>
-                {% endif %}
-{#                <span class="tag-box tag-blue">{{ article.user }}</span>#}
-                <span class="tag-box">{{ article.createDate|date:'Y年m月d日 H:i:s' }}</span>
-                <span class="float-right">
-                    <i class="glyphicon glyphicon-eye-open"></i>
-                    {{ article.hits }}
+
+            <div class="article">
+                <div class="info">
+                <span class="date"><span
+                        class="glyphicon glyphicon-calendar"></span>{{ article.createDate|date:"Y-m-d" }}</span>
+                <span>
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    {{ article.category.alias }}
+                    <span>发表在 <a
+                            href="{% url 'category_alias' article.category.alias %}">{{ article.category.name }}</a> </span>
+                </span>
+                <span class="hits">
+                <span class="glyphicon glyphicon-eye-open"></span>
+                <span>{{ article.hits }}</span>
                 </span>
             </div>
-            <div class="article">
+
                 {{ article.content|safe }}
             </div>
             <div class="alert alert-success" role="alert">
-                <div>本文地址：<a href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'article' article.sid %}"
-                             target="_blank">{{ request.scheme }}://{{ request.META.HTTP_HOST }}/article/{{ article.sid }}</a>
-                </div>
                 <div>
-                    <strong class="glyphicon glyphicon-flag"></strong> 转载请注明来源为{{ commonData.configs.name }}
+                    感谢您的阅读，本文由 {{ commonData.configs.name }} 版权所有。如若转载，请注明出处：{{ commonData.configs.name }}（<a href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'article' article.sid %}"
+                             target="_blank">{{ request.scheme }}://{{ request.META.HTTP_HOST }}/article/{{ article.sid }}</a>）
                 </div>
             </div>
             <div>

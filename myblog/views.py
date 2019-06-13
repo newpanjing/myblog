@@ -171,7 +171,11 @@ def category_page(request, alias, page):
 # 自定义页面
 def page(request, alias):
     page = Page.objects.values('title', 'content', 'id').get(alias=alias)
-
+    page['content']=markdown.markdown(page.get('content'), extensions=[
+        'markdown.extensions.extra',
+        'markdown.extensions.codehilite',
+        'markdown.extensions.toc',
+    ], safe_mode=True, enable_attributes=False)
     sid = short_id.get_short_id()
     request.session['sid'] = sid
     comment = get_comment(2, page.get('id'))
