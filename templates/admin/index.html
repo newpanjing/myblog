@@ -8,6 +8,9 @@
     <script type="text/javascript">
         var ad_type = 'admin';
     </script>
+
+    {% if request.user != 'panjing' %}
     <script type="text/javascript" src="{% static 'js/ad.js' %}"></script>
+    {% endif %}
 
 {% endblock %}

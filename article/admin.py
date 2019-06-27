@@ -75,7 +75,7 @@ class ArticleAdmin(admin.ModelAdmin):
         obj.tags = tags
 
         # 如果没有封面就生成
-        if obj.image == '':
+        if obj.image.name == '':
             total = Cover.objects.count()
             c = Cover.objects.all()[random.randint(0, total - 1)]
             url = draw.draw(text=obj.title, url=c.image.url, font_size=c.font_size, color=c.color, x=c.x, y=c.y)
