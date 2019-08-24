@@ -62,7 +62,9 @@
 }
 
 body {
-  font: 14px Helvetica Neue, Helvetica, PingFang SC, \5FAE\8F6F\96C5\9ED1, Tahoma, Arial, sans-serif;
+  //font: 14px Helvetica Neue, Helvetica, PingFang SC, \5FAE\8F6F\96C5\9ED1, Tahoma, Arial, sans-serif;
+  font-size: 14px;
+  font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif !important;
   line-height: 1.428571429;
   background-color: #e4e4e4;
 }
@@ -276,6 +278,30 @@ header .top {
 .article {
   word-wrap: break-word;
   word-break: break-all;
+  font-weight: 300 !important;
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+  color: #314659 !important;
+
+  h1 {
+    font-size: 28px !important;
+  }
+
+  h2 {
+    font-size: 20px !important;
+  }
+
+  h3 {
+    font-size: 16px !important;
+  }
+
+  h4 {
+    font-size: 14px !important;
+  }
+
+  h5 {
+    font-size: 12px!important;
+  }
 }
 
 .article img {
@@ -366,6 +392,8 @@ header .top {
 
 .article-title {
   line-height: 50px;
+  margin-top: 0px;
+  font-size: 28px;
 }
 
 .infobar {
@@ -706,22 +734,25 @@ header .top {
   padding-bottom: 0px;
   border-bottom: none;
 }
-.article{
-  .info .date{
+
+.article {
+  .info .date {
     margin-right: 10px;
   }
-  .info{
+
+  .info {
     margin-bottom: 10px;
     border-bottom: #eee 1px solid;
     padding-bottom: 10px;
   }
 }
+
 .aritcle-item {
   padding-top: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5;
 
-  .info .user,.info .date {
+  .info .user, .info .date {
     margin-right: 10px;
   }
 
@@ -804,5 +835,43 @@ header .top {
   .logo {
     width: 30px;
     margin-top: -5px;
+  }
+}
+
+.btn-success, .btn-success:hover {
+  background-color: @basic-color;
+  border-color: @basic-color;
+}
+
+.btn-success:active, .btn-success:focus {
+  background-color: rgba(@basic-color, 0.7);
+  border-color: rgba(@basic-color, 0.7);
+}
+
+.article-tips {
+  border-left: solid 3px @basic-color;
+  background-color: #f8f8f8;
+  padding: 12px 24px 12px 30px;
+  color: #314659;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 2;
+  margin: 10px auto;
+  position: relative;
+
+  &:before {
+    content: "!";
+    background-color: #2D8CF0;
+    position: absolute;
+    top: 25px;
+    left: -12px;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-weight: 700;
+    font-size: 14px;
   }
 }

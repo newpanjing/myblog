@@ -25,7 +25,10 @@
 </div>
 
     <div class="block">
-        <div class="block-title">最新发布</div>
+        <div class="block-title">
+            <span>最新发布</span>
+            <a href="{% url 'category' %}" class="float float-right">查看更多</a>
+        </div>
         {% for i in articles %}
             <div class="aritcle-item clearfix">
 

@@ -61,12 +61,12 @@ def detail(request, id):
     article.save()
 
     # 如果是markdown，就用markdown渲染
-
+    article.content = '[TOC]\n' + article.content
     article.content = markdown.markdown(article.content, extensions=[
         'markdown.extensions.extra',
         'markdown.extensions.codehilite',
         'markdown.extensions.toc',
-    ], safe_mode=True, enable_attributes=False)
+    ])
 
     sid = short_id.get_short_id()
     request.session['sid'] = sid
@@ -152,7 +152,7 @@ def category_page(request, alias, page):
                                                        'title', 'subject', 'createDate', 'hits').order_by("-id")
 
     size = 10
-    show = 10
+    show = 5
 
     paginator = Paginator(articles, size)
     articles = paginator.page(page)
@@ -171,7 +171,7 @@ def category_page(request, alias, page):
 # 自定义页面
 def page(request, alias):
     page = Page.objects.values('title', 'content', 'id').get(alias=alias)
-    page['content']=markdown.markdown(page.get('content'), extensions=[
+    page['content'] = markdown.markdown(page.get('content'), extensions=[
         'markdown.extensions.extra',
         'markdown.extensions.codehilite',
         'markdown.extensions.toc',

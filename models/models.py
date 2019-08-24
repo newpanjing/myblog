@@ -64,6 +64,7 @@ class Menu(models.Model):
     href = models.CharField(max_length=128, verbose_name='链接地址')
     createDate = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     display = models.BooleanField(verbose_name='显示', default=True, db_index=True)
+    sort = models.IntegerField(verbose_name='排序', default=0, db_index=True)
 
     class Meta:
         verbose_name = '菜单'

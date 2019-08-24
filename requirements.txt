@@ -13,3 +13,4 @@ oss2
 jieba
 Whoosh
 pymysql
+Pygments

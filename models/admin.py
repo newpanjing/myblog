@@ -44,10 +44,11 @@ class PageAdmin(admin.ModelAdmin):
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'icon', 'href', "display")
+    list_display = ('id', 'name', 'icon', 'href', 'sort', "display")
     list_display_links = ('id', 'name')
     search_fields = ('name',)
-    list_editable = ('display',)
+    list_editable = ('display', 'sort')
+    ordering = ('sort',)
 
     def save_model(self, request, obj, form, change):
         super(MenuAdmin, self).save_model(request, obj, form, change)

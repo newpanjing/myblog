@@ -21,7 +21,7 @@ def get_cache():
     return {
         'sites': list(Site.objects.order_by("sort").values('site', 'name')),
         'categorys': list(Category.objects.filter(display=True).order_by("sort").values('name', 'alias')),
-        'menus': list(Menu.objects.filter(display=True).values('name', 'icon', 'href')),
+        'menus': list(Menu.objects.filter(display=True).order_by('sort').values('name', 'icon', 'href')),
         'notice': Notice.objects.values('createDate', 'content').last(),
         'configs': get_config('site')
     }
