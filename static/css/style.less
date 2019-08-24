@@ -906,7 +906,12 @@ header .top {
       a {
         font-size: 12px;
         font-weight: 400;
-        &:hover{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+
+        &:hover {
           color: @basic-color;
         }
       }

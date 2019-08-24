@@ -776,6 +776,10 @@ header .top {
 .article .toc ul a {
   font-size: 12px;
   font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
 }
 .article .toc ul a:hover {
   color: #5e95f1;

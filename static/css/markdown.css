@@ -215,4 +215,7 @@
 .article table th:first-child {
   border-left: none;
 }
+.article .codehilite {
+  margin: 10px auto;
+}
 /*# sourceMappingURL=markdown.css.map */

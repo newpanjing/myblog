@@ -68,6 +68,9 @@ def detail(request, id):
         'markdown.extensions.toc',
     ])
 
+    if '[TOC]' in article.content:
+        article.content = article.content.replace('[TOC]', '')
+
     sid = short_id.get_short_id()
     request.session['sid'] = sid
 
