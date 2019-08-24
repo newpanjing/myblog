@@ -15,7 +15,6 @@
     <meta property="og:description" content="{{ article.subject|clear }}">
     <meta property="og:author" content="{{ article.user }}">
     {% compress css %}
-    <link rel="stylesheet" type="text/css" href="/static/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/markdown.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/code.css"/>
     {% endcompress %}
@@ -25,7 +24,11 @@
 {% block banner %}
 {% endblock %}
 {% block body %}
-
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">首页</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'category_alias' article.category.alias %}">{{ article.category.name }}</a></li>
+      <li class="breadcrumb-item active">{{ article.title }}</li>
+    </ol>
     <div class="block">
         <div class="block-main">
             <div>
@@ -39,8 +42,7 @@
                 <span>
                     <span class="glyphicon glyphicon-pencil"></span>
                     {{ article.category.alias }}
-                    <span>发表在 <a
-                            href="{% url 'category_alias' article.category.alias %}">{{ article.category.name }}</a> </span>
+                    <span>发表在 <a href="{% url 'category_alias' article.category.alias %}">{{ article.category.name }}</a> </span>
                 </span>
                 <span class="hits">
                 <span class="glyphicon glyphicon-eye-open"></span>
@@ -50,21 +52,22 @@
 
                 {{ article.content|safe }}
             </div>
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success article-alert" role="alert">
                 <div>
                     感谢您的阅读，本文由 {{ commonData.configs.name }} 版权所有。如若转载，请注明出处：{{ commonData.configs.name }}（<a href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'article' article.sid %}"
                              target="_blank">{{ request.scheme }}://{{ request.META.HTTP_HOST }}/article/{{ article.sid }}</a>）
                 </div>
             </div>
-            <div>
+        </div>
+    </div>
+    <div class="block">
+    <div class="block-main">
                 <h4>相关文章</h4>
                 {% for item in recommends %}
                     <div><a href="{% url 'article' item.sid %}" title="{{ item.title }}">{{ item.title }}</a></div>
                 {% endfor %}
             </div>
-        </div>
     </div>
-
     <script type="text/javascript">
         window._PAGE_CONFIG = {
             SID: '{{ sid }}',
@@ -74,9 +77,5 @@
     </script>
     {% include 'comment.html' %}
     {% compress js %}
-    <script src="/static/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
-    <script type="text/javascript">
-        SyntaxHighlighter.all();
-    </script>
     {% endcompress %}
 {% endblock %}

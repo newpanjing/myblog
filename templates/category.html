@@ -4,15 +4,24 @@
     {{ commonData.configs.name }}{% endif %}{% endblock %}
 {% block body %}
     <div class="block">
-        <div class="block-title">
-            <span><i class="glyphicon glyphicon-flag"></i>
-                {% if cdata %}
-                    {{ cdata.name }}
-                {% else %}
-                    所有分类
-                {% endif %}
-            </span>
-            <span class="float-right"><i class="glyphicon glyphicon-paperclip"></i>{{ total }}篇文章</span>
+        <div class="block-title no-border">
+         {% block category %}
+                <div class="categorys clearfix">
+
+                        {% if request.path == '/category' %}
+                            <a class="active" href="{% url 'category' %}">所有文章</a>
+                        {% else %}
+                            <a href="{% url 'category' %}">所有文章</a>
+                        {% endif %}
+                        {% for c in commonData.categorys %}
+                            {% if c.name == cdata.name %}
+                                <a  class="active" href="{% url 'category_alias' c.alias %}">{{ c.name }}</a>
+                            {% else %}
+                                <a href="{% url 'category_alias' c.alias %}">{{ c.name }}</a>
+                            {% endif %}
+                        {% endfor %}
+                </div>
+                {% endblock %}
         </div>
         <div class="block-main">
             {% if not articles %}

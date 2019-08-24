@@ -1,6 +1,6 @@
 /* 超小屏幕（手机，小于 768px） */
 /* 没有任何媒体查询相关的代码，因为这在 Bootstrap 中是默认的（还记得 Bootstrap 是移动设备优先的吗？） */
-
+@basic-color: #5e95f1;
 /* 小屏幕（平板，大于等于 768px） */
 @media screen and (max-width: 768px) {
 
@@ -64,10 +64,11 @@
 body {
   font: 14px Helvetica Neue, Helvetica, PingFang SC, \5FAE\8F6F\96C5\9ED1, Tahoma, Arial, sans-serif;
   line-height: 1.428571429;
+  background-color: #e4e4e4;
 }
 
 .navbar-userinfo {
-  padding-top: 14px;
+  padding-top: 3px;
 }
 
 .container {
@@ -95,22 +96,21 @@ header .top {
   border-bottom: 1px solid #404553;
   border-right: 1px solid #404553;
   border-radius: 0;
-  background-color: #303848 !important;
-  min-height: 68px;
+  background-color: rgba(0, 0, 0, .85) !important;
 }
 
 .nav > li > a:focus, .nav > li > a:hover {
-  background-color: white;
-
+  background-color: inherit;
 }
 
 .top a {
-  color: #FFF;
+  color: #999;
 }
 
 .top a:hover, .top a:active, .top a:focus {
-  color: rgba(255, 255, 255, .7);
-  background-color: #393D49 !important;
+  //color: rgba(255, 255, 255, .7);
+  color: white;
+  background-color: inherit;
   text-decoration: none;
 }
 
@@ -234,13 +234,13 @@ header .top {
 }
 
 .aritcle-item .title-panel .title:hover {
-  color: #009688;
+  color: rgba(@basic-color, 0.8);
   transition: all .3s;
 }
 
 .aritcle-item .title-panel .title {
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 300;
   color: #2f3033;
 }
 
@@ -397,10 +397,6 @@ header .top {
   text-align: center;
 }
 
-.categorys {
-  /*box-shadow: 2px 4px 6px #ccc;*/
-}
-
 .categorys .active a {
   color: #5FB878;
 }
@@ -432,7 +428,7 @@ header .top {
 
 .nav-af:before {
   height: 3px;
-  background: #27ae60;
+  background: white;
 }
 
 .aritcle-item .subject {
@@ -647,27 +643,33 @@ header .top {
 
 @media (min-width: 768px) {
   .navbar-nav > li > a {
-    padding-top: 24px;
-    padding-bottom: 24px;
+    //padding-top: 24px;
+    //padding-bottom: 24px;
   }
 }
 
 .categorys {
   a {
-    padding-right: 30px;
     color: #020202;
+    font-size: 18px;
+    display: block;
+    float: left;
+    text-align: center;
+    padding: 0px 15px;
 
     &:hover {
-      color: #00A0DE;
+      color: @basic-color;
     }
   }
 
   .active {
-    color: #00A0DE;
+    color: @basic-color;
+    border-bottom: 2px solid @basic-color;
+    margin-bottom: -2px;
   }
 
-  border-bottom: 1px solid #e2e2e2;
-  padding: 0px 0 10px;
+  border-bottom: 2px solid #efefef;
+  //padding: 0px 0 10px;
   word-break: keep-all;
 }
 
@@ -681,10 +683,12 @@ header .top {
   max-width: 100%;
   max-height: 100%;
 }
-.article{
-      font: 400 1em/1.8 "PingFang SC","Lantinghei SC","Microsoft Yahei","Hiragino Sans GB","Microsoft Sans Serif","WenQuanYi Micro Hei",sans;
+
+.article {
+  font: 400 1em/1.8 "PingFang SC", "Lantinghei SC", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans;
+
   .info .user, .aritcle-item .info .date {
-    margin-right: 10px;
+    margin-right: 20px;
   }
 
   .info {
@@ -697,12 +701,27 @@ header .top {
     }
   }
 }
+
+.aritcle-item:last-child {
+  padding-bottom: 0px;
+  border-bottom: none;
+}
+.article{
+  .info .date{
+    margin-right: 10px;
+  }
+  .info{
+    margin-bottom: 10px;
+    border-bottom: #eee 1px solid;
+    padding-bottom: 10px;
+  }
+}
 .aritcle-item {
   padding-top: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5;
 
-  .info .user, .aritcle-item .info .date {
+  .info .user,.info .date {
     margin-right: 10px;
   }
 
@@ -749,4 +768,41 @@ header .top {
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 0;
   background: rgba(0, 0, 0, 0.1);
+}
+
+.pagination {
+  li {
+    a, a:hover, span {
+      color: @basic-color;
+    }
+
+  }
+
+  .active {
+    a, a:hover {
+      background-color: @basic-color;
+      border-color: @basic-color;
+    }
+  }
+
+}
+
+.no-border {
+  border: none !important;
+}
+
+.article-alert {
+  margin-bottom: 0px;
+  margin-top: 20px;
+}
+
+.breadcrumb {
+  background-color: white;
+}
+
+.navbar-nav {
+  .logo {
+    width: 30px;
+    margin-top: -5px;
+  }
 }

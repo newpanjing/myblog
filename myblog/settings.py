@@ -97,6 +97,7 @@ DATABASES = {
         'HOST': 'mysql.oracle.com',
         'PORT': '3306',
         'OPTIONS': {'charset': 'utf8mb4'},
+        'CONN_MAX_AGE': 600
     }
 }
 
@@ -139,7 +140,7 @@ STATIC_URL = '/static/'
 #     os.path.join(BASE_DIR, "static"),
 # ]
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
+COMPRESS_ROOT = STATIC_ROOT
 UEDITOR_UPLOAD_PREFIX = "/static/upload/"
 UEDITOR_UPLOAD_DIR = os.path.join(BASE_DIR, 'static/upload/')
 
