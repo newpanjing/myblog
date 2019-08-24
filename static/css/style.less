@@ -300,7 +300,7 @@ header .top {
   }
 
   h5 {
-    font-size: 12px!important;
+    font-size: 12px !important;
   }
 }
 
@@ -873,5 +873,43 @@ header .top {
     line-height: 20px;
     font-weight: 700;
     font-size: 14px;
+  }
+}
+
+.article {
+  .toc {
+    position: fixed;
+    left: 20px;
+    top: 100px;
+    background-color: white;
+    color: #929aa2;
+    max-width: 170px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &:before {
+      content: '目录';
+      display: block;
+      border-bottom: #ccc 1px solid;
+      padding: 5px 10px;
+    }
+
+    a {
+      color: #929aa2;
+    }
+
+    ul {
+      list-style-type: decimal;
+      margin: 10px;
+
+      a {
+        font-size: 12px;
+        font-weight: 400;
+        &:hover{
+          color: @basic-color;
+        }
+      }
+    }
   }
 }

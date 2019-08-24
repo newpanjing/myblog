@@ -285,7 +285,7 @@ header .top {
   font-size: 14px !important;
 }
 .article h5 {
-  font-size: 12px!important;
+  font-size: 12px !important;
 }
 .article img {
   max-width: 100%;
@@ -748,5 +748,36 @@ header .top {
   line-height: 20px;
   font-weight: 700;
   font-size: 14px;
+}
+.article .toc {
+  position: fixed;
+  left: 20px;
+  top: 100px;
+  background-color: white;
+  color: #929aa2;
+  max-width: 170px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.article .toc:before {
+  content: '目录';
+  display: block;
+  border-bottom: #ccc 1px solid;
+  padding: 5px 10px;
+}
+.article .toc a {
+  color: #929aa2;
+}
+.article .toc ul {
+  list-style-type: decimal;
+  margin: 10px;
+}
+.article .toc ul a {
+  font-size: 12px;
+  font-weight: 400;
+}
+.article .toc ul a:hover {
+  color: #5e95f1;
 }
 /*# sourceMappingURL=style.css.map */

@@ -98,6 +98,8 @@
   font-family: Consolas, Monaco, Andale Mono, monospace;
   background-color: #f7f7f7;
   color: inherit;
+  border: none!important;
+  border-radius: inherit;
 }
 .article code {
   font-family: Consolas, Monaco, Andale Mono, monospace;
@@ -108,7 +110,6 @@
   line-height: 1.7em;
   overflow: auto;
   padding: 6px 10px;
-  border-left: 5px solid #6CE26C;
 }
 .article pre > code {
   font-family: Consolas, Monaco, Andale Mono, monospace;
@@ -122,6 +123,7 @@
   font-size: 0.95em;
   white-space: pre;
   background: 0 0;
+  background-color: #F2F4F5 !important;
 }
 .article code {
   color: #666555;
