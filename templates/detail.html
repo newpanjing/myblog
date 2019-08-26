@@ -42,7 +42,6 @@
                         class="glyphicon glyphicon-calendar"></span>{{ article.createDate|date:"Y-m-d" }}</span>
                     <span>
                     <span class="glyphicon glyphicon-pencil"></span>
-                    {{ article.category.alias }}
                     <span>发表在 <a
                             href="{% url 'category_alias' article.category.alias %}">{{ article.category.name }}</a> </span>
                 </span>

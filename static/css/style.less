@@ -43,6 +43,25 @@
     display: none;
   }
 
+  .article .toc {
+    position: inherit !important;
+    max-width: 100% !important;
+
+    &:before {
+      content: "";
+    }
+  }
+
+  .content-wrap {
+    margin-top: 0px!important;
+
+    .breadcrumb {
+      display: none;
+    }
+  }
+  .aritcle-item .cover{
+    height: auto!important;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -149,6 +168,11 @@ header .top {
 
 .custom-page .block-main {
   min-height: 500px;
+}
+.custom-page{
+  img{
+    max-width: 100%;
+  }
 }
 
 .footer {

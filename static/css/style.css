@@ -79,6 +79,22 @@
   .navbar-userinfo {
     display: none;
   }
+  .article .toc {
+    position: inherit !important;
+    max-width: 100% !important;
+  }
+  .article .toc:before {
+    content: "";
+  }
+  .content-wrap {
+    margin-top: 0px!important;
+  }
+  .content-wrap .breadcrumb {
+    display: none;
+  }
+  .aritcle-item .cover {
+    height: auto!important;
+  }
 }
 /* 中等屏幕（桌面显示器，大于等于 992px） */
 @media (min-width: 992px) {
@@ -160,6 +176,9 @@ header .top {
 }
 .custom-page .block-main {
   min-height: 500px;
+}
+.custom-page img {
+  max-width: 100%;
 }
 .footer {
   /*padding: 30px;*/
