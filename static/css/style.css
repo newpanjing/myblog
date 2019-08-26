@@ -87,13 +87,17 @@
     content: "";
   }
   .content-wrap {
-    margin-top: 0px!important;
+    margin-top: 0px !important;
   }
   .content-wrap .breadcrumb {
     display: none;
   }
   .aritcle-item .cover {
-    height: auto!important;
+    height: auto !important;
+  }
+  #myCarousel {
+    height: 200px;
+    overflow: hidden;
   }
 }
 /* 中等屏幕（桌面显示器，大于等于 992px） */
