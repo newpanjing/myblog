@@ -50,4 +50,5 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('no', views.no),
     path('mdeditor/', include('mdeditor.urls')),
+    path('simplepro/info/',views.simplepro_info)
 ]

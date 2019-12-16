@@ -479,3 +479,7 @@ def logout(request):
 
 def no(request):
     return render(request, 'no.html')
+
+
+def simplepro_info(request):
+    return render(request, 'admin/tips.html')

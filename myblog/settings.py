@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'myblog.mymiddleware.SimpleMiddleware',
     # 加入simplepro的中间件
-    'simplepro.middlewares.SimpleMiddleware'
+    # 'simplepro.middlewares.SimpleMiddleware'
 ]
 
 ROOT_URLCONF = 'myblog.urls'
