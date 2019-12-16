@@ -35,7 +35,7 @@ STATICFILES_FINDERS = (
 # Application definition
 
 INSTALLED_APPS = [
-    'simplepro',
+    # 'simplepro',
     'simpleui',
     # 'import_export'
     'django.contrib.admin',
