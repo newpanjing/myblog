@@ -3,8 +3,8 @@ import oss2
 
 def get_config(str):
     return {
-        'key': '2vqltNtbjTUI6nyQ',
-        'secret': 's3bao69sJ4AEAwU4PCwosWjwfMLr4q',
+        'key': '',
+        'secret': '',
         'bucket': '88cto-oss',
         'endpoint': 'http://oss-cn-shenzhen.aliyuncs.com/',
         # 'endpoint': 'https://oss.88cto.com/',
