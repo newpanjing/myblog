@@ -5,7 +5,7 @@ def get_config(str):
     return {
         'key': '',
         'secret': '',
-        'bucket': '88cto-oss',
+        'bucket': '',
         'endpoint': 'http://oss-cn-shenzhen.aliyuncs.com/',
         # 'endpoint': 'https://oss.88cto.com/',
 
