@@ -9,7 +9,12 @@ import shutil
 import threading
 import warnings
 
-import six as six
+import django
+
+if django.VERSION[0]<=2:
+    from django.utils import six
+else:
+    import six as six
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.datetime_safe import datetime

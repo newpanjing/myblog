@@ -95,9 +95,9 @@ WSGI_APPLICATION = 'myblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blog',
+        'NAME': 'myblog',
         'USER': 'myblog',
-        'PASSWORD': '5rWEu98A',
+        'PASSWORD': 'ex3ZAaY7WbsFK76A',
         'HOST': 'mysql.oracle.com',
         'PORT': '3306',
         'OPTIONS': {'charset': 'utf8mb4'},
