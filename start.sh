@@ -1,4 +1,4 @@
 #!/bin/bash
-source venv/bin/activate
-gunicorn myblog.wsgi:application -c /data/www/myblog/gunicorn.conf.py --daemon --reload
+source $PWD/venv/bin/activate
+gunicorn myblog.wsgi:application -c $PWD/gunicorn.conf.py --daemon --reload
 
