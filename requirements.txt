@@ -1,11 +1,11 @@
-Django==3.1.7
+Django==2.1
 django-simpleui
 pytz==2019.1
 shortid8==1.0
 sqlparse==0.3.0
 Pillow
 markdown
-django-haystack==3.0
+django-haystack
 django-compressor
 redis
 oss2
