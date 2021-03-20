@@ -7,7 +7,6 @@ Pillow
 markdown
 django-haystack
 django-compressor
-mysqlclient
 redis
 oss2
 jieba

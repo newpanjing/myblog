@@ -72,7 +72,7 @@ class ArticleAdmin(admin.ModelAdmin):
         # 处理标签
         tags = obj.tags
         # 自动生成
-        if tags is None or tags is "":
+        if not tags:
             r = analyse.extract_tags(subject, topK=5)
             tags = ",".join(r)
 
