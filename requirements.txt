@@ -1,4 +1,4 @@
-Django==2.1
+Django
 django-simpleui
 pytz==2019.1
 shortid8==1.0
