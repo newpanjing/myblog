@@ -1,6 +1,14 @@
 # myblog
 simpleui官方博客，利用django+django-simpleui
 
+## 友情提示
+
+如果你在使用过程中遇到任何问题，可以联系我们付费提供技术支持，并且可以定制开发。价格实惠。
+
+联系QQ： 599194993
+
+邮箱： newpanjing@icloud.com
+
 # 演示地址
 https://www.88cto.com
 
