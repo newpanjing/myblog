@@ -2,7 +2,7 @@ Django
 django-simpleui
 pytz==2019.1
 shortid8==1.0
-sqlparse==0.3.0
+sqlparse==0.4.4
 Pillow
 markdown
 django-haystack
